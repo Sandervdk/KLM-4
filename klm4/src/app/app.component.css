@@ -1,0 +1,17 @@
+.content{
+  max-width: 90%;
+  min-width: 1100px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.mainContainer {
+  background-color: white;
+  position: relative;
+  top: -20px;
+  padding: 40px 30px 60px 30px;
+}
