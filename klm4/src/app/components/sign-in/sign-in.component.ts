@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
+  }
+
+  /**
+   * Should have a better name, but will change in future
+   */
+  nextScreen() {
+    this.router.navigate(['/map'], {
+      relativeTo: this.route
+    });
   }
 
 }

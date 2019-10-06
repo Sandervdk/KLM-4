@@ -9,6 +9,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/mainpage/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { WorkplaceMapComponent } from './components/workplace-map/workplace-map.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
-    SignInComponent
+    SignInComponent,
+    WorkplaceMapComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LeafletModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
