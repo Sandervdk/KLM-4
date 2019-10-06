@@ -1,0 +1,17 @@
+.under-title {
+  color: #00AAE7;
+  font-size: 4em;
+  font-weight: 300;
+  text-align: center;
+}
+
+.form-section input {
+  border-radius: 0px;
+}
+
+.form-section button {
+  color: #FFF;
+  background: #00AAE7;
+  display: block;
+  width: 100%;
+}
