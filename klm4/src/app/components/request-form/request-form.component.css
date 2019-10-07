@@ -1,0 +1,64 @@
+form { max-width:420px; margin:20px auto; }
+h3 {text-align: center}
+
+.feedback-input {
+  font-weight:500;
+  font-size: 18px;
+  border-radius: 5px;
+  line-height: 22px;
+  border:2px solid #00AAE7;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width:100%;
+  box-sizing: border-box;
+}
+
+#submitButton {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  width: 100%;
+  background:#00AAE7;
+  border-radius:5px;
+  border:0;
+  cursor:pointer;
+  color:white;
+  font-size:24px;
+  padding-top:10px;
+  padding-bottom:10px;
+  transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}
+
+select option {
+  margin-top: -5px;
+}
+
+.popup {
+  width: 240px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 50px;
+  left: 50%;
+  margin-left: -120px;
+}
+
+.equipmentDiv {
+  display: flex;
+}
+
+.removeButton {
+  height: 40px;
+  width: 40px;
+  margin: 8px 0 23px 10px;
+  border-radius: 100%;
+  padding: 0;
+  background-color: #cd0003;
+  border: none;
+}
+
