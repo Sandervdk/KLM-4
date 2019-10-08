@@ -1,0 +1,53 @@
+<div>
+  <h1>Mechanic damaged mock-up</h1>
+  <hr>
+  <br><br>
+</div>
+
+<!--<div class="container">-->
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-responsive">
+      <tr>
+        <th>Melder nr</th>
+        <th>Oproep tijd</th>
+        <th>Benodigd equipment & Positie</th>
+        <th>Bestemming</th>
+        <th>Deathline</th>
+        <th>Schade melden</th>
+      </tr>
+      <tr (click)="showPopUp()">
+        <td>0680</td>
+        <td>09:00</td>
+        <td>Stikstofwagen-L<br>Bandenwagen-R</td>
+        <td>F5</td>
+        <td>10:00</td>
+        <td>
+          <button class="btn btn-danger">Schade melden</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6" *ngIf="showform">
+    <form>
+      <table class="table table-responsive">
+        <tr>
+          <th>Welke equipment is beschadigd?</th>
+          <th>Plaats een opmerking?</th>
+          <th>Bevestigen</th>
+
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox"> Stikstofwagen <br>
+            <input type="checkbox"> Bandenwagen <br>
+          </td>
+          <td><textarea name="" id="" cols="20" rows="2"></textarea></td>
+          <td><button class="btn btn-primary" (click)="bevestigd()">OK!</button></td>
+        </tr>
+      </table>
+
+    </form>
+  </div>
+</div>
+<!--</div>-->

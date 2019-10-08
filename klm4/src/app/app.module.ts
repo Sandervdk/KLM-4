@@ -13,6 +13,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { WorkplaceMapComponent } from './components/workplace-map/workplace-map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { RequestFormComponent } from './components/request-form/request-form.component';
+import { DamagedFormComponent } from './components/damaged-form/damaged-form.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { RequestFormComponent } from './components/request-form/request-form.com
     SignInComponent,
     WorkplaceMapComponent,
     RequestFormComponent,
+    DamagedFormComponent,
   ],
   imports: [
     BrowserModule,

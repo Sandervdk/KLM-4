@@ -16,14 +16,14 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
-  /**
-   * Should have a better name, but will change in future
-   */
-  nextScreen() {
-    this.router.navigate(['/map'], {
-      relativeTo: this.route
-    });
-  }
+  // /**
+  //  * Should have a better name, but will change in future
+  //  */
+  // nextScreen() {
+  //   this.router.navigate(['/map'], {
+  //     relativeTo: this.route
+  //   });
+  // }
 
   test() {
     console.log(this.signInForm);
