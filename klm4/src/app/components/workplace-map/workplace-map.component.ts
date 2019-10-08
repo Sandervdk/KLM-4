@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { marker, tileLayer, latLng, Marker, icon } from 'leaflet';
+import {Component, OnInit} from '@angular/core';
+import {marker, tileLayer, latLng, Marker, icon} from 'leaflet';
+
 declare let L;
 
 @Component({
@@ -11,8 +12,13 @@ export class WorkplaceMapComponent implements OnInit {
   public map;
   public long = 4.766361511202604;
   public lat = 52.30678841808895;
+
+  private layers;
   public fuelWagonslayer;
   public fuelWagonMarkers: Marker[] = [];
+
+  public fuelWagonMarkers2Layer;
+  fuelWagonMarkers2: Marker[] = [];
 
   /**
    * Should be in a services, with al the wagons and equipment I think
@@ -61,7 +67,13 @@ export class WorkplaceMapComponent implements OnInit {
       center: latLng(this.lat, this.long)
     });
 
-    const checkBoxes = L.control.layers(null, {'Fuel Wagons': this.fuelWagonslayer}, {collapsed: false}).addTo(this.map);
+
+    this.layers = {
+      'Fuel Wagons': this.fuelWagonslayer,
+      'Doet het': this.fuelWagonMarkers2Layer
+    };
+    const checkBoxes = L.control.layers(null, this.layers, {collapsed: false}).addTo(this.map);
+    // checkBoxes.getContainer();
     document.querySelector('#jpt').appendChild(checkBoxes.getContainer());
   }
 
@@ -74,6 +86,18 @@ export class WorkplaceMapComponent implements OnInit {
     for (let i = 0; i < this.fuelWagons.length; i++) {
       const reference = this.fuelWagons[i];
       const lastSeenLocation = this.fuelWagons[i].lastSeen;
+
+
+      this.fuelWagonMarkers2.push(
+        marker([lastSeenLocation.lat, lastSeenLocation.long], {
+          icon: icon({
+            iconSize: [500, 30],
+            iconAnchor: [13, 5],
+            iconUrl: 'https://66.media.tumblr.com/1d8d45e656056a721465abf9d30951ae/tumblr_okg3shhv7d1uryh6jo6_250.jpg',
+            shadowUrl: '44a526eed258222515aa21eaffd14a96.png'
+          })
+        }).bindPopup(`${reference.title} (${reference.id})`)
+      );
 
       this.fuelWagonMarkers.push(
         marker([lastSeenLocation.lat, lastSeenLocation.long], {
@@ -88,5 +112,6 @@ export class WorkplaceMapComponent implements OnInit {
     }
 
     this.fuelWagonslayer = L.layerGroup(this.fuelWagonMarkers);
+    this.fuelWagonMarkers2Layer = L.layerGroup(this.fuelWagonMarkers2);
   }
 }
