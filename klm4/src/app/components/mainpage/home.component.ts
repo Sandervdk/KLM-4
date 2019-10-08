@@ -8,19 +8,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  /**
-   * Should have a better name, but will change in future
-   */
-  nextScreen() {
-    console.log('klik')
-    this.router.navigate(['/map'], {
-      relativeTo: this.route
-    });
-  }
+
 
 }

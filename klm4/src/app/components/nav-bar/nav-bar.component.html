@@ -1,26 +1,34 @@
 <div class="nav-bar">
   <ul>
-    <li><a routerLink="/">Home</a></li>
-    <li class="dropdown"><a routerLink="/meldingen">Meldingen</a>
+    <li *ngIf="runnerMode"><a routerLink="/">Home</a></li>
+    <li *ngIf="runnerMode" class="dropdown"><a routerLink="/meldingen">Meldingen</a>
       <div class="dropdownContent">
-        <a routerLink="/meldingen/openstaand">Openstaand</a>
+        <a routerLink="/meldingen-openstaand">Openstaand</a>
         <a routerLink="/meldingen/ophalen">Ophalen</a>
       </div>
     </li>
-    <li class="dropdown"><a routerLink="/producten">Producten</a>
+    <li *ngIf="runnerMode" class="dropdown"><a routerLink="/producten">Producten</a>
       <div class="dropdownContent">
         <a routerLink="/producten/extern">Externe producten</a>
         <a routerLink="/producten/bijzonder">Bijzondere producten</a>
       </div>
     </li>
-    <li class="dropdown">
+    <li *ngIf="mechanicMode" class="dropdown">
       <a routerLink="/request-Form">temp plek</a>
     </li>
     <li>
-      <a routerLink="/damaged-form">Damaged form</a>
+      <a *ngIf="mechanicMode" routerLink="/damaged-form">Damaged form</a>
     </li>
     <div class="right">
       <li><a routerLink="/signin">Mijn account</a></li>
     </div>
+
+    <li class="dropdown"><a>Personeel</a>
+      <div class="dropdownContent">
+        <a (click)="showRunner()">Runner</a>
+        <a (click)="showMechanic()">Mechanic</a>
+      </div>
+    </li>
+
   </ul>
 </div>

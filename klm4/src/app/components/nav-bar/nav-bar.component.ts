@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,10 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  mechanicMode = false;
+  runnerMode = false
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+
+  showRunner(){
+    this.runnerMode = true;
+    this.mechanicMode = false;
+    this.router.navigate(['/'], {
+      relativeTo: this.route
+    });
+  }
+
+  showMechanic(){
+    this.mechanicMode = true;
+    this.runnerMode = false;
+    this.router.navigate(['/'], {
+      relativeTo: this.route
+    });
   }
 
 }
