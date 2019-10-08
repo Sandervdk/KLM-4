@@ -7,7 +7,7 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./request-form.component.css']
 })
 export class RequestFormComponent implements OnInit {
-  @ViewChild('form') requestForm: NgForm;
+  @ViewChild('form', {static: false}) requestForm: NgForm;
   private popupOpen: boolean = false;
   private selectedEquipment = ["Equipment"];
   private equipmentList = ["Stikstofwagen", "Bandenwagen", "Skydrolwagen", "Remmenwagen", "IDGWagen", "Pomptrappen",
@@ -23,13 +23,20 @@ export class RequestFormComponent implements OnInit {
     setTimeout(() => {this.popupOpen = false}, 3000);
   }
 
-  addEquipment(data) {
+  addEquipment(data, oldSelectedEquipment) {
+    //Removes the old selected equipment from the list with currently selected equipment
+    for (let i = 0; i < this.selectedEquipment.length; i++) {
+      if (oldSelectedEquipment === this.selectedEquipment[i] && oldSelectedEquipment !== 'Equipment') {
+        this.remove(oldSelectedEquipment);
+      }
+    }
+    //removes the selected equipment from the available equipment list
     for (let i = 0; i < this.equipmentList.length; i++) {
       if (this.equipmentList[i] == data) {
         this.equipmentList.splice(i, 1);
       }
     }
-    this.selectedEquipment.pop()
+    this.selectedEquipment.pop();
     this.selectedEquipment.push(data);
     this.selectedEquipment.push("Equipment");
   }

@@ -5,7 +5,7 @@
 
   <div *ngFor="let equipment of selectedEquipment" class="equipmentDiv">
 
-    <select name="equipment1" class="feedback-input" (change)="addEquipment($event.target.value)" >
+    <select name="equipment1" class="feedback-input" (change)="addEquipment($event.target.value, equipment)" >
       <option default>{{equipment}}</option>
       <option *ngFor="let equipment of equipmentList" value="{{equipment}}">{{equipment}}</option>
     </select>
