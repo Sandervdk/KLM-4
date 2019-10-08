@@ -46,8 +46,10 @@
           <td><button class="btn btn-primary" (click)="bevestigd()">OK!</button></td>
         </tr>
       </table>
-
     </form>
+  </div>
+  <div *ngIf="popupOpen" class="popup">
+    <span>Is bevestigd!</span>
   </div>
 </div>
 <!--</div>-->

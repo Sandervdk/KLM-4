@@ -14,8 +14,22 @@ h3 {text-align: center}
   box-sizing: border-box;
 }
 
+.dropdown-input {
+  font-weight:500;
+  font-size: 18px;
+  border-radius: 5px 5px 0 0;
+  line-height: 22px;
+  border:2px solid #00AAE7;
+  transition: all 0.3s;
+  padding: 13px;
+  width:100%;
+  box-sizing: border-box;
+}
+
+
 #submitButton {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  margin-top: 15px;
   width: 100%;
   background:#00AAE7;
   border-radius:5px;
@@ -26,7 +40,6 @@ h3 {text-align: center}
   padding-top:10px;
   padding-bottom:10px;
   transition: all 0.3s;
-  margin-top:-4px;
   font-weight:700;
 }
 
@@ -48,14 +61,51 @@ select option {
   margin-left: -120px;
 }
 
-.equipmentDiv {
+.flex-container {
   display: flex;
 }
 
+.equipmentContrainer {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.btn-outline-primary {
+  border:2px solid #00AAE7;
+  border-top: 0;
+}
+
+.btn-left {
+  border-bottom-left-radius: 5px;
+  border-right: 0;
+}
+
+.btn-right {
+  border-bottom-right-radius: 5px;
+  border-left: 0;
+}
+
+.flex-btn {
+  width: 100%;
+}
+
+.btn-selected {
+  background-color: #007bff;
+  color: white;
+}
+
 .removeButton {
+  position: absolute;
   height: 40px;
   width: 40px;
-  margin: 8px 0 23px 10px;
+  margin: 6px 0 23px 425px;
   border-radius: 100%;
   padding: 0;
   background-color: #cd0003;
