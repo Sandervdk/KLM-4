@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -10,6 +10,7 @@ export class RequestFormComponent implements OnInit {
   @ViewChild('form', {static: false}) requestForm: NgForm;
   private popupOpen: boolean = false;
   private selectedEquipment = ['Equipment'];
+  private locationArray = [''];
   private equipmentList = ['Stikstofwagen', 'Bandenwagen', 'Skydrolwagen', 'Remmenwagen', 'IDGWagen', 'Pomptrappen',
     'Pylon trappen', 'Trap', 'Polar Heaters', 'Generator', 'Aanhangwagen', 'Hoogwerker', 'Drainwagen',
     'bandenkar', 'airdatakar', 'gritwagen'];
@@ -27,21 +28,24 @@ export class RequestFormComponent implements OnInit {
     }, 3000);
   }
 
-  addEquipment(data, oldSelectedEquipment) {
+  addEquipment(newSelectedEquipment, oldSelectedEquipment) {
     //Removes the old selected equipment from the list with currently selected equipment
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (oldSelectedEquipment === this.selectedEquipment[i] && oldSelectedEquipment !== 'Equipment') {
         this.remove(oldSelectedEquipment);
       }
     }
+
     //removes the selected equipment from the available equipment list
     for (let i = 0; i < this.equipmentList.length; i++) {
-      if (this.equipmentList[i] === data) {
+      if (this.equipmentList[i] === newSelectedEquipment) {
         this.equipmentList.splice(i, 1);
       }
     }
+
+    //moves the base equipment item behind the new selected equipment
     this.selectedEquipment.pop();
-    this.selectedEquipment.push(data);
+    this.selectedEquipment.push(newSelectedEquipment);
     this.selectedEquipment.push('Equipment');
   }
 
@@ -52,6 +56,15 @@ export class RequestFormComponent implements OnInit {
       }
     }
     this.equipmentList.push(data);
+  }
+
+  buttonSelected(button: HTMLDivElement) {
+
+    for (let i = 0; i < button.parentNode.childElementCount; i++) {
+      (<HTMLButtonElement> button.parentNode.childNodes[i]).classList.remove("btn-selected");
+    }
+    button.classList.add("btn-selected");
+
   }
 
 }
