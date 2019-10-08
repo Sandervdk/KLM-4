@@ -6,11 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./damaged-form.component.css']
 })
 export class DamagedFormComponent implements OnInit {
-  showform = false;
+  private showform: boolean = false;
+  private popupOpen: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSubmit(){
+    // this.popupOpen = true;
+    // setTimeout(() => {
+    //   this.popupOpen = false;
+    // }, 3000);
   }
 
   /**
@@ -27,5 +35,9 @@ export class DamagedFormComponent implements OnInit {
    */
   bevestigd() {
     this.showform = false;
+    this.popupOpen = true;
+    setTimeout(() => {
+      this.popupOpen = false;
+    }, 3000);
   }
 }

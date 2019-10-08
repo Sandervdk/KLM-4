@@ -16,9 +16,11 @@
           <div class="btn btn-outline-primary flex-btn btn-left"
                   (click)="buttonSelected($event.target, equipment)">Links</div>
           <div class="btn btn-outline-primary flex-btn"
-                  (click)="buttonSelected($event.target, equipment)">Midden</div>
-          <div class="btn btn-outline-primary flex-btn btn-right"
                   (click)="buttonSelected($event.target, equipment)">Rechts</div>
+          <div class="btn btn-outline-primary flex-btn btn-right"
+                  (click)="buttonSelected($event.target, equipment)">Voor</div>
+          <div class="btn btn-outline-primary flex-btn btn-right"
+               (click)="buttonSelected($event.target, equipment)">Achter</div>
         </div>
       </div>
       <button class="removeButton" *ngIf="equipment !== 'Equipment'" (click)="remove(equipment)">X</button>

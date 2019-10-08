@@ -44,3 +44,17 @@ th:last-child {
 th:first-child {
   border-top-left-radius: 10px;
 }
+
+.popup {
+  width: 240px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 50px;
+  left: 50%;
+  margin-left: -120px;
+}
