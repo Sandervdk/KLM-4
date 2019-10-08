@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'request-form',
@@ -9,9 +9,11 @@ import {NgForm} from "@angular/forms";
 export class RequestFormComponent implements OnInit {
   @ViewChild('form', {static: false}) requestForm: NgForm;
   private popupOpen: boolean = false;
-  private selectedEquipment = ["Equipment"];
-  private equipmentList = ["Stikstofwagen", "Bandenwagen", "Skydrolwagen", "Remmenwagen", "IDGWagen", "Pomptrappen",
-      "Pylon trappen", "Trap", "Polar Heaters", "Generator", "Aanhangwagen", "Hoogwerker", "Drainwagen", "bandenkar", "airdatakar", "gritwagen"]
+  private selectedEquipment = ['Equipment'];
+  private equipmentList = ['Stikstofwagen', 'Bandenwagen', 'Skydrolwagen', 'Remmenwagen', 'IDGWagen', 'Pomptrappen',
+    'Pylon trappen', 'Trap', 'Polar Heaters', 'Generator', 'Aanhangwagen', 'Hoogwerker', 'Drainwagen',
+    'bandenkar', 'airdatakar', 'gritwagen'];
+
   constructor() {
   }
 
@@ -20,7 +22,9 @@ export class RequestFormComponent implements OnInit {
 
   onSubmit() {
     this.popupOpen = true;
-    setTimeout(() => {this.popupOpen = false}, 3000);
+    setTimeout(() => {
+      this.popupOpen = false;
+    }, 3000);
   }
 
   addEquipment(data, oldSelectedEquipment) {
@@ -32,18 +36,18 @@ export class RequestFormComponent implements OnInit {
     }
     //removes the selected equipment from the available equipment list
     for (let i = 0; i < this.equipmentList.length; i++) {
-      if (this.equipmentList[i] == data) {
+      if (this.equipmentList[i] === data) {
         this.equipmentList.splice(i, 1);
       }
     }
     this.selectedEquipment.pop();
     this.selectedEquipment.push(data);
-    this.selectedEquipment.push("Equipment");
+    this.selectedEquipment.push('Equipment');
   }
 
   remove(data) {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      if (this.selectedEquipment[i] == data) {
+      if (this.selectedEquipment[i] === data) {
         this.selectedEquipment.splice(i, 1);
       }
     }
