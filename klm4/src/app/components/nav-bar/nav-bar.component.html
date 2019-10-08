@@ -21,6 +21,7 @@
     </li>
     <div class="right">
       <li><a routerLink="/signin">Mijn account</a></li>
+      <li *ngIf="runnerMode || mechanicMode;" (click)="logOut()"><a routerLink="/">Log out</a></li>
     </div>
 
     <li class="dropdown"><a>Personeel</a>

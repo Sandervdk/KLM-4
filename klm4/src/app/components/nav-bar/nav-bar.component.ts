@@ -18,7 +18,7 @@ export class NavBarComponent implements OnInit {
   showRunner(){
     this.runnerMode = true;
     this.mechanicMode = false;
-    this.router.navigate(['/'], {
+    this.router.navigate(['/meldingen-openstaand'], {
       relativeTo: this.route
     });
   }
@@ -26,9 +26,13 @@ export class NavBarComponent implements OnInit {
   showMechanic(){
     this.mechanicMode = true;
     this.runnerMode = false;
-    this.router.navigate(['/'], {
+    this.router.navigate(['/request-Form'], {
       relativeTo: this.route
     });
   }
 
+  logOut() {
+    this.mechanicMode = false;
+    this.runnerMode = false;
+  }
 }
