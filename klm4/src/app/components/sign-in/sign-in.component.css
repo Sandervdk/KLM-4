@@ -6,31 +6,39 @@
 }
 
 .form-section input {
-  font-weight:500;
+  font-weight: 500;
   font-size: 18px;
   border-radius: 5px;
   line-height: 22px;
-  border:2px solid #00AAE7;
+  border: 2px solid #00AAE7;
   transition: all 0.3s;
   padding: 13px;
   margin-bottom: 15px;
-  width:100%;
+  width: 100%;
   height: auto;
   box-sizing: border-box;
+}
+
+.form-section input.ng-touched.ng-invalid {
+  border: 2px red solid;
+}
+
+.form-section input.ng-touched.ng-valid {
+  border: 2px green solid;
 }
 
 .form-section button {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   width: 100%;
-  background:#00AAE7;
-  border-radius:5px;
-  border:0;
-  cursor:pointer;
-  color:white;
-  font-size:24px;
-  padding-top:10px;
-  padding-bottom:10px;
+  background: #00AAE7;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   transition: all 0.3s;
-  margin-top:-4px;
-  font-weight:700;
+  margin-top: -4px;
+  font-weight: 700;
 }
