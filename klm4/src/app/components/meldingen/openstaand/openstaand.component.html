@@ -3,19 +3,26 @@
 <br><br>
 
 <h2>Openstaande meldingen:</h2>
-<table>
-  <tr>
-    <th>Melder nr</th>
-    <th>Oproep tijd</th>
-    <th>Benodigd equipment & Positie</th>
-    <th>Bestemming</th>
-    <th>Deathline</th>
-  </tr>
-  <tr (click)="nextScreen()">
-    <td>0680</td>
-    <td>09:00</td>
-    <td>Stikstofwagen-L<br>Bandenwagen-R</td>
-    <td>F5</td>
-    <td>10:00</td>
-  </tr>
-</table>
+<div class="tabeldiv">
+  <table>
+    <tr>
+      <th>Melder nr</th>
+      <th>Oproep tijd</th>
+      <th>Equipment</th>
+      <th>Positie</th>
+      <th>Bestemming</th>
+      <th>Deathline</th>
+      <th>Situatie</th>
+    </tr>
+    <tr (click)="nextScreen()">
+      <td>0680</td>
+      <td>09:00</td>
+      <td>Stikstofwagen<br>Bandenwagen</td>
+      <td>L<br>R</td>
+      <td>F5</td>
+      <td>10:00</td>
+      <td>Afzetten</td>
+      <td><button class="acceptBtn">Accepteren</button></td>
+    </tr>
+  </table>
+</div>

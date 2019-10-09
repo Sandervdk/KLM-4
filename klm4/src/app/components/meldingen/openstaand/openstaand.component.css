@@ -44,3 +44,12 @@ th:last-child {
 th:first-child {
   border-top-left-radius: 10px;
 }
+
+.acceptBtn {
+  background-color: green;
+  color: white;
+}
+
+.tabeldiv {
+  display: flex;
+}
