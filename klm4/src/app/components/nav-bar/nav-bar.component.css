@@ -61,3 +61,16 @@
 .dropdown:hover .dropdownContent {
   display: block;
 }
+
+.dropdown-item {
+  color: white;
+  background-color: #00AAE7;
+}
+
+.navbar {
+  position: relative;
+  max-width: 1000px;
+  z-index: 1;
+  margin: auto;
+}
+
