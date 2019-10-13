@@ -11,8 +11,8 @@ declare let L; // used for Leaflet.js
 export class FuelwagonService {
   private static FUEL_WAGON_ICON = 'https://66.media.tumblr.com/1d8d45e656056a721465abf9d30951ae/tumblr_okg3shhv7d1uryh6jo6_250.jpg';
 
-  public long = 4.766361511202604;
-  public lat = 52.30678841808895;
+  public long = 4.767863;
+  public lat = 52.311720;
 
   private fuelWagonMarkers: Marker[] = [];
   private fuelWagonslayer: LayerGroup;
@@ -20,28 +20,28 @@ export class FuelwagonService {
   private fuelWagons = [
     {
       id: 0,
-      title: 'Fuel Wagon',
-      lastSeen: {lat: this.lat + 0.5555, long: this.long}
+      title: 'Stikstof wagen',
+      lastSeen: {lat: this.lat, long: this.long}
     },
     {
       id: 1,
-      title: 'Fuel Wagon',
-      lastSeen: {lat: this.lat + 0.0556, long: this.long}
+      title: 'Stikstof wagen',
+      lastSeen: {lat: this.lat + 0.00123, long: this.long}
     },
     {
       id: 2,
-      title: 'Fuel Wagon',
-      lastSeen: {lat: this.lat + 0.8586, long: this.long}
+      title: 'Stikstof wagen',
+      lastSeen: {lat: this.lat - 0.01023, long: this.long}
     },
     {
       id: 3,
-      title: 'Fuel Wagon',
-      lastSeen: {lat: this.lat + 1.8586, long: this.long}
+      title: 'Stikstof wagen',
+      lastSeen: {lat: this.lat - 0.01167, long: this.long}
     },
     {
       id: 4,
-      title: 'Fuel Wagon',
-      lastSeen: {lat: this.lat + 0.2255, long: this.long + 2}
+      title: 'Stikstof wagen',
+      lastSeen: {lat: this.lat - 0.01435, long: this.long}
     }
   ];
 
