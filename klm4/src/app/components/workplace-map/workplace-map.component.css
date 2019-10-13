@@ -2,6 +2,12 @@
   height: 500px;
   width: 100%;
 }
-  #jpt .ahw{
-    background: red;
-  }
+
+#jpt .wagons-container .card-body,
+#jpt .wagons-container .card-header {
+  padding: 5px;
+}
+
+.leaflet-control-layers-toggle {
+  display: none !important;
+}

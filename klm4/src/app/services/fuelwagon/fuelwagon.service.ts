@@ -17,7 +17,6 @@ export class FuelwagonService {
   private fuelWagonMarkers: Marker[] = [];
   private fuelWagonslayer: LayerGroup;
 
-
   private fuelWagons = [
     {
       id: 0,

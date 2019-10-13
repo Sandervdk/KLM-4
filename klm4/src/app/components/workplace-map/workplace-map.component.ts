@@ -14,14 +14,20 @@ export class WorkplaceMapComponent implements OnInit {
   private long = 4.766361511202604;
   private lat = 52.30678841808895;
 
-  private layers;
   private fuelWagonsLayer: LayerGroup;
+  private test: LayerGroup;
+
 
   constructor(private wagonServices: WagonsService) {
     this.fuelWagonsLayer = wagonServices.getFuelWagonsLayer(); // layer with all the fuelwagon points
+    this.test = wagonServices.getFuelWagonsLayer(); // TODO: this is a test and should be removed
   }
 
   ngOnInit() {
+    this.createMap();
+  }
+
+  private createMap() {
     this.map = L.map('map-container', {
       layers: [
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -29,16 +35,21 @@ export class WorkplaceMapComponent implements OnInit {
         })
       ],
       zoom: 12,
-      center: latLng(this.lat, this.long)
+      center: latLng(this.lat, this.long)// these are starting points when the map is initialized
     });
 
-    this.layers = {
+    this.setUpLayers();
+  }
+
+  private setUpLayers() {
+    const layers = {
       'Stikstof wagens': this.fuelWagonsLayer,
-      // 'Doet het': this.fuelWagonMarkers2Layer
+      'Dit is een test': this.test
     };
-    const checkBoxes = L.control.layers(null, this.layers, {collapsed: false}).addTo(this.map);
-    // checkBoxes.getContainer().setAttribute('class', '');
-    document.querySelector('#jpt').appendChild(checkBoxes.getContainer());
+
+    const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
+    checkBoxes.getContainer().setAttribute('class', '');
+    document.querySelector('#jpt .wagons-container .card-body').appendChild(checkBoxes.getContainer());
   }
 
 }
