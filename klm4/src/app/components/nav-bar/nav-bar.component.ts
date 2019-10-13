@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
   mechanicMode = false;
-  runnerMode = false
+  runnerMode = false;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 

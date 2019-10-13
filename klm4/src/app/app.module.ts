@@ -15,8 +15,6 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {RequestFormComponent} from './components/request-form/request-form.component';
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
-import {WagonsService} from './services/wagons.service';
-import {FuelwagonService} from './services/fuelWagon/fuelwagon.service';
 
 
 @NgModule({
