@@ -43,5 +43,6 @@ export class NavBarComponent implements OnInit {
   logOut() {
     this.mechanicMode = false;
     this.runnerMode = false;
+    this.authentication.signOut();
   }
 }

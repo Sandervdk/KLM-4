@@ -82,4 +82,8 @@ export class AuthenticationService {
   getUser() {
     return this.user;
   }
+
+  signOut() {
+    this.user = null;
+  }
 }
