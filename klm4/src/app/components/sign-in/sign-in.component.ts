@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {AuthenticationService} from '../../services/authentication/authentication.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Functions} from '../../models/staff/Functions';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,24 +11,44 @@ import {NgForm} from '@angular/forms';
 })
 export class SignInComponent implements OnInit {
   @ViewChild('signInForm', {static: false}) private signInForm: NgForm;
+  public showWarning = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private authentication: AuthenticationService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
   }
 
-  // /**
-  //  * Should have a better name, but will change in future
-  //  */
-  // nextScreen() {
-  //   this.router.navigate(['/map'], {
-  //     relativeTo: this.route
-  //   });
-  // }
+  /**
+   * This method will take the username and password from the filled in form and
+   * show confirmation message
+   */
+  signIn() {
+    const username: string = this.signInForm.form.value.email;
+    const password: string = this.signInForm.form.value.password;
+    if (this.authentication.login(username, password)) {
+      // tslint:disable-next-line:max-line-length
+      // console.log(`Created user with the name of ${this.authentication.getUser().getName()} and role of ${this.authentication.getUser().getRole()}`);
+      this.showWarning = false;
+      this.navigateUser(this.authentication.getUser());
+    } else {
+      this.showWarning = true;
+    }
+  }
 
-  test() {
-    console.log(this.signInForm);
+  private navigateUser(user) {
+    switch (user.getRole()) {
+      case Functions.MECHANIC:
+        this.router.navigate([], {
+          relativeTo: this.route
+        });
+        break;
+      case Functions.RUNNER:
+        this.router.navigate([], {
+          relativeTo: this.route
+        });
+        break;
+    }
   }
 
 }

@@ -71,26 +71,26 @@
         <a class="nav-link" *ngIf="mechanicMode" routerLink="/damaged-form">Beschadigd product<span class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Personeel
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownLink" style="background-color: #00AAE7">
-            <a class="dropdown-item" style=" color: white; background-color: #00AAE7;" (click)="showRunner()">Runner</a>
-            <a class="dropdown-item" style=" color: white; background-color: #00AAE7;" (click)="showMechanic()">Mechanic</a>
-        </div>
-      </li>
+<!--      <li class="nav-item dropdown active">-->
+<!--        <a class="nav-link dropdown-toggle" id="navbarDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--          Personeel-->
+<!--        </a>-->
+<!--        <div class="dropdown-menu" aria-labelledby="navbarDropdownLink" style="background-color: #00AAE7">-->
+<!--            <a class="dropdown-item" style=" color: white; background-color: #00AAE7;" (click)="showRunner()">Runner</a>-->
+<!--            <a class="dropdown-item" style=" color: white; background-color: #00AAE7;" (click)="showMechanic()">Mechanic</a>-->
+<!--        </div>-->
+<!--      </li>-->
     </ul>
   </div>
 
 <!--  Nav-bar rechterkant-->
   <div class="collapse navbar-collapse" id="navbarNavDropdow">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/signin">Mijn account<span class="sr-only">(current)</span></a>
-      </li>
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" routerLink="/signin">Mijn account<span class="sr-only">(current)</span></a>-->
+<!--      </li>-->
       <li class="nav-item active" *ngIf="runnerMode || mechanicMode;" (click)="logOut()">
-        <a class="nav-link" routerLink="/">Log out<span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/signin">Log out<span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>

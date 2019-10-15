@@ -4,7 +4,7 @@ import {HomeComponent} from './components/mainpage/home.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { WorkplaceMapComponent } from './components/workplace-map/workplace-map.component';
-import {RequestFormComponent} from "./components/request-form/request-form.component";
+import {RequestFormComponent} from './components/request-form/request-form.component';
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
 

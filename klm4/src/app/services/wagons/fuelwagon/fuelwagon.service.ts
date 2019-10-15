@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {icon, LayerGroup, marker, Marker} from 'leaflet';
-import {FuelWagon} from '../../models/wagons/FuelWagon.modal';
+import {FuelWagon} from '../../../models/wagons/FuelWagon.modal';
 
 declare let L; // used for Leaflet.js
 

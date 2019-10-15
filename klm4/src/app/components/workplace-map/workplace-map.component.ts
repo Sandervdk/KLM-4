@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, LayerGroup, tileLayer} from 'leaflet';
-import {WagonsService} from '../../services/wagons.service';
+import {WagonsService} from '../../services/wagons/wagons.service';
 
 declare let L;
 
@@ -14,13 +14,10 @@ export class WorkplaceMapComponent implements OnInit {
   private long = 4.766361511202604;
   private lat = 52.30678841808895;
 
-  private fuelWagonsLayer: LayerGroup;
-  private test: LayerGroup;
-
+  private readonly fuelWagonsLayer: LayerGroup;
 
   constructor(private wagonServices: WagonsService) {
     this.fuelWagonsLayer = wagonServices.getFuelWagonsLayer(); // layer with all the fuelwagon points
-    this.test = wagonServices.getFuelWagonsLayer(); // TODO: this is a test and should be removed
   }
 
   ngOnInit() {
@@ -43,8 +40,7 @@ export class WorkplaceMapComponent implements OnInit {
 
   private setUpLayers() {
     const layers = {
-      'Stikstof wagens': this.fuelWagonsLayer,
-      'Dit is een test': this.test
+      'Stikstof wagens': this.fuelWagonsLayer
     };
 
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
