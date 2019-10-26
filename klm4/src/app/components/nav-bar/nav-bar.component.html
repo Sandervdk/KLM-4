@@ -42,34 +42,38 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
 
-      <li class="nav-item dropdown active" *ngIf="runnerMode">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Meldingen
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu" style="background-color: #00AAE7">
-          <a class="dropdown-item" routerLink="/meldingen-openstaand">Openstaande meldingen</a>
-          <a class="dropdown-item" routerLink="/meldingen/afzetten">Afzetten</a>
-          <a class="dropdown-item" routerLink="/meldingen/ophalen">Ophalen</a>
-        </div>
-      </li>
-
-      <li class="nav-item dropdown active" *ngIf="runnerMode">
-        <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Producten
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: #00AAE7">
-          <a class="dropdown-item" routerLink="/producten/extern">Externe producten</a>
-          <a class="dropdown-item" routerLink="/producten/bijzonder">Bijzondere producten</a>
-        </div>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" *ngIf="mechanicMode" routerLink="/request-Form">Aanvraag formulier<span class="sr-only">(current)</span></a>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" *ngIf="mechanicMode" routerLink="/damaged-form">Beschadigd product<span class="sr-only">(current)</span></a>
-      </li>
+      <ng-template [ngIf]="runnerMode">
+          <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Meldingen
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu" style="background-color: #00AAE7">
+                <a class="dropdown-item" routerLink="/meldingen-openstaand">Openstaande meldingen</a>
+                <a class="dropdown-item" routerLink="/meldingen/afzetten">Afzetten</a>
+                <a class="dropdown-item" routerLink="/meldingen/ophalen">Ophalen</a>
+              </div>
+            </li>
+      
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Producten
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: #00AAE7">
+                <a class="dropdown-item" routerLink="/producten/extern">Externe producten</a>
+                <a class="dropdown-item" routerLink="/producten/bijzonder">Bijzondere producten</a>
+              </div>
+            </li>
+      </ng-template>
+      <ng-template [ngIf]="mechanicMode">
+          <li class="nav-item active">
+              <a class="nav-link" routerLink="/request-Form">Aanvraag formulier<span class="sr-only">(current)</span></a>
+            </li>
+      
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/damaged-form">Beschadigd product<span class="sr-only">(current)</span></a>
+            </li>
+      </ng-template>
+    
 
 <!--      <li class="nav-item dropdown active">-->
 <!--        <a class="nav-link dropdown-toggle" id="navbarDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->

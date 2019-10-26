@@ -64,13 +64,13 @@ export class AuthenticationService {
   private createUser(userDetails): void {
     switch (userDetails.role) {
       case Functions.ADMIN:
-        this.user = new Admin(userDetails.username, 'Chena');
+        this.user = new Admin(userDetails.username, 'van de Kamp');
         break;
       case Functions.MECHANIC:
-        this.user = new Mechanic(userDetails.username, 'Chena');
+        this.user = new Mechanic(userDetails.username, 'Edusei');
         break;
       case Functions.RUNNER:
-        this.user = new Runner(userDetails.username, 'Chena');
+        this.user = new Runner(userDetails.username, 'Butt');
         break;
     }
   }

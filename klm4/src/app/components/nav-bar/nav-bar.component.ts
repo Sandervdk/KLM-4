@@ -11,6 +11,7 @@ import {Functions} from '../../models/staff/Functions';
 export class NavBarComponent implements OnInit {
   mechanicMode = false;
   runnerMode = false;
+  adminMode = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private authentication: AuthenticationService) {
   }
@@ -20,8 +21,18 @@ export class NavBarComponent implements OnInit {
       this.showRunner();
     } else if (this.authentication.getUser().getRole() === Functions.MECHANIC) {
       this.showMechanic();
+    } else if (this.authentication.getUser().getRole() === Functions.ADMIN) {
+      this.showAdmin();
     }
-    // TODO: SHOW THING FOR THE SUPER USER
+  }
+
+  showAdmin() {
+    this.adminMode = true;
+    this.runnerMode = false;
+    this.mechanicMode = false;
+    this.router.navigate(['/admin'], {
+      relativeTo: this.route
+    });
   }
 
   showRunner() {

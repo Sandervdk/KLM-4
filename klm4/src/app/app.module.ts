@@ -15,9 +15,13 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {RequestFormComponent} from './components/request-form/request-form.component';
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
+<<<<<<< Updated upstream
 import {AuthenticationService} from './services/authentication/authentication.service';
 import { NitrogenWagon } from './components/request-form/nitrogen-wagon/nitrogen-wagon';
 import { TireWagon } from './components/request-form/tire-wagon/tire-wagon';
+=======
+import {AdminpageComponent} from './components/adminpage/adminpage.component';
+>>>>>>> Stashed changes
 
 
 @NgModule({
@@ -33,8 +37,12 @@ import { TireWagon } from './components/request-form/tire-wagon/tire-wagon';
     RequestFormComponent,
     DamagedFormComponent,
     OpenstaandComponent,
+<<<<<<< Updated upstream
     NitrogenWagon,
     TireWagon,
+=======
+    AdminpageComponent,
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,

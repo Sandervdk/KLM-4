@@ -1,0 +1,24 @@
+.btn-category {
+  font-size: 2.3em;
+  font-weight: bold;
+  width: 100%;
+  min-height: 50px;
+}
+
+@media (min-width: 768px) {
+  .btn-category {
+    min-height: 260px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-category {
+    min-height: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .btn-category {
+    min-height: 220px;
+  }
+}

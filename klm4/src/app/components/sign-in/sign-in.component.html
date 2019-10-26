@@ -6,7 +6,10 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-6 offset-md-3">
-      <form #signInForm="ngForm">
+      <form (ngSubmit)="signIn(signInForm)" #signInForm="ngForm">
+        <div class="alert alert-danger" *ngIf="showWarning">
+          <strong>WHOOPS!</strong> wrong username or password, please try again.
+        </div>
         <div class="form-section">
           <div class="form-group">
             <label class="badge badge-danger" *ngIf="!email.valid && email.touched">
@@ -27,7 +30,7 @@
                    #password="ngModel" required>
           </div>
           <div class="form-group">
-            <button class="btn" type="submit" (click)="signIn()" [disabled]="signInForm.invalid">Sign in</button>
+            <button class="btn" [disabled]="signInForm.invalid">Sign in</button>
           </div>
         </div>
       </form>
