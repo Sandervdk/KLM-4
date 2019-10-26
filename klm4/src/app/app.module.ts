@@ -16,6 +16,8 @@ import {RequestFormComponent} from './components/request-form/request-form.compo
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
 import {AuthenticationService} from './services/authentication/authentication.service';
+import { StikstofWagenComponent } from './components/request-form/stikstof-wagen/stikstof-wagen.component';
+import { BandenWagenComponent } from './components/request-form/banden-wagen/banden-wagen.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {AuthenticationService} from './services/authentication/authentication.se
     RequestFormComponent,
     DamagedFormComponent,
     OpenstaandComponent,
+    StikstofWagenComponent,
+    BandenWagenComponent,
   ],
   imports: [
     BrowserModule,

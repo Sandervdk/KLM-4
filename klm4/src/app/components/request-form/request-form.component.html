@@ -1,37 +1,64 @@
 <h3>Request Formulier</h3>
 <form (ngSubmit)="onSubmit()" #form="ngForm">
-  <input name="locatie" type="text" class="feedback-input" placeholder="Locatie" ngModel/>
-  <input name="tijd" type="time" class="feedback-input" placeholder="tijd" ngModel/>
+  <input name="location" type="text" class="feedback-input" placeholder="Locatie"
+         [(ngModel)]="location"
+         required/>
+  <input name="time" type="time" class="feedback-input" placeholder="tijd"
+         [(ngModel)]="deadline"
+         required />
 
-  <div *ngFor="let equipment of selectedEquipment">
+  <select name="planeType" class="dropdown-input feedback-input"
+          [(ngModel)]="planeType"
+          (change)="changeType(planeType)"
+          required>
+    <option hidden>{{planeType}}</option>
+    <option
+      *ngFor="let type of planeTypeList| slice:1">{{type}}</option>
+  </select>
+
+  <div
+    *ngFor="let equipment of selectedEquipment;
+    let i = index">
     <div class="flex-container">
       <div class="equipmentContrainer">
 
-        <select name="equipment1" class="dropdown-input" (change)="addEquipment($event.target.value, equipment)">
-          <option default>{{equipment}}</option>
-          <option *ngFor="let equipment of equipmentList" value="{{equipment}}">{{equipment}}</option>
+        <select title="equipment" name="equipment1" class="dropdown-input"
+                (change)="addEquipment($event.target.value, equipment)"
+                required >
+          <option hidden>{{selectedEquipment[i]}}</option>
+          <option
+            *ngFor="let equipment of equipmentList| slice:1"
+                  value="{{equipment}}">{{equipment}}</option>
         </select>
 
-        <div class="flex-container" *ngIf="equipment !== 'Equipment'">
+        <div class="flex-container"
+             *ngIf="equipment !== 'Equipment'">
           <div class="btn btn-outline-primary flex-btn btn-left"
-                  (click)="buttonSelected($event.target, equipment)">Links</div>
+                  (click)="buttonSelected($event.target, i)">Links</div>
           <div class="btn btn-outline-primary flex-btn"
-                  (click)="buttonSelected($event.target, equipment)">Rechts</div>
+                  (click)="buttonSelected($event.target, i)">Neus</div>
           <div class="btn btn-outline-primary flex-btn btn-right"
-                  (click)="buttonSelected($event.target, equipment)">Voor</div>
-          <div class="btn btn-outline-primary flex-btn btn-right"
-               (click)="buttonSelected($event.target, equipment)">Achter</div>
+                  (click)="buttonSelected($event.target, i)">Rechts</div>
         </div>
       </div>
-      <button class="removeButton" *ngIf="equipment !== 'Equipment'" (click)="remove(equipment)">X</button>
+      <button class="removeButton"
+              *ngIf="equipment !== 'Equipment'"
+              (click)="remove(equipment)">X</button>
     </div>
 
+    <stikstof-wagen
+      *ngIf="equipment === 'Stikstofwagen'"></stikstof-wagen>
+    <banden-wagen
+      [planeType]="planeType"
+      *ngIf="equipment === 'Bandenwagen'"></banden-wagen>
   </div>
 
-  <input id="submitButton" type="submit" value="submit"/>
+  <input id="submitButton" type="submit" value="submit"
+    [disabled]="!form.valid"/>
 </form>
 
-<div *ngIf="popupOpen" class="popup">
-  <span>Verzoek is aangemaakt</span>
+<div
+  *ngIf="popupOpen" class="popup">
+  <span>{{popupText}}</span>
 </div>
 
