@@ -1,7 +1,7 @@
-form { max-width:420px; margin:20px auto; }
+form { max-width:420px; margin:20px auto 0; }
 h3 {text-align: center}
 
-.feedback-input {
+::ng-deep .feedback-input {
   font-weight:500;
   font-size: 18px;
   border-radius: 5px;
@@ -14,7 +14,7 @@ h3 {text-align: center}
   box-sizing: border-box;
 }
 
-.dropdown-input {
+::ng-deep .dropdown-input {
   font-weight:500;
   font-size: 18px;
   border-radius: 5px 5px 0 0;
@@ -26,6 +26,13 @@ h3 {text-align: center}
   box-sizing: border-box;
 }
 
+::ng-deep input.ng-touched.ng-valid {
+  border:2px solid #00AAE7;
+}
+
+::ng-deep input.ng-touched.ng-invalid {
+  border: 2px red solid;
+}
 
 #submitButton {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;

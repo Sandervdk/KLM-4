@@ -16,6 +16,8 @@ import {RequestFormComponent} from './components/request-form/request-form.compo
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
 import {AuthenticationService} from './services/authentication/authentication.service';
+import { NitrogenWagon } from './components/request-form/nitrogen-wagon/nitrogen-wagon';
+import { TireWagon } from './components/request-form/tire-wagon/tire-wagon';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {AuthenticationService} from './services/authentication/authentication.se
     RequestFormComponent,
     DamagedFormComponent,
     OpenstaandComponent,
+    NitrogenWagon,
+    TireWagon,
   ],
   imports: [
     BrowserModule,
