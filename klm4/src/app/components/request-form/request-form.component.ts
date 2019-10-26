@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {PlaneTypes} from "../../services/planeTypes";
-import {WagonTypes} from "../../services/wagonTypes";
-import {BandenWagenComponent} from "./banden-wagen/banden-wagen.component";
+import {PlaneTypes} from "../../models/enums/planeTypes";
+import {WagonTypes} from "../../models/enums/wagonTypes";
+import {TireWagon} from "./tire-wagon/tire-wagon";
 import {Time} from "@angular/common";
 
 @Component({
@@ -13,7 +13,7 @@ import {Time} from "@angular/common";
 
 export class RequestFormComponent implements OnInit {
   @ViewChild('form', {static: false}) requestForm: NgForm;
-  @ViewChild(BandenWagenComponent, {static: false}) bandenwagenComponent;
+  @ViewChild(TireWagon, {static: false}) tireWagonComponent;
 
   private popupOpen: boolean = false;
   private popupText: String = "";
@@ -27,12 +27,12 @@ export class RequestFormComponent implements OnInit {
 
   private location: String;
   private deadline: Time;
-  private
 
   constructor() {
   }
 
   ngOnInit() {
+    console.log(PlaneTypes.VLIEGTUIGTYPE);
   }
 
     /**
@@ -101,7 +101,7 @@ export class RequestFormComponent implements OnInit {
   changeType(planetype: PlaneTypes) {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
-        this.bandenwagenComponent.changeType(planetype);
+        this.tireWagonComponent.changeType(planetype);
       }
     }
   }
@@ -127,7 +127,7 @@ export class RequestFormComponent implements OnInit {
     for (let i = 0; i < this.selectedEquipment.length - 1; i++) {
       console.log(this.location + " - " + this.deadline + " - " + this.planeType);
       if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
-        console.log(this.bandenwagenComponent.getTireWagon());
+        console.log("bandenwagen" + this.tireWagonComponent.getTireAmount());
       }
     }
 
@@ -160,7 +160,7 @@ export class RequestFormComponent implements OnInit {
     for (let i = 0; i < this.selectedEquipment.length - 1; i++) {
 
       if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
-        if (this.bandenwagenComponent.getTireAmount() < 1) {
+        if (this.tireWagonComponent.getTireAmount() < 1) {
           this.openPopup("Aantal banden niet aangegeven");
           return false;
         }

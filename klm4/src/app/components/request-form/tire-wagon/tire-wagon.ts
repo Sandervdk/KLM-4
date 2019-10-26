@@ -2,21 +2,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output
 } from '@angular/core';
-import {PlaneTypes} from "../../../services/planeTypes";
-import {TireWagon} from "../../../services/wagons/Wagon/tireWagon";
+import {PlaneTypes} from "../../../models/enums/planeTypes";
 
 @Component({
-  selector: 'banden-wagen',
-  templateUrl: './banden-wagen.component.html',
-  styleUrls: ['./banden-wagen.component.css'],
+  selector: 'tire-wagon',
+  templateUrl: './tire-wagon.html',
+  styleUrls: ['./tire-wagon.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BandenWagenComponent implements OnInit {
+export class TireWagon implements OnInit {
   private differentTireTypes: boolean;
   @Input('planeType') PlaneType: PlaneTypes;
 
@@ -42,13 +39,13 @@ export class BandenWagenComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  getTireWagon(): TireWagon {
-    if (this.differentTireTypes) {
-      return new TireWagon(this.mainTires, this.noseTires)
-    } else {
-      return new TireWagon(this.mainTires);
-    }
-  }
+  // getTireWagon(): TireWagon {
+  //   if (this.differentTireTypes) {
+  //     return new TireWagon(this.mainTires, this.noseTires)
+  //   } else {
+  //     return new TireWagon(this.mainTires);
+  //   }
+  // }
 
   getTireAmount(): number {
     if (this.noseTires === undefined && this.mainTires === undefined) {
