@@ -5,6 +5,11 @@
   min-height: 50px;
 }
 
+.btn-category:hover {
+  color: #FFF;
+  background: #00AAE7;
+}
+
 @media (min-width: 768px) {
   .btn-category {
     min-height: 260px;

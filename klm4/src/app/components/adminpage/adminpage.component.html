@@ -1,21 +1,26 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">admin</li>
-      </ol>
+  <ng-template [ngIf]="!adminRouter.hideNavButtons">
+    <div class="row">
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Admin</li>
+          </ol>
+        </nav>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-3 offset-lg-3">
-      <button class="btn btn-category">
-        users
-      </button>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3 offset-lg-3">
+        <button (click)="adminRouter.navigateTo('admin/users-overview')" class="btn btn-category">
+          users
+        </button>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <button class="btn btn-category">
+          equipment
+        </button>
+      </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-3">
-      <button class="btn btn-category">
-        equipment
-      </button>
-    </div>
-  </div>
+  </ng-template>
+  <router-outlet></router-outlet>
 </div>
