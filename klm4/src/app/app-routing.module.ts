@@ -9,12 +9,17 @@ import {DamagedFormComponent} from './components/damaged-form/damaged-form.compo
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/usersoverview/usersoverview.component';
+import {UserspageComponent} from './components/adminpage/userspage/userspage.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {
     path: 'admin', component: AdminpageComponent, children: [
-      {path: 'users-overview', component: UsersoverviewComponent}
+      {
+        path: 'users', component: UserspageComponent, children: [
+          {path: 'overview', component: UsersoverviewComponent}
+        ]
+      }
     ]
   },
   {path: 'signin', component: SignInComponent},

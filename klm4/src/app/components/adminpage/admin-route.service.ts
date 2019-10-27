@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 })
 export class AdminRouteService {
   public hideNavButtons = false;
+  public currentRoute: string;
 
   constructor(private router: Router) {
   }
@@ -21,6 +22,8 @@ export class AdminRouteService {
     } else {
       this.hideNavButtons = true;
     }
+
+    this.currentRoute = page;
     this.router.navigate([`/${page}`]);
   }
 }

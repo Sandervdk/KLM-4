@@ -16,9 +16,9 @@ export class AuthenticationService {
    * These are the static accounts that should be in the database
    */
   private staticAccounts = [
-    {username: 'runner@klm.nl', password: 'Welkom01', role: Functions.RUNNER},
-    {username: 'mechanic@klm.nl', password: 'Welkom01', role: Functions.MECHANIC},
-    {username: 'admin@klm.nl', password: 'Welkom01', role: Functions.ADMIN}
+    {id: 57, username: 'runner@klm.nl', password: 'Welkom01', role: Functions.RUNNER},
+    {id: 156, username: 'mechanic@klm.nl', password: 'Welkom01', role: Functions.MECHANIC},
+    {id: 1, username: 'admin@klm.nl', password: 'Welkom01', role: Functions.ADMIN}
   ];
 
   /**
@@ -81,6 +81,10 @@ export class AuthenticationService {
    */
   getUser() {
     return this.user;
+  }
+
+  getAccounts() {
+    return this.staticAccounts;
   }
 
   signOut() {

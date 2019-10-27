@@ -19,6 +19,8 @@ import { NitrogenWagon } from './components/request-form/nitrogen-wagon/nitrogen
 import { TireWagon } from './components/request-form/tire-wagon/tire-wagon';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import { UsersoverviewComponent } from './components/adminpage/usersoverview/usersoverview.component';
+import { UserspageComponent } from './components/adminpage/userspage/userspage.component';
+import { UserFilterPipe } from './components/adminpage/user-filter.pipe';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { UsersoverviewComponent } from './components/adminpage/usersoverview/use
     AdminpageComponent,
     AdminpageComponent,
     UsersoverviewComponent,
+    UserspageComponent,
+    UserFilterPipe,
   ],
   imports: [
     BrowserModule,

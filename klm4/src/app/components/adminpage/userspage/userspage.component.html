@@ -1,0 +1,27 @@
+<ng-template [ngIf]="this.adminRouter.currentRoute === 'admin/users'">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="" (click)="adminRouter.navigateTo('admin')">Admin</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Users</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-3 offset-lg-3">
+      <button (click)="adminRouter.navigateTo('admin/users/overview')" class="btn btn-category">
+        Overview
+      </button>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3">
+      <button class="btn btn-category">
+        Create
+      </button>
+    </div>
+  </div>
+</ng-template>
+<router-outlet></router-outlet>
