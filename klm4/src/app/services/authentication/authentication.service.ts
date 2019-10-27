@@ -16,9 +16,9 @@ export class AuthenticationService {
    * These are the static accounts that should be in the database
    */
   private staticAccounts = [
-    {id: 57, username: 'runner@klm.nl', password: 'Welkom01', role: Functions.RUNNER},
-    {id: 156, username: 'mechanic@klm.nl', password: 'Welkom01', role: Functions.MECHANIC},
-    {id: 1, username: 'admin@klm.nl', password: 'Welkom01', role: Functions.ADMIN}
+    {id: 57, username: 'runner@klm.nl', password: 'Welkom01', lastname: 'van de Kamp', role: Functions.RUNNER},
+    {id: 156, username: 'mechanic@klm.nl', password: 'Welkom01', lastname: 'Edusei', role: Functions.MECHANIC},
+    {id: 1, username: 'admin@klm.nl', password: 'Welkom01', lastname: 'Butt', role: Functions.ADMIN}
   ];
 
   /**
@@ -64,30 +64,41 @@ export class AuthenticationService {
   private createUser(userDetails): void {
     switch (userDetails.role) {
       case Functions.ADMIN:
-        this.user = new Admin(userDetails.username, 'van de Kamp');
+        this.user = new Admin(userDetails.username, userDetails.lastname);
         break;
       case Functions.MECHANIC:
-        this.user = new Mechanic(userDetails.username, 'Edusei');
+        this.user = new Mechanic(userDetails.username, userDetails.lastname);
         break;
       case Functions.RUNNER:
-        this.user = new Runner(userDetails.username, 'Butt');
+        this.user = new Runner(userDetails.username, userDetails.lastname);
         break;
     }
+  }
+
+  /**
+   * This method is meant for the admin to create new users
+   *
+   * @param username the email address of the new user
+   * @param lastname the lastname of the new user
+   * @param password the password of the new user
+   */
+  public createNewUser(username: string, lastname: string, password: string, role: Functions) {
+    this.staticAccounts.push({id: (Math.round(Math.random() * 50)), username, password, lastname, role});
   }
 
   /**
    * This method returns the created user,
    * which can be used to check everything of in this application
    */
-  getUser() {
+  public getUser() {
     return this.user;
   }
 
-  getAccounts() {
+  public getAccounts() {
     return this.staticAccounts;
   }
 
-  signOut() {
+  public signOut() {
     this.user = null;
   }
 }

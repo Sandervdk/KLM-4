@@ -1,4 +1,7 @@
 .btn-category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2.3em;
   font-weight: bold;
   width: 100%;

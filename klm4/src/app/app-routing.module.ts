@@ -10,6 +10,7 @@ import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/usersoverview/usersoverview.component';
 import {UserspageComponent} from './components/adminpage/userspage/userspage.component';
+import {UsersCreateComponent} from './components/adminpage/users-create/users-create.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
     path: 'admin', component: AdminpageComponent, children: [
       {
         path: 'users', component: UserspageComponent, children: [
-          {path: 'overview', component: UsersoverviewComponent}
+          {path: 'overview', component: UsersoverviewComponent},
+          {path: 'create', component: UsersCreateComponent}
         ]
       }
     ]

@@ -1,10 +1,10 @@
-<ng-template [ngIf]="this.adminRouter.currentRoute === 'admin/users'">
+<ng-template [ngIf]="this.adminRouter.currentRoute === '/admin/users'">
   <div class="row">
     <div class="col-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a routerLink="" (click)="adminRouter.navigateTo('admin')">Admin</a>
+            <a routerLink="/admin">Admin</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">Users</li>
         </ol>
@@ -13,14 +13,14 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-3 offset-lg-3">
-      <button (click)="adminRouter.navigateTo('admin/users/overview')" class="btn btn-category">
+      <a routerLink="/admin/users/overview" class="btn btn-category">
         Overview
-      </button>
+      </a>
     </div>
     <div class="col-12 col-md-6 col-lg-3">
-      <button class="btn btn-category">
+      <a routerLink="/admin/users/create" class="btn btn-category">
         Create
-      </button>
+      </a>
     </div>
   </div>
 </ng-template>

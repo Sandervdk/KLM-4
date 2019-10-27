@@ -21,6 +21,7 @@ import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import { UsersoverviewComponent } from './components/adminpage/usersoverview/usersoverview.component';
 import { UserspageComponent } from './components/adminpage/userspage/userspage.component';
 import { UserFilterPipe } from './components/adminpage/user-filter.pipe';
+import { UsersCreateComponent } from './components/adminpage/users-create/users-create.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { UserFilterPipe } from './components/adminpage/user-filter.pipe';
     UsersoverviewComponent,
     UserspageComponent,
     UserFilterPipe,
+    UsersCreateComponent,
   ],
   imports: [
     BrowserModule,

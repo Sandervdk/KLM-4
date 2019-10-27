@@ -1,29 +1,35 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminRouteService {
+  private subscription: Subscription;
   public hideNavButtons = false;
   public currentRoute: string;
 
   constructor(private router: Router) {
+    this.subscription = this.router.events.subscribe((params: Params) => {
+      if (params.url === '/admin') {
+        this.hideNavButtons = false;
+      } else if (params.url === '/signin') {
+        console.error(params.url, 'YAAASSS');
+      } else {
+        this.hideNavButtons = true;
+      }
+      if (params.url) {
+        this.currentRoute = params.url;
+      }
+    });
   }
 
-  /**
-   * This method is meant to serve the user to a specific page when signed in as an Admin
-   *
-   * @param page the page that the user is linked to
-   */
-  public navigateTo(page: string) {
-    if (page === 'admin') {
-      this.hideNavButtons = false;
-    } else {
-      this.hideNavButtons = true;
-    }
-
-    this.currentRoute = page;
-    this.router.navigate([`/${page}`]);
-  }
+  // /**
+  // UNSUBSCRIBING BREAKS THE APPLICATION!!!!!
+  //  * This method will unsubscribe the navigate method with the application
+  //  */
+  // private unsubscribe() {
+  //   this.subscription.unsubscribe();
+  // }
 }
