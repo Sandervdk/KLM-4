@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/admin">Admin</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/admin/equipments">Equipments</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Overview</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="form-section">
+      <div class="form-group">
+        <input type="text" class="form-control" name="search" placeholder="filter to find wagon" autocomplete="off"
+               [(ngModel)]="equipmentSearch">
+      </div>
+    </div>
+    <div class="form-group">
+      <table class="table table-responsive">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Type of wagon</th>
+          <th scope="col">Last seen location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let wagon of wagonsService.getAllWagons() | wagonsFilter: equipmentSearch">
+          <th scope="row">{{wagon.id}}</th>
+          <td>{{wagon.title}}</td>
+          <td>{{wagon.type}}</td>
+          <td>({{wagon.lastSeen.lat}} - {{wagon.lastSeen.long}})</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

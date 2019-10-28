@@ -11,6 +11,9 @@ import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/usersoverview/usersoverview.component';
 import {UserspageComponent} from './components/adminpage/userspage/userspage.component';
 import {UsersCreateComponent} from './components/adminpage/users-create/users-create.component';
+import {EquipmentsoverviewComponent} from './components/adminpage/equipmentsoverview/equipmentsoverview.component';
+import {EquipmentspageComponent} from './components/adminpage/equipmentspage/equipmentspage.component';
+import {EquipmentsCreateComponent} from './components/adminpage/equipments-create/equipments-create.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -20,6 +23,12 @@ const routes: Routes = [
         path: 'users', component: UserspageComponent, children: [
           {path: 'overview', component: UsersoverviewComponent},
           {path: 'create', component: UsersCreateComponent}
+        ]
+      },
+      {
+        path: 'equipments', component: EquipmentspageComponent, children: [
+          {path: 'overview', component: EquipmentsoverviewComponent},
+          {path: 'create', component: EquipmentsCreateComponent}
         ]
       }
     ]

@@ -14,8 +14,6 @@ export class AdminRouteService {
     this.subscription = this.router.events.subscribe((params: Params) => {
       if (params.url === '/admin') {
         this.hideNavButtons = false;
-      } else if (params.url === '/signin') {
-        console.error(params.url, 'YAAASSS');
       } else {
         this.hideNavButtons = true;
       }

@@ -22,6 +22,10 @@ import { UsersoverviewComponent } from './components/adminpage/usersoverview/use
 import { UserspageComponent } from './components/adminpage/userspage/userspage.component';
 import { UserFilterPipe } from './components/adminpage/user-filter.pipe';
 import { UsersCreateComponent } from './components/adminpage/users-create/users-create.component';
+import { EquipmentspageComponent } from './components/adminpage/equipmentspage/equipmentspage.component';
+import { EquipmentsoverviewComponent } from './components/adminpage/equipmentsoverview/equipmentsoverview.component';
+import { EquipmentsCreateComponent } from './components/adminpage/equipments-create/equipments-create.component';
+import { WagonsFilterPipe } from './components/adminpage/wagons-filter.pipe';
 
 
 @NgModule({
@@ -45,6 +49,10 @@ import { UsersCreateComponent } from './components/adminpage/users-create/users-
     UserspageComponent,
     UserFilterPipe,
     UsersCreateComponent,
+    EquipmentspageComponent,
+    EquipmentsoverviewComponent,
+    EquipmentsCreateComponent,
+    WagonsFilterPipe,
   ],
   imports: [
     BrowserModule,
