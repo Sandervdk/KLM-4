@@ -1,6 +1,6 @@
 import {Component, OnInit, PipeTransform} from '@angular/core';
-import {AdminRouteService} from '../admin-route.service';
-import {AuthenticationService} from '../../../services/authentication/authentication.service';
+import {AdminService} from '../../admin.service';
+import {AuthenticationService} from '../../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-usersoverview',
@@ -11,7 +11,7 @@ import {AuthenticationService} from '../../../services/authentication/authentica
 export class UsersoverviewComponent implements OnInit {
   public userSearch: string;
 
-  constructor(private adminRouter: AdminRouteService, private authService: AuthenticationService) {
+  constructor(private adminRouter: AdminService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {

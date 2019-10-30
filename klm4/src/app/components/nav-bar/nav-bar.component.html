@@ -35,7 +35,7 @@
 <!--</div>-->
 
 <!--Nav-bar linkerkant-->
-<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #00AAE7">
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #00AAE7" *ngIf="!adminMode">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -53,7 +53,7 @@
                 <a class="dropdown-item" routerLink="/meldingen/ophalen">Ophalen</a>
               </div>
             </li>
-      
+
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Producten
@@ -68,12 +68,12 @@
           <li class="nav-item active">
               <a class="nav-link" routerLink="/request-Form">Aanvraag formulier<span class="sr-only">(current)</span></a>
             </li>
-      
+
             <li class="nav-item active">
               <a class="nav-link" routerLink="/damaged-form">Beschadigd product<span class="sr-only">(current)</span></a>
             </li>
       </ng-template>
-    
+
 
 <!--      <li class="nav-item dropdown active">-->
 <!--        <a class="nav-link dropdown-toggle" id="navbarDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->

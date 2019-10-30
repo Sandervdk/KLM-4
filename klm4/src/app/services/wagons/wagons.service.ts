@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FuelwagonService} from './fuelwagon/fuelwagon.service';
 import {LayerGroup} from 'leaflet';
-import {NgForm} from '@angular/forms';
 import {WagonTypes} from '../../models/enums/wagonTypes';
-import {FuelWagon} from '../../models/wagons/FuelWagon.modal';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +15,8 @@ export class WagonsService {
     this.allWagons.push(
       ...this.FuelWagonService.getFuelWagons()
     );
+
+    console.log(this.allWagons);
   }
 
   createNewWagon(wagon) {

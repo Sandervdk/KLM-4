@@ -1,3 +1,16 @@
+nav .breadcrumb {
+  display: block;
+  width: 100%;
+}
+
+li.breadcrumb-item {
+  display: initial;
+}
+
+.auth-container {
+  float: right;
+}
+
 .btn-category {
   display: flex;
   justify-content: center;

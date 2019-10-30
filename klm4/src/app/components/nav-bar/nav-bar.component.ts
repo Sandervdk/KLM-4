@@ -17,11 +17,12 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authentication.getUser().getRole() === Functions.RUNNER) {
+    const userRole = this.authentication.getUser().getRole();
+    if (userRole === Functions.RUNNER) {
       this.showRunner();
-    } else if (this.authentication.getUser().getRole() === Functions.MECHANIC) {
+    } else if (userRole === Functions.MECHANIC) {
       this.showMechanic();
-    } else if (this.authentication.getUser().getRole() === Functions.ADMIN) {
+    } else if (userRole === Functions.ADMIN) {
       this.showAdmin();
     }
   }
@@ -54,6 +55,7 @@ export class NavBarComponent implements OnInit {
   logOut() {
     this.mechanicMode = false;
     this.runnerMode = false;
+    this.adminMode = false;
     this.authentication.signOut();
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminRouteService} from '../admin-route.service';
-import {AuthenticationService} from '../../../services/authentication/authentication.service';
-import {Functions} from '../../../models/staff/Functions';
+import {AdminService} from '../../admin.service';
+import {AuthenticationService} from '../../../../services/authentication/authentication.service';
+import {Functions} from '../../../../models/staff/Functions';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ export class UsersCreateComponent implements OnInit {
   public showMessage = false;
   public rolesList;
 
-  constructor(private adminRouter: AdminRouteService, private authService: AuthenticationService) {
+  constructor(private adminRouter: AdminService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {

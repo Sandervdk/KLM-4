@@ -9,6 +9,9 @@
           <a routerLink="/admin/equipments">Equipments</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Overview</li>
+        <div class="auth-container">
+          <a (click)="this.adminRouter.logOut()">Logout</a>
+        </div>
       </ol>
     </nav>
   </div>

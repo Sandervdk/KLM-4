@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../../../services/authentication/authentication.service';
-import {WagonsService} from '../../../services/wagons/wagons.service';
+import {AuthenticationService} from '../../../../services/authentication/authentication.service';
+import {WagonsService} from '../../../../services/wagons/wagons.service';
+import {AdminService} from '../../admin.service';
 
 @Component({
   selector: 'app-equipmentsoverview',
@@ -10,7 +11,7 @@ import {WagonsService} from '../../../services/wagons/wagons.service';
 export class EquipmentsoverviewComponent implements OnInit {
   public equipmentSearch: string;
 
-  constructor(private wagonsService: WagonsService) {
+  constructor(private adminRouter: AdminService, private wagonsService: WagonsService) {
   }
 
   ngOnInit() {

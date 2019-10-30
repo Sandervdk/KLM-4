@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminRouteService} from '../admin-route.service';
+import {AdminService} from '../../admin.service';
 
 @Component({
   selector: 'app-equipmentspage',
@@ -8,7 +8,7 @@ import {AdminRouteService} from '../admin-route.service';
 })
 export class EquipmentspageComponent implements OnInit {
 
-  constructor(private adminRouter: AdminRouteService) {
+  constructor(private adminRouter: AdminService) {
   }
 
   ngOnInit() {

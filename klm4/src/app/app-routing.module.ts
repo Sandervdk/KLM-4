@@ -8,12 +8,12 @@ import {RequestFormComponent} from './components/request-form/request-form.compo
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
-import {UsersoverviewComponent} from './components/adminpage/usersoverview/usersoverview.component';
-import {UserspageComponent} from './components/adminpage/userspage/userspage.component';
-import {UsersCreateComponent} from './components/adminpage/users-create/users-create.component';
-import {EquipmentsoverviewComponent} from './components/adminpage/equipmentsoverview/equipmentsoverview.component';
-import {EquipmentspageComponent} from './components/adminpage/equipmentspage/equipmentspage.component';
-import {EquipmentsCreateComponent} from './components/adminpage/equipments-create/equipments-create.component';
+import {UsersoverviewComponent} from './components/adminpage/users/usersoverview/usersoverview.component';
+import {UserspageComponent} from './components/adminpage/users/userspage/userspage.component';
+import {UsersCreateComponent} from './components/adminpage/users/users-create/users-create.component';
+import {EquipmentsoverviewComponent} from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
+import {EquipmentspageComponent} from './components/adminpage/equipment/equipmentspage/equipmentspage.component';
+import {EquipmentsCreateComponent} from './components/adminpage/equipment/equipments-create/equipments-create.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},

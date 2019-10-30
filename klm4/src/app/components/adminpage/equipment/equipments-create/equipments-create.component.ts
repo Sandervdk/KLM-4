@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {WagonTypes} from '../../../models/enums/wagonTypes';
+import {WagonTypes} from '../../../../models/enums/wagonTypes';
 import {NgForm} from '@angular/forms';
-import {WagonsService} from '../../../services/wagons/wagons.service';
+import {WagonsService} from '../../../../services/wagons/wagons.service';
+import {AdminService} from '../../admin.service';
 
 @Component({
   selector: 'app-equipments-create',
@@ -12,7 +13,7 @@ export class EquipmentsCreateComponent implements OnInit {
   public showMessage = false;
   public equipmentFunctionList;
 
-  constructor(private wagonsService: WagonsService) {
+  constructor(private adminRouter: AdminService, private wagonsService: WagonsService) {
   }
 
   ngOnInit() {
@@ -21,7 +22,7 @@ export class EquipmentsCreateComponent implements OnInit {
 
   /**
    * This method will use the @WagonsService createNewWagon method
-   * to create a new user and prodive the user with an message, after that the form will be cleared out
+   * to create a new user and provide the user with an message, after that the form will be cleared out
    *
    * @param form the form that the user is filling in
    */
