@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {PlaneTypes} from '../../models/enums/planeTypes';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-damaged-form',
@@ -8,6 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class DamagedFormComponent implements OnInit {
   private showform: boolean = false;
   private popupOpen: boolean = false;
+  private planeTypeList = Object.values(PlaneTypes);
+  private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
+
+  @ViewChild('damageForm', {static: false}) damageForm: NgForm;
+
 
   constructor() { }
 
@@ -22,14 +29,6 @@ export class DamagedFormComponent implements OnInit {
   }
 
   /**
-   * Shows the popup.
-   * names can be changed in something better.
-   */
-  showPopUp() {
-    this.showform = true;
-  }
-
-  /**
    * Hides the form when its confirmed.
    * names can be changed in something better.
    */
@@ -39,5 +38,9 @@ export class DamagedFormComponent implements OnInit {
     setTimeout(() => {
       this.popupOpen = false;
     }, 3000);
+  }
+
+  onSumbitDamageForm(damageForm: NgForm) {
+
   }
 }
