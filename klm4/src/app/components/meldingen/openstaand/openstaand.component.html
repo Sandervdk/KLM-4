@@ -5,20 +5,22 @@
   <table class="table table-hover">
     <thead>
     <tr>
+      <th>Melder ID</th>
       <th>Locatie</th>
-      <th>Tijd</th>
+      <th>Aflevertijd</th>
       <th>Vliegtuig type</th>
       <th>Equipment type</th>
       <th>Positie</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let offer of meldingService.mechanicMeldingen" (click)="nextScreen()">
-      <td>{{offer.locatie}}</td>
-      <td>{{offer.tijd}}</td>
-      <td>{{offer.typeVliegtuig}}</td>
-      <td>{{offer.wagonTypes}}</td>
-      <td>{{offer.positie}}</td>
+    <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
+      <td>{{melding.id}}</td>
+      <td>{{melding.locatie}}</td>
+      <td>{{melding.deadline}}</td>
+      <td>{{melding.typeVliegtuig}}</td>
+      <td>{{melding.wagonTypes}}</td>
+      <td>{{melding.positie}}</td>
     </tr>
     </tbody>
   </table>

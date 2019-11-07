@@ -51,5 +51,7 @@ th:first-child {
 }
 
 .tabeldiv {
+  width: max-content;
   display: flex;
+  margin: auto;
 }

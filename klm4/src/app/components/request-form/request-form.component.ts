@@ -133,10 +133,14 @@ export class RequestFormComponent implements OnInit {
       }
     }
 
-    this.meldingService.mechanicMeldingen.push(new Melding(this.location, this.deadline, this.planeType, this.selectedEquipment, this.locationArray));
+    this.meldingService.mechanicMeldingen.push(new Melding(this.meldingService.generateRandomId(),this.location, this.deadline, this.planeType, this.selectedEquipment, this.locationArray, this.generateTime()));
 
     //displays a popup when a request has been made
     this.openPopup("Request is aangemaakt")
+  }
+
+  public generateTime() {
+    return new Date().toLocaleTimeString();
   }
 
   /**

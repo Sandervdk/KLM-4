@@ -1,20 +1,25 @@
 import {PlaneTypes} from '../enums/planeTypes';
 import {WagonTypes} from '../enums/wagonTypes';
+import {Time} from '@angular/common';
 
 export class Melding {
+  id: number;
   locatie: string;
-  tijd: any;
+  deadline: any;
   typeVliegtuig: PlaneTypes;
   wagonTypes: any;
   positie: any;
+  tijd: any;
 
 
-  constructor(locatie: string, tijd: any, typeVliegtuig: PlaneTypes, wagonTypes: any, positie: any) {
+  constructor(id: number ,locatie: string, deadline: any, typeVliegtuig: PlaneTypes, wagonTypes: any, positie: any, tijd: any) {
+    this.id = id;
     this.locatie = locatie;
-    this.tijd = tijd;
+    this.deadline = deadline;
     this.typeVliegtuig = typeVliegtuig;
     this.wagonTypes = wagonTypes;
     this.positie = positie;
+    this.tijd = tijd;
   }
 
 }
