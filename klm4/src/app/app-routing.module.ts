@@ -15,9 +15,24 @@ import {EquipmentsoverviewComponent} from './components/adminpage/equipment/equi
 import {EquipmentspageComponent} from './components/adminpage/equipment/equipmentspage/equipmentspage.component';
 import {EquipmentsCreateComponent} from './components/adminpage/equipment/equipments-create/equipments-create.component';
 import {SystemLogsComponent} from './components/adminpage/system-logs/system-logs.component';
+import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
+import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
+import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {
+    path: 'runner', component: RunnerpageComponent, children: [
+      {path: 'meldingen-openstaand', component: OpenstaandComponent},
+      {path: 'producten', component: ProductenpageComponent},
+    ]
+  },
+  {
+    path: 'mechanic', component: MechanicpageComponent, children: [
+      {path: 'meldingen-openstaand', component: OpenstaandComponent},
+      {path: 'request-Form', component: RequestFormComponent},
+    ]
+  },
   {
     path: 'admin', component: AdminpageComponent, children: [
       {

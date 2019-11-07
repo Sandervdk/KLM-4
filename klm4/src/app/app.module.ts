@@ -29,6 +29,9 @@ import {WagonsFilterPipe} from './components/adminpage/searchFilters/wagons-filt
 import {MeldingenService} from './services/meldingen/meldingen.service';
 import { SystemLogsComponent } from './components/adminpage/system-logs/system-logs.component';
 import { MeldingFilterPipe } from './components/adminpage/searchFilters/melding-filter.pipe';
+import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
+import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
+import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
 
 
 @NgModule({
@@ -58,6 +61,9 @@ import { MeldingFilterPipe } from './components/adminpage/searchFilters/melding-
     WagonsFilterPipe,
     SystemLogsComponent,
     MeldingFilterPipe,
+    RunnerpageComponent,
+    MechanicpageComponent,
+    ProductenpageComponent
   ],
   imports: [
     BrowserModule,
