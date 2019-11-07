@@ -14,7 +14,7 @@ export class UserFilterPipe implements PipeTransform {
       return users;
     }
     return users.filter(user => {
-      return user.username.includes(searchTerm) || user.role.includes(searchTerm);
+      return JSON.stringify(user).toLowerCase().includes(searchTerm);
     });
   }
 

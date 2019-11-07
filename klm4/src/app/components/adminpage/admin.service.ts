@@ -11,6 +11,13 @@ export class AdminService {
   public hideNavButtons = false;
   public currentRoute: string;
 
+  /**
+   * The constructor initializes the important functions for the admin, such like the subscribing to the
+   * router so that the view loads the correct component
+   *
+   * @param router - Aservices that will route the user to the correct view
+   * @param authService - A services that have the signOut method and set the loaded User Model to null
+   */
   constructor(private router: Router, private authService: AuthenticationService) {
     this.subscription = this.router.events.subscribe((params: Params) => {
       if (params.url === '/admin') { // hide main buttons to load the router-outlet content

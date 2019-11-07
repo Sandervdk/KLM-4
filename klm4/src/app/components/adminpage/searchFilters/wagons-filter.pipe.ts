@@ -15,7 +15,7 @@ export class WagonsFilterPipe implements PipeTransform {
     }
 
     return wagons.filter(wagon => {
-      return wagon.title.includes(searchTerm);
+      return JSON.stringify(wagon).toLowerCase().includes(searchTerm);
     });
   }
 

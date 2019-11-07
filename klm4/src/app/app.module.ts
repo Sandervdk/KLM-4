@@ -15,18 +15,20 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {RequestFormComponent} from './components/request-form/request-form.component';
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
-import { NitrogenWagon } from './components/request-form/nitrogen-wagon/nitrogen-wagon';
-import { TireWagon } from './components/request-form/tire-wagon/tire-wagon';
+import {NitrogenWagon} from './components/request-form/nitrogen-wagon/nitrogen-wagon';
+import {TireWagon} from './components/request-form/tire-wagon/tire-wagon';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
-import { UsersoverviewComponent } from './components/adminpage/users/usersoverview/usersoverview.component';
-import { UserspageComponent } from './components/adminpage/users/userspage/userspage.component';
-import { UserFilterPipe } from './components/adminpage/searchFilters/user-filter.pipe';
-import { UsersCreateComponent } from './components/adminpage/users/users-create/users-create.component';
-import { EquipmentspageComponent } from './components/adminpage/equipment/equipmentspage/equipmentspage.component';
-import { EquipmentsoverviewComponent } from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
-import { EquipmentsCreateComponent } from './components/adminpage/equipment/equipments-create/equipments-create.component';
-import { WagonsFilterPipe } from './components/adminpage/searchFilters/wagons-filter.pipe';
+import {UsersoverviewComponent} from './components/adminpage/users/usersoverview/usersoverview.component';
+import {UserspageComponent} from './components/adminpage/users/userspage/userspage.component';
+import {UserFilterPipe} from './components/adminpage/searchFilters/user-filter.pipe';
+import {UsersCreateComponent} from './components/adminpage/users/users-create/users-create.component';
+import {EquipmentspageComponent} from './components/adminpage/equipment/equipmentspage/equipmentspage.component';
+import {EquipmentsoverviewComponent} from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
+import {EquipmentsCreateComponent} from './components/adminpage/equipment/equipments-create/equipments-create.component';
+import {WagonsFilterPipe} from './components/adminpage/searchFilters/wagons-filter.pipe';
 import {MeldingenService} from './services/meldingen/meldingen.service';
+import { SystemLogsComponent } from './components/adminpage/system-logs/system-logs.component';
+import { MeldingFilterPipe } from './components/adminpage/searchFilters/melding-filter.pipe';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import {MeldingenService} from './services/meldingen/meldingen.service';
     EquipmentsoverviewComponent,
     EquipmentsCreateComponent,
     WagonsFilterPipe,
+    SystemLogsComponent,
+    MeldingFilterPipe,
   ],
   imports: [
     BrowserModule,

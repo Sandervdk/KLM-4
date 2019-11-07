@@ -12,7 +12,7 @@ export class Melding {
   tijd: any;
 
 
-  constructor(id: number ,locatie: string, deadline: any, typeVliegtuig: PlaneTypes, wagonTypes: any, positie: any, tijd: any) {
+  constructor(id: number, locatie: string, deadline: any, typeVliegtuig: PlaneTypes, wagonTypes: any, positie: any, tijd: any) {
     this.id = id;
     this.locatie = locatie;
     this.deadline = deadline;

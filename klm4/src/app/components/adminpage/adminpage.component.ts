@@ -8,7 +8,7 @@ import {AdminService} from './admin.service';
 })
 export class AdminpageComponent implements OnInit {
 
-  constructor(private adminRouter: AdminService) {
+  constructor(private adminService: AdminService) {
   }
 
   ngOnInit() {

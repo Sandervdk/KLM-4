@@ -11,7 +11,7 @@ import {AdminService} from '../../admin.service';
 export class EquipmentsoverviewComponent implements OnInit {
   public equipmentSearch: string;
 
-  constructor(private adminRouter: AdminService, private wagonsService: WagonsService) {
+  constructor(private adminService: AdminService, private wagonsService: WagonsService) {
   }
 
   ngOnInit() {

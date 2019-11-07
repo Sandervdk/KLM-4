@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/admin">Admin</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Logs</li>
+        <div class="auth-container">
+          <a (click)="this.adminService.logOut()">Logout</a>
+        </div>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="form-section">
+      <div class="form-group">
+        <input type="text" class="form-control" name="search" placeholder="filter to find a notification"
+               autocomplete="off"
+               [(ngModel)]="systemLogSearchInput">
+      </div>
+    </div>
+    <div class="form-group">
+      <table class="table table-responsive">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Locatie</th>
+          <th scope="col">Deadline</th>
+          <th scope="col">Type vliegtuig</th>
+          <th scope="col">Wagon type</th>
+          <th scope="col">Positie</th>
+          <th scope="col">Tijd</th>
+          <th scope="col">Aangemaakt door</th>
+          <th scope="col">Afgerond door</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let log of meldingService.getAlleMeldingen() | meldingFilter: systemLogSearchInput">
+          <th scope="row">{{log.id}}</th>
+          <td>{{log.locatie}}</td>
+          <td>{{log.deadline}}</td>
+          <td>{{log.typeVliegtuig}}</td>
+          <td>{{log.wagonTypes}}</td>
+          <td>{{log.positie}}</td>
+          <td>{{log.tijd}}</td>
+          <td>Thomas</td>
+          <td>Thomas</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

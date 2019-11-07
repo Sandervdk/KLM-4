@@ -1,5 +1,5 @@
 <div class="container">
-  <ng-template [ngIf]="!adminRouter.hideNavButtons">
+  <ng-template [ngIf]="!adminService.hideNavButtons">
     <div class="row">
       <div class="col-12">
         <nav aria-label="breadcrumb">
@@ -8,21 +8,26 @@
               <a routerLink="/admin">Admin</a>
             </li>
             <div class="auth-container">
-              <a (click)="this.adminRouter.logOut()">Logout</a>
+              <a (click)="this.adminService.logOut()">Logout</a>
             </div>
           </ol>
         </nav>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-6 col-lg-3 offset-lg-3">
+      <div class="col-12 col-md-6 col-lg-4">
         <a routerLink="/admin/users" class="btn btn-category">
-          users
+          Users
         </a>
       </div>
-      <div class="col-12 col-md-6 col-lg-3">
+      <div class="col-12 col-md-6 col-lg-4">
         <a routerLink="/admin/equipments" class="btn btn-category">
-          equipment
+          Equipment
+        </a>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <a routerLink="/admin/logs" class="btn btn-category">
+          System Logs
         </a>
       </div>
     </div>

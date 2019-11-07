@@ -14,6 +14,7 @@ import {UsersCreateComponent} from './components/adminpage/users/users-create/us
 import {EquipmentsoverviewComponent} from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
 import {EquipmentspageComponent} from './components/adminpage/equipment/equipmentspage/equipmentspage.component';
 import {EquipmentsCreateComponent} from './components/adminpage/equipment/equipments-create/equipments-create.component';
+import {SystemLogsComponent} from './components/adminpage/system-logs/system-logs.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
           {path: 'overview', component: EquipmentsoverviewComponent},
           {path: 'create', component: EquipmentsCreateComponent}
         ]
-      }
+      },
+      {path: 'logs', component: SystemLogsComponent}
     ]
   },
   {path: 'signin', component: SignInComponent},
@@ -39,7 +41,7 @@ const routes: Routes = [
   {path: 'damaged-form', component: DamagedFormComponent},
   {path: 'meldingen-openstaand', component: OpenstaandComponent},
   {path: 'not-found', component: PageNotFoundComponent},
-  {path: '**', redirectTo: '/not-found'}
+  {path: '*', redirectTo: '/not-found'}
 ];
 
 @NgModule({

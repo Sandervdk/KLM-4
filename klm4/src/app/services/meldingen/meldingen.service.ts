@@ -19,14 +19,18 @@ export class MeldingenService implements OnInit {
 
   public randomMeldingen() {
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time));
+    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time));
+    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time));
+    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time));
+    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time));
   }
 
   public generateRandomId() {
-    return Math.floor(Math.random()* 100 + 1);
+    return Math.floor(Math.random() * 100 + 1);
+  }
+
+  public getAlleMeldingen() {
+    return this.mechanicMeldingen;
   }
 
 }

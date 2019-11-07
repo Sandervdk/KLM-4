@@ -8,17 +8,28 @@ import {WagonTypes} from '../../models/enums/wagonTypes';
 })
 export class WagonsService {
   private allWagons: any[] = [];
-  private fuelWagons: LayerGroup;
+  private readonly fuelWagons: LayerGroup;
 
+  /**
+   * This constructor is responsible for making the layers for all the wagons used
+   * to be shown on the map
+   *
+   * @param FuelWagonService
+   */
   constructor(private FuelWagonService: FuelwagonService) {
     this.fuelWagons = FuelWagonService.getFuelWagonsLayer();
+    // fill an global array with all the wagons
     this.allWagons.push(
-      ...this.FuelWagonService.getFuelWagons()
+      ...this.FuelWagonService.getFuelWagons() // Changes the object and gives the actual values
     );
-
-    console.log(this.allWagons);
   }
 
+  /**
+   * This method will create a new wagon and push it to the
+   *  array which contains all wagons
+   *
+   * @param wagon all the details for the wagon
+   */
   createNewWagon(wagon) {
     const title: string = wagon.title;
     const type: WagonTypes = wagon.type;
@@ -41,10 +52,16 @@ export class WagonsService {
     }
   }
 
+  /**
+   * This method returns the layer that can be shown on the map of all wagons
+   */
   getFuelWagonsLayer() {
     return this.fuelWagons;
   }
 
+  /**
+   * This method will return all the wagons that exists in an Array
+   */
   getAllWagons() {
     return this.allWagons;
   }
