@@ -26,6 +26,7 @@ import { EquipmentspageComponent } from './components/adminpage/equipment/equipm
 import { EquipmentsoverviewComponent } from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
 import { EquipmentsCreateComponent } from './components/adminpage/equipment/equipments-create/equipments-create.component';
 import { WagonsFilterPipe } from './components/adminpage/searchFilters/wagons-filter.pipe';
+import {MeldingenService} from './services/meldingen/meldingen.service';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import { WagonsFilterPipe } from './components/adminpage/searchFilters/wagons-fi
     FormsModule,
     LeafletModule.forRoot()
   ],
-  providers: [],
+  providers: [MeldingenService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

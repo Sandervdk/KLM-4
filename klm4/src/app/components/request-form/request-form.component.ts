@@ -4,6 +4,8 @@ import {PlaneTypes} from "../../models/enums/planeTypes";
 import {WagonTypes} from "../../models/enums/wagonTypes";
 import {TireWagon} from "./tire-wagon/tire-wagon";
 import {Time} from "@angular/common";
+import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {Melding} from '../../models/melding/melding';
 
 @Component({
   selector: 'request-form',
@@ -25,10 +27,10 @@ export class RequestFormComponent implements OnInit {
   private planeTypeList = Object.values(PlaneTypes);
   private locationSelected: boolean = false;
 
-  private location: String;
+  private location: string;
   private deadline: Time;
 
-  constructor() {
+  constructor(private meldingService: MeldingenService) {
   }
 
   ngOnInit() {
@@ -130,6 +132,8 @@ export class RequestFormComponent implements OnInit {
         console.log("bandenwagen" + this.tireWagonComponent.getTireAmount());
       }
     }
+
+    this.meldingService.mechanicMeldingen.push(new Melding(this.location, this.deadline, this.planeType, this.selectedEquipment, this.locationArray));
 
     //displays a popup when a request has been made
     this.openPopup("Request is aangemaakt")

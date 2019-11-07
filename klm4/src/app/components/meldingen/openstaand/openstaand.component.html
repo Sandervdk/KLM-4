@@ -2,25 +2,55 @@
 <hr>
 <br><br>
 <div class="tabeldiv">
-  <table>
+  <table class="table table-hover">
+    <thead>
     <tr>
-      <th>Melder nr</th>
-      <th>Oproep tijd</th>
-      <th>Equipment</th>
+      <th>Locatie</th>
+      <th>Tijd</th>
+      <th>Vliegtuig type</th>
+      <th>Equipment type</th>
       <th>Positie</th>
-      <th>Bestemming</th>
-      <th>Deathline</th>
-      <th>Situatie</th>
     </tr>
-    <tr (click)="nextScreen()">
-      <td>0680</td>
-      <td>09:00</td>
-      <td>Stikstofwagen<br>Bandenwagen</td>
-      <td>L<br>R</td>
-      <td>F5</td>
-      <td>10:00</td>
-      <td>Afzetten</td>
-      <td><button class="acceptBtn">Accepteren</button></td>
+    </thead>
+    <tbody>
+    <tr *ngFor="let offer of meldingService.mechanicMeldingen" (click)="nextScreen()">
+      <td>{{offer.locatie}}</td>
+      <td>{{offer.tijd}}</td>
+      <td>{{offer.typeVliegtuig}}</td>
+      <td>{{offer.wagonTypes}}</td>
+      <td>{{offer.positie}}</td>
     </tr>
+    </tbody>
   </table>
+<!--  <table>-->
+<!--    <tr>-->
+<!--      <th>Melder nr</th>-->
+<!--      <th>Oproep tijd</th>-->
+<!--      <th>Equipment</th>-->
+<!--      <th>Positie</th>-->
+<!--      <th>Bestemming</th>-->
+<!--      <th>Deathline</th>-->
+<!--      <th>Situatie</th>-->
+<!--    </tr>-->
+<!--    <tr (click)="nextScreen()">-->
+<!--      <td>0680</td>-->
+<!--      <td>09:00</td>-->
+<!--      <td>Stikstofwagen<br>Bandenwagen</td>-->
+<!--      <td>L<br>R</td>-->
+<!--      <td>F5</td>-->
+<!--      <td>10:00</td>-->
+<!--      <td>Afzetten</td>-->
+<!--      <td><button class="acceptBtn">Accepteren</button></td>-->
+<!--    </tr>-->
+<!--    <tr (click)="nextScreen()">-->
+<!--      <td>0845</td>-->
+<!--      <td>09:30</td>-->
+<!--      <td>Skydrol<br>Remwagen</td>-->
+<!--      <td>R<br>R</td>-->
+<!--      <td>F6</td>-->
+<!--      <td>10:15</td>-->
+<!--      <td>Ophalen</td>-->
+<!--      <td><button class="acceptBtn">Accepteren</button></td>-->
+<!--    </tr>-->
+<!--  </table>-->
 </div>
