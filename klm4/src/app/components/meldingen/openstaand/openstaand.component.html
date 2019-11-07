@@ -14,13 +14,8 @@
       <th>Status</th>
     </tr>
     </thead>
-<<<<<<< HEAD
     <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
-    <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
-=======
-    <tbody>
     <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index" (click)="nextScreen()">
->>>>>>> meldingen fixes
       <td>{{melding.id}}</td>
       <td>{{melding.locatie}}</td>
       <td>{{melding.deadline}}</td>

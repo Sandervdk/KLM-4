@@ -19,19 +19,11 @@ export class MeldingenService implements OnInit {
   }
 
   public randomMeldingen() {
-<<<<<<< HEAD
-    this.mechanicMeldingen.push(new Melding(156, 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time));
-    this.mechanicMeldingen.push(new Melding(156,'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time));
-=======
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(156, 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(156,'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(),'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
->>>>>>> meldingen fixes
   }
 
   public generateRandomId() {
