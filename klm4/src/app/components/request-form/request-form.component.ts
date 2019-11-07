@@ -6,7 +6,8 @@ import {TireWagon} from './tire-wagon/tire-wagon';
 import {Time} from '@angular/common';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
 import {Melding, meldingStatus} from '../../models/melding/melding';
-import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {RunnerService} from '../runnerpage/runner.service';
+import {MechanicService} from '../mechanicpage/mechanic.service';
 
 @Component({
   selector: 'request-form',
@@ -32,7 +33,7 @@ export class RequestFormComponent implements OnInit {
   private location: string;
   private deadline: Time;
 
-  constructor(private meldingService: MeldingenService, private authentication: AuthenticationService) {
+  constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService) {
   }
 
   ngOnInit() {

@@ -1,0 +1,30 @@
+<ng-template [ngIf]="this.runnerRouter.currentRoute === '/runner/producten'">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/runner">Runner</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Producten</li>
+          <div class="auth-container">
+            <a (click)="this.runnerRouter.logOut()">Logout</a>
+          </div>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-3 offset-lg-3">
+      <a routerLink="/runner/producten/bijzondere-producten" class="btn btn-category">
+        Bijzondere producten
+      </a>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3">
+      <a routerLink="/runner/producten/externe-producten" class="btn btn-category">
+        Externe producten
+      </a>
+    </div>
+  </div>
+</ng-template>
+<router-outlet></router-outlet>
