@@ -13,6 +13,7 @@ import {meldingStatus} from '../../../models/melding/melding';
 export class OpenstaandComponent implements OnInit {
   private userRole: Functions;
   private id: number;
+  damageFormOpen = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
               private authentication: AuthenticationService) {
@@ -51,6 +52,11 @@ export class OpenstaandComponent implements OnInit {
     if (confirm('Weet je zeker dat je klaar bent?')) {
       this.meldingService.mechanicMeldingen[index].status = meldingStatus.Ophalen;
     }
+  }
+
+  showDamagedForm(index: number) {
+    if (this.meldingService.mechanicMeldingen[index].status === meldingStatus.Bezorgd)
+    this.damageFormOpen = true;
   }
 }
 
