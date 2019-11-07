@@ -5,7 +5,6 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th>Melder ID</th>
       <th>Locatie</th>
       <th>Aflevertijd</th>
       <th>Vliegtuig type</th>
@@ -15,27 +14,36 @@
     </tr>
     </thead>
     <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
-    <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index" (click)="nextScreen()">
-      <td>{{melding.id}}</td>
-      <td>{{melding.locatie}}</td>
-      <td>{{melding.deadline}}</td>
-      <td>{{melding.typeVliegtuig}}</td>
-      <td>{{melding.wagonTypes}}</td>
-      <td>{{melding.positie}}</td>
-      <td>{{melding.status}}</td>
-      <td><button (click)="showPopUp(i)">Accepteren</button></td>
+    <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index">
+      <ng-container *ngIf="melding.status !== 'Bezorgd' && melding.status !== 'Afgerond'">
+        <td>{{melding.locatie}}</td>
+        <td>{{melding.deadline}}</td>
+        <td>{{melding.typeVliegtuig}}</td>
+        <td>{{melding.wagonTypes}}</td>
+        <td>{{melding.positie}}</td>
+        <td>{{melding.status}}</td>
+        <td *ngIf="melding.status !== 'Geaccepteerd'; else bezorgd ">
+          <button class="acceptBtn" (click)="showPopUp(i)">Accepteren</button>
+        </td>
+        <ng-template #bezorgd>
+          <td>
+            <button class="bezorgdbtn" (click)="popUp(i)">Bezorgd</button>
+          </td>
+        </ng-template>
+      </ng-container>
     </tr>
     </tbody>
     <ng-template #mechanic>
       <tbody>
-      <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
-        <ng-container *ngIf="melding.id == this.id">
-          <td>{{melding.id}}</td>
+      <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index" (click)="nextScreen()">
+        <ng-container *ngIf="melding.id == this.id && melding.status !== 'Ophalen'">
           <td>{{melding.locatie}}</td>
           <td>{{melding.deadline}}</td>
           <td>{{melding.typeVliegtuig}}</td>
           <td>{{melding.wagonTypes}}</td>
           <td>{{melding.positie}}</td>
+          <td>{{melding.status}}</td>
+          <td *ngIf="melding.status === 'Bezorgd'"><button class="ophaalbtn" (click)="ophaalPopUp(i)">Ophalen</button></td>
         </ng-container>
       </tr>
       </tbody>

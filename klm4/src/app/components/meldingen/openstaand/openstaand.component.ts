@@ -34,7 +34,22 @@ export class OpenstaandComponent implements OnInit {
 
   showPopUp(index: number) {
     if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
-      this.meldingService.mechanicMeldingen[index].status = meldingStatus.Geaccepteerd;
+      if (this.meldingService.mechanicMeldingen[index].status === meldingStatus.Afzetten) {
+        this.meldingService.mechanicMeldingen[index].status = meldingStatus.Geaccepteerd;
+      }
+      else this.meldingService.mechanicMeldingen[index].status = meldingStatus.Afgerond;
+    }
+  }
+
+  popUp(index: number) {
+    if (confirm('Equipment is bezorgd?')) {
+      this.meldingService.mechanicMeldingen[index].status = meldingStatus.Bezorgd;
+    }
+  }
+
+  ophaalPopUp(index: number) {
+    if (confirm('Weet je zeker dat je klaar bent?')) {
+      this.meldingService.mechanicMeldingen[index].status = meldingStatus.Ophalen;
     }
   }
 }
