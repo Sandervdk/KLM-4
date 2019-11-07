@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private userID: number;
   private user;
   private username: string;
   mechanicMode = false;
@@ -53,6 +54,7 @@ export class AuthenticationService {
     for (let i = 0; i < this.staticAccounts.length; i++) {
       if (container[i].username === username && container[i].password === password) {
         this.username = username;
+        this.userID = container[i].id;
         this.createUser(container[i]);
 
         const userRole = this.getUser().getRole();
@@ -135,6 +137,10 @@ export class AuthenticationService {
 
   public getAccounts() {
     return this.staticAccounts;
+  }
+
+  public getID() {
+    return this.userID;
   }
 
   public signOut() {

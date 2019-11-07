@@ -11,7 +11,7 @@
           [(ngModel)]="planeType"
           (change)="changeType(planeType)"
           required>
-    <option>{{planeType}}</option>
+    <option hidden>{{planeType}}</option>
     <option
       *ngFor="let type of planeTypeList| slice:1">{{type}}</option>
   </select>

@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {PlaneTypes} from "../../models/enums/planeTypes";
-import {WagonTypes} from "../../models/enums/wagonTypes";
-import {TireWagon} from "./tire-wagon/tire-wagon";
-import {Time} from "@angular/common";
+import {PlaneTypes} from '../../models/enums/planeTypes';
+import {WagonTypes} from '../../models/enums/wagonTypes';
+import {TireWagon} from './tire-wagon/tire-wagon';
+import {Time} from '@angular/common';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
-import {Melding} from '../../models/melding/melding';
+import {Melding, meldingStatus} from '../../models/melding/melding';
 
 @Component({
   selector: 'request-form',
@@ -133,7 +133,7 @@ export class RequestFormComponent implements OnInit {
       }
     }
 
-    this.meldingService.mechanicMeldingen.push(new Melding(this.meldingService.generateRandomId(),this.location, this.deadline, this.planeType, this.selectedEquipment, this.locationArray, this.generateTime()));
+    this.meldingService.mechanicMeldingen.push(new Melding(this.meldingService.generateRandomId(),this.location, this.deadline, this.planeType, this.selectedEquipment, this.locationArray, this.generateTime(), meldingStatus.Afzetten));
 
     //displays a popup when a request has been made
     this.openPopup("Request is aangemaakt")
