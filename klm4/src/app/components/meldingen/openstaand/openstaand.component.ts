@@ -20,8 +20,7 @@ export class OpenstaandComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = this.authentication.getUser().getRole();
-    this.id = this.authentication.getID();
-    console.log(this.meldingService.mechanicMeldingen);
+    this.id = this.authentication.getUser().getId();
   }
 
   /**
