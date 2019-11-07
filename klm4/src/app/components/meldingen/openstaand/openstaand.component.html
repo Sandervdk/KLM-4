@@ -13,7 +13,7 @@
       <th>Positie</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
     <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
       <td>{{melding.id}}</td>
       <td>{{melding.locatie}}</td>
@@ -23,36 +23,19 @@
       <td>{{melding.positie}}</td>
     </tr>
     </tbody>
+    <ng-template #mechanic>
+      <tbody>
+      <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
+        <ng-container *ngIf="melding.id == this.id">
+          <td>{{melding.id}}</td>
+          <td>{{melding.locatie}}</td>
+          <td>{{melding.deadline}}</td>
+          <td>{{melding.typeVliegtuig}}</td>
+          <td>{{melding.wagonTypes}}</td>
+          <td>{{melding.positie}}</td>
+        </ng-container>
+      </tr>
+      </tbody>
+    </ng-template>
   </table>
-<!--  <table>-->
-<!--    <tr>-->
-<!--      <th>Melder nr</th>-->
-<!--      <th>Oproep tijd</th>-->
-<!--      <th>Equipment</th>-->
-<!--      <th>Positie</th>-->
-<!--      <th>Bestemming</th>-->
-<!--      <th>Deathline</th>-->
-<!--      <th>Situatie</th>-->
-<!--    </tr>-->
-<!--    <tr (click)="nextScreen()">-->
-<!--      <td>0680</td>-->
-<!--      <td>09:00</td>-->
-<!--      <td>Stikstofwagen<br>Bandenwagen</td>-->
-<!--      <td>L<br>R</td>-->
-<!--      <td>F5</td>-->
-<!--      <td>10:00</td>-->
-<!--      <td>Afzetten</td>-->
-<!--      <td><button class="acceptBtn">Accepteren</button></td>-->
-<!--    </tr>-->
-<!--    <tr (click)="nextScreen()">-->
-<!--      <td>0845</td>-->
-<!--      <td>09:30</td>-->
-<!--      <td>Skydrol<br>Remwagen</td>-->
-<!--      <td>R<br>R</td>-->
-<!--      <td>F6</td>-->
-<!--      <td>10:15</td>-->
-<!--      <td>Ophalen</td>-->
-<!--      <td><button class="acceptBtn">Accepteren</button></td>-->
-<!--    </tr>-->
-<!--  </table>-->
 </div>
