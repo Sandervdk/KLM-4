@@ -1,6 +1,23 @@
 <h1>Openstaande meldingen</h1>
 <hr>
 <br><br>
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/runner">Runner</a>
+        </li>
+        <li class="breadcrumb-item  active" aria-current="page">
+          <a routerLink="/runner/meldingen-openstaand">Openstaande meldingen</a>
+        </li>
+        <div class="auth-container">
+          <a (click)="this.runnerRouter.logOut()">Logout</a>
+        </div>
+      </ol>
+    </nav>
+  </div>
+</div>
 <div class="tabeldiv">
   <table class="table table-hover">
     <thead>

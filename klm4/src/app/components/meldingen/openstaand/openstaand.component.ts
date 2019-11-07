@@ -4,6 +4,7 @@ import {MeldingenService} from '../../../services/meldingen/meldingen.service';
 import {AuthenticationService} from "../../../services/authentication/authentication.service";
 import {Functions} from "../../../models/staff/Functions";
 import {meldingStatus} from '../../../models/melding/melding';
+import {RunnerService} from '../../runnerpage/runner.service';
 
 @Component({
   selector: 'app-openstaand',
@@ -15,7 +16,7 @@ export class OpenstaandComponent implements OnInit {
   private id: number;
 
   constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
-              private authentication: AuthenticationService) {
+              private authentication: AuthenticationService, private runnerRouter: RunnerService) {
   }
 
   ngOnInit() {

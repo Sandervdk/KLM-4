@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {NgForm} from '@angular/forms';
+import {MechanicService} from '../mechanicpage/mechanic.service';
 
 @Component({
   selector: 'app-damaged-form',
@@ -16,7 +17,7 @@ export class DamagedFormComponent implements OnInit {
   @ViewChild('damageForm', {static: false}) damageForm: NgForm;
 
 
-  constructor() { }
+  constructor(private mechanicRouter: MechanicService) { }
 
   ngOnInit() {
   }
