@@ -20,7 +20,7 @@ export class OpenstaandComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = this.authentication.getUser().getRole();
-    this.id = this.authentication.getUser().getId();
+    this.id = this.authentication.getID();
   }
 
   /**

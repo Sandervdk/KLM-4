@@ -42,15 +42,15 @@
         </div>
       </div>
       <button class="removeButton"
-              *ngIf="equipment !== 'Equipment'"
+              *ngIf="equipment !== equipmentEnums.EQUIPMENT"
               (click)="remove(equipment)">X</button>
     </div>
 
     <nitrogen-wagon
-      *ngIf="equipment === 'Stikstofwagen'"></nitrogen-wagon>
+      *ngIf="equipment === equipmentEnums.STIKSTOFWAGEN"></nitrogen-wagon>
     <tire-wagon
       [planeType]="planeType"
-      *ngIf="equipment === 'Bandenwagen'"></tire-wagon>
+      *ngIf="equipment === equipmentEnums.BANDENWAGEN"></tire-wagon>
   </div>
 
   <input id="submitButton" type="submit" value="submit"
