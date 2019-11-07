@@ -11,16 +11,24 @@
       <th>Vliegtuig type</th>
       <th>Equipment type</th>
       <th>Positie</th>
+      <th>Status</th>
     </tr>
     </thead>
+<<<<<<< HEAD
     <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
     <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
+=======
+    <tbody>
+    <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index" (click)="nextScreen()">
+>>>>>>> meldingen fixes
       <td>{{melding.id}}</td>
       <td>{{melding.locatie}}</td>
       <td>{{melding.deadline}}</td>
       <td>{{melding.typeVliegtuig}}</td>
       <td>{{melding.wagonTypes}}</td>
       <td>{{melding.positie}}</td>
+      <td>{{melding.status}}</td>
+      <td><button (click)="showPopUp(i)">Accepteren</button></td>
     </tr>
     </tbody>
     <ng-template #mechanic>

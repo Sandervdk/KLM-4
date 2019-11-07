@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MeldingenService} from '../../../services/meldingen/meldingen.service';
+<<<<<<< HEAD
 import {AuthenticationService} from "../../../services/authentication/authentication.service";
 import {Functions} from "../../../models/staff/Functions";
+=======
+import {meldingStatus} from '../../../models/melding/melding';
+>>>>>>> meldingen fixes
 
 @Component({
   selector: 'app-openstaand',
@@ -29,6 +33,12 @@ export class OpenstaandComponent implements OnInit {
     this.router.navigate(['/map'], {
       relativeTo: this.route
     });
+  }
+
+  showPopUp(index: number) {
+    if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
+      this.meldingService.mechanicMeldingen[index].status = meldingStatus.Geaccepteerd;
+    }
   }
 }
 
