@@ -27,6 +27,11 @@ import { EquipmentsoverviewComponent } from './components/adminpage/equipment/eq
 import { EquipmentsCreateComponent } from './components/adminpage/equipment/equipments-create/equipments-create.component';
 import { WagonsFilterPipe } from './components/adminpage/searchFilters/wagons-filter.pipe';
 import {MeldingenService} from './services/meldingen/meldingen.service';
+import { RunnerpageComponent } from './components/runnerpage/runnerpage.component';
+import { BijzondereProductenComponent } from './components/runnerpage/producten/bijzondere-producten/bijzondere-producten.component';
+import { ProductenpageComponent } from './components/runnerpage/producten/productenpage/productenpage.component';
+import {ExterneProductenComponent} from './components/runnerpage/producten/externe-producten/externe-producten.component';
+import { MechanicpageComponent } from './components/mechanicpage/mechanicpage.component';
 
 
 @NgModule({
@@ -54,6 +59,11 @@ import {MeldingenService} from './services/meldingen/meldingen.service';
     EquipmentsoverviewComponent,
     EquipmentsCreateComponent,
     WagonsFilterPipe,
+    RunnerpageComponent,
+    ExterneProductenComponent,
+    BijzondereProductenComponent,
+    ProductenpageComponent,
+    MechanicpageComponent,
   ],
   imports: [
     BrowserModule,

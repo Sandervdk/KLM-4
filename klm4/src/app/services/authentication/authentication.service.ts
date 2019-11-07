@@ -11,6 +11,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class AuthenticationService {
   private user;
   private username: string;
+  mechanicMode = false;
+  runnerMode = false;
+  adminMode = false;
+
 
   /**
    * These are the static accounts that should be in the database
@@ -50,9 +54,19 @@ export class AuthenticationService {
       if (container[i].username === username && container[i].password === password) {
         this.username = username;
         this.createUser(container[i]);
+
+        const userRole = this.getUser().getRole();
+        if (userRole === Functions.RUNNER) {
+          this.showRunner();
+        } else if (userRole === Functions.MECHANIC) {
+          this.showMechanic();
+        } else if (userRole === Functions.ADMIN) {
+          this.showAdmin();
+        }
         return true;
       }
     }
+
     return false;
   }
 
@@ -84,6 +98,31 @@ export class AuthenticationService {
    */
   public createNewUser(username: string, lastname: string, password: string, role: Functions) {
     this.staticAccounts.push({id: (Math.round(Math.random() * 50)), username, password, lastname, role});
+  }
+
+  showAdmin() {
+    this.adminMode = true;
+    this.runnerMode = false;
+    this.mechanicMode = false;
+    this.router.navigate(['/admin'], {
+      relativeTo: this.route
+    });
+  }
+
+  showRunner() {
+    this.runnerMode = true;
+    this.mechanicMode = false;
+    this.router.navigate(['/runner'], {
+      relativeTo: this.route
+    });
+  }
+
+  showMechanic() {
+    this.mechanicMode = true;
+    this.runnerMode = false;
+    this.router.navigate(['/mechanic'], {
+      relativeTo: this.route
+    });
   }
 
   /**

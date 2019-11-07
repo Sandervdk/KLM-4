@@ -14,6 +14,11 @@ import {UsersCreateComponent} from './components/adminpage/users/users-create/us
 import {EquipmentsoverviewComponent} from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
 import {EquipmentspageComponent} from './components/adminpage/equipment/equipmentspage/equipmentspage.component';
 import {EquipmentsCreateComponent} from './components/adminpage/equipment/equipments-create/equipments-create.component';
+import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
+import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
+import {BijzondereProductenComponent} from './components/runnerpage/producten/bijzondere-producten/bijzondere-producten.component';
+import {ExterneProductenComponent} from './components/runnerpage/producten/externe-producten/externe-producten.component';
+import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -33,11 +38,30 @@ const routes: Routes = [
       }
     ]
   },
+
+  {
+    path: 'runner', component: RunnerpageComponent, children:[
+      {
+        path: 'meldingen-openstaand', component: OpenstaandComponent
+      },
+      {
+        path: 'producten', component: ProductenpageComponent, children: [
+          {path: 'bijzondere-producten', component: BijzondereProductenComponent},
+          {path: 'externe-producten', component: ExterneProductenComponent},
+        ]
+      }
+
+    ]
+  },
+
+  {path: 'mechanic', component: MechanicpageComponent, children:[
+      {path: 'request-Form', component: RequestFormComponent},
+      {path: 'damaged-form', component: DamagedFormComponent},
+    ]},
+
   {path: 'signin', component: SignInComponent},
   {path: 'map', component: WorkplaceMapComponent},
-  {path: 'request-Form', component: RequestFormComponent},
-  {path: 'damaged-form', component: DamagedFormComponent},
-  {path: 'meldingen-openstaand', component: OpenstaandComponent},
+
   {path: 'not-found', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/not-found'}
 ];
