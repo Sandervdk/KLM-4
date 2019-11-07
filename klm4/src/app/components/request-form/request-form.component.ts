@@ -8,6 +8,7 @@ import {MeldingenService} from '../../services/meldingen/meldingen.service';
 import {Melding, meldingStatus} from '../../models/melding/melding';
 import {RunnerService} from '../runnerpage/runner.service';
 import {MechanicService} from '../mechanicpage/mechanic.service';
+import {AuthenticationService} from "../../services/authentication/authentication.service";
 
 @Component({
   selector: 'request-form',
@@ -33,7 +34,8 @@ export class RequestFormComponent implements OnInit {
   private location: string;
   private deadline: Time;
 
-  constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService) {
+  constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
+              private authentication: AuthenticationService) {
   }
 
   ngOnInit() {
