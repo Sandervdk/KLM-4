@@ -56,7 +56,7 @@ const routes: Routes = [
 
   {path: 'mechanic', component: MechanicpageComponent, children:[
       {path: 'request-Form', component: RequestFormComponent},
-      {path: 'damaged-form', component: DamagedFormComponent},
+      {path: 'meldingen-openstaand', component: OpenstaandComponent},
     ]},
 
   {path: 'signin', component: SignInComponent},

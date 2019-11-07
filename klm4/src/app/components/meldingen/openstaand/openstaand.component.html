@@ -1,15 +1,18 @@
-<h1>Openstaande meldingen</h1>
-<hr>
-<br><br>
 <div class="row">
   <div class="col-12">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a routerLink="/runner">Runner</a>
+        <li class="breadcrumb-item" *ngIf="userRole == 'RUNNER'">
+          <a routerLink="/runner">{{userRole.toString().substring(0, 1) + userRole.toString().substring(1).toLowerCase()}}</a>
         </li>
-        <li class="breadcrumb-item  active" aria-current="page">
+        <li class="breadcrumb-item" *ngIf="userRole == 'MECHANIC'">
+          <a routerLink="/mechanic">{{userRole.toString().substring(0, 1) + userRole.toString().substring(1).toLowerCase()}}</a>
+        </li>
+        <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'RUNNER'">
           <a routerLink="/runner/meldingen-openstaand">Openstaande meldingen</a>
+        </li>
+        <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'MECHANIC'">
+          <a routerLink="/mechanic/meldingen-openstaand">Openstaande meldingen</a>
         </li>
         <div class="auth-container">
           <a (click)="this.runnerRouter.logOut()">Logout</a>
