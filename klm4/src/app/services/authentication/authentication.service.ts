@@ -18,7 +18,7 @@ export class AuthenticationService {
 
 
   /**
-   * These are the static accounts that should be in the database
+   * These aree the static accounts that should be in the database
    */
   private staticAccounts = [
     {id: 57, username: 'runner@klm.nl', password: 'Welkom01', lastname: 'van de Kamp', role: Functions.RUNNER},
