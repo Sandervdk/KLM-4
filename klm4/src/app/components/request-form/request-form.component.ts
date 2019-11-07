@@ -1,11 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {PlaneTypes} from "../../models/enums/planeTypes";
-import {WagonTypes} from "../../models/enums/wagonTypes";
-import {TireWagon} from "./tire-wagon/tire-wagon";
-import {Time} from "@angular/common";
+import {PlaneTypes} from '../../models/enums/planeTypes';
+import {WagonTypes} from '../../models/enums/wagonTypes';
+import {TireWagon} from './tire-wagon/tire-wagon';
+import {Time} from '@angular/common';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
-import {Melding} from '../../models/melding/melding';
+import {Melding, meldingStatus} from '../../models/melding/melding';
+import {RunnerService} from '../runnerpage/runner.service';
+import {MechanicService} from '../mechanicpage/mechanic.service';
+import {AuthenticationService} from "../../services/authentication/authentication.service";
 
 @Component({
   selector: 'request-form',
@@ -26,11 +29,13 @@ export class RequestFormComponent implements OnInit {
   private equipmentList = Object.values(WagonTypes);
   private planeTypeList = Object.values(PlaneTypes);
   private locationSelected: boolean = false;
+  private equipmentEnums = WagonTypes;
 
   private location: string;
   private deadline: Time;
 
-  constructor(private meldingService: MeldingenService) {
+  constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
+              private authentication: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -133,8 +138,10 @@ export class RequestFormComponent implements OnInit {
       }
     }
 
-    this.meldingService.mechanicMeldingen.push(new Melding(this.meldingService.generateRandomId(),this.location, this.deadline, this.planeType, this.selectedEquipment, this.locationArray, this.generateTime()));
-
+    for (let i = 0; i < this.selectedEquipment.length - 1; i++) {
+      this.meldingService.mechanicMeldingen.push(new Melding(this.authentication.getID(), this.location, this.deadline, this.planeType, this.selectedEquipment[i], this.locationArray[i], this.generateTime(), meldingStatus.Afzetten ))
+    }
+    
     //displays a popup when a request has been made
     this.openPopup("Request is aangemaakt")
   }

@@ -1,55 +1,80 @@
-<div>
-  <h1>Mechanic damaged mock-up</h1>
-  <hr>
-  <br><br>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSchadeformulier">
+  Schade melden
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalSchadeformulier"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Storingsformulier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="onSumbitDamageForm(damageForm)" #damageForm="ngForm">
+
+          <div class="form-row">
+            <div class="col"><label for="melder"></label>
+              <input type="text" class="form-control" id="melder"
+                     placeholder="ID melder" readonly>
+            </div>
+            <div class="col"><label for="datum"></label>
+              <input type="text" class="form-control" id="datum"
+                     placeholder="Timestamp" readonly>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col">
+              <input type="checkbox"> betreft geregistreerd equipment
+            </div>
+            <div class="col">
+              <input type="checkbox"> is van huishoudelijk aard
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <label for="locatie"></label>
+            <input type="text" class="form-control" id="locatie" placeholder="Locatie" required>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <select name="planeType" class="dropdown-input feedback-input"
+                    [(ngModel)]="planeType"
+                    required>
+              <option>{{planeType}}</option>
+              <option
+                *ngFor="let type of planeTypeList| slice:1">{{type}}</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="omschrijving"></label>
+            <textarea type="text" class="form-control" cols="20" rows="10" id="omschrijving"
+                      placeholder="Vul hier een omschrijving" required></textarea>
+          </div>
+          <br>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="bevestigd()">Melding plaatsen</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<!--<div class="container">-->
-<div class="row">
-  <div class="col-md-6">
-    <table class="table table-responsive">
-      <tr>
-        <th>Melder nr</th>
-        <th>Oproep tijd</th>
-        <th>Benodigd equipment & Positie</th>
-        <th>Bestemming</th>
-        <th>Deathline</th>
-        <th>Schade melden</th>
-      </tr>
-      <tr (click)="showPopUp()">
-        <td>0680</td>
-        <td>09:00</td>
-        <td>Stikstofwagen-L<br>Bandenwagen-R</td>
-        <td>F5</td>
-        <td>10:00</td>
-        <td>
-          <button class="btn btn-danger">Schade melden</button>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="col-md-6" *ngIf="showform">
-    <form>
-      <table class="table table-responsive">
-        <tr>
-          <th>Welke equipment is beschadigd?</th>
-          <th>Plaats een opmerking?</th>
-          <th>Bevestigen</th>
-
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox"> Stikstofwagen <br>
-            <input type="checkbox"> Bandenwagen <br>
-          </td>
-          <td><textarea name="" id="" cols="20" rows="2"></textarea></td>
-          <td><button class="btn btn-primary" (click)="bevestigd()">OK!</button></td>
-        </tr>
-      </table>
-    </form>
-  </div>
-  <div *ngIf="popupOpen" class="popup">
-    <span>Is bevestigd!</span>
-  </div>
+<div *ngIf="popupOpen" class="popup">
+  <span>Is bevestigd!</span>
 </div>
-<!--</div>-->

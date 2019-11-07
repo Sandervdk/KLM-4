@@ -1,58 +1,76 @@
-<h1>Openstaande meldingen</h1>
-<hr>
-<br><br>
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" *ngIf="userRole == 'RUNNER'">
+          <a routerLink="/runner">{{userRole.toString().substring(0, 1) + userRole.toString().substring(1).toLowerCase()}}</a>
+        </li>
+        <li class="breadcrumb-item" *ngIf="userRole == 'MECHANIC'">
+          <a routerLink="/mechanic">{{userRole.toString().substring(0, 1) + userRole.toString().substring(1).toLowerCase()}}</a>
+        </li>
+        <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'RUNNER'">
+          <a routerLink="/runner/meldingen-openstaand">Openstaande meldingen</a>
+        </li>
+        <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'MECHANIC'">
+          <a routerLink="/mechanic/meldingen-openstaand">Openstaande meldingen</a>
+        </li>
+        <div class="auth-container">
+          <a (click)="this.runnerRouter.logOut()">Logout</a>
+        </div>
+      </ol>
+    </nav>
+  </div>
+</div>
 <div class="tabeldiv">
   <table class="table table-hover">
     <thead>
     <tr>
-      <th>Melder ID</th>
       <th>Locatie</th>
       <th>Aflevertijd</th>
       <th>Vliegtuig type</th>
       <th>Equipment type</th>
       <th>Positie</th>
+      <th>Status</th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let melding of meldingService.mechanicMeldingen" (click)="nextScreen()">
-      <td>{{melding.id}}</td>
-      <td>{{melding.locatie}}</td>
-      <td>{{melding.deadline}}</td>
-      <td>{{melding.typeVliegtuig}}</td>
-      <td>{{melding.wagonTypes}}</td>
-      <td>{{melding.positie}}</td>
+    <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
+    <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index">
+      <ng-container *ngIf="melding.status !== 'Bezorgd' && melding.status !== 'Afgerond'">
+        <td>{{melding.locatie}}</td>
+        <td>{{melding.deadline}}</td>
+        <td>{{melding.typeVliegtuig}}</td>
+        <td>{{melding.wagonTypes}}</td>
+        <td>{{melding.positie}}</td>
+        <td>{{melding.status}}</td>
+        <td *ngIf="melding.status !== 'Geaccepteerd'; else bezorgd ">
+          <button class="acceptBtn btnShape" (click)="showPopUp(i)">Accepteren</button>
+        </td>
+        <ng-template #bezorgd>
+          <td>
+            <button class="bezorgdbtn btnShape" (click)="popUp(i)">Bezorgd</button>
+          </td>
+        </ng-template>
+      </ng-container>
     </tr>
     </tbody>
+    <ng-template #mechanic>
+      <tbody>
+      <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index" (click)="showDamagedForm(i)">
+        <ng-container *ngIf="melding.id == this.id && melding.status !== 'Ophalen'">
+          <td>{{melding.locatie}}</td>
+          <td>{{melding.deadline}}</td>
+          <td>{{melding.typeVliegtuig}}</td>
+          <td>{{melding.wagonTypes}}</td>
+          <td>{{melding.positie}}</td>
+          <td>{{melding.status}}</td>
+          <td *ngIf="melding.status === 'Bezorgd'"><button class="ophaalbtn btnShape" (click)="ophaalPopUp(i)">Afronden</button></td>
+          <td *ngIf="damageFormOpen && melding.status == 'Bezorgd'">
+            <app-damaged-form></app-damaged-form></td>
+        </ng-container>
+      </tr>
+      </tbody>
+    </ng-template>
   </table>
-<!--  <table>-->
-<!--    <tr>-->
-<!--      <th>Melder nr</th>-->
-<!--      <th>Oproep tijd</th>-->
-<!--      <th>Equipment</th>-->
-<!--      <th>Positie</th>-->
-<!--      <th>Bestemming</th>-->
-<!--      <th>Deathline</th>-->
-<!--      <th>Situatie</th>-->
-<!--    </tr>-->
-<!--    <tr (click)="nextScreen()">-->
-<!--      <td>0680</td>-->
-<!--      <td>09:00</td>-->
-<!--      <td>Stikstofwagen<br>Bandenwagen</td>-->
-<!--      <td>L<br>R</td>-->
-<!--      <td>F5</td>-->
-<!--      <td>10:00</td>-->
-<!--      <td>Afzetten</td>-->
-<!--      <td><button class="acceptBtn">Accepteren</button></td>-->
-<!--    </tr>-->
-<!--    <tr (click)="nextScreen()">-->
-<!--      <td>0845</td>-->
-<!--      <td>09:30</td>-->
-<!--      <td>Skydrol<br>Remwagen</td>-->
-<!--      <td>R<br>R</td>-->
-<!--      <td>F6</td>-->
-<!--      <td>10:15</td>-->
-<!--      <td>Ophalen</td>-->
-<!--      <td><button class="acceptBtn">Accepteren</button></td>-->
-<!--    </tr>-->
-<!--  </table>-->
 </div>
+
+

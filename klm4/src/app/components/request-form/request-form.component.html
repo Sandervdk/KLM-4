@@ -1,4 +1,21 @@
 <h3>Request Formulier</h3>
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/mechanic">Mechanic</a>
+        </li>
+        <li class="breadcrumb-item active" area-current="page">
+          <a routerLink="/mechanic/request-Form">Aanvraag formulier</a>
+        </li>
+        <div class="auth-container">
+          <a (click)="this.mechanicRouter.logOut()">Logout</a>
+        </div>
+      </ol>
+    </nav>
+  </div>
+</div>
 <form (ngSubmit)="onSubmit()" #form="ngForm">
   <input name="location" type="text" class="feedback-input" placeholder="Locatie"
          [(ngModel)]="location"
@@ -11,7 +28,7 @@
           [(ngModel)]="planeType"
           (change)="changeType(planeType)"
           required>
-    <option>{{planeType}}</option>
+    <option hidden>{{planeType}}</option>
     <option
       *ngFor="let type of planeTypeList| slice:1">{{type}}</option>
   </select>
@@ -42,15 +59,15 @@
         </div>
       </div>
       <button class="removeButton"
-              *ngIf="equipment !== 'Equipment'"
+              *ngIf="equipment !== equipmentEnums.EQUIPMENT"
               (click)="remove(equipment)">X</button>
     </div>
 
     <nitrogen-wagon
-      *ngIf="equipment === 'Stikstofwagen'"></nitrogen-wagon>
+      *ngIf="equipment === equipmentEnums.STIKSTOFWAGEN"></nitrogen-wagon>
     <tire-wagon
       [planeType]="planeType"
-      *ngIf="equipment === 'Bandenwagen'"></tire-wagon>
+      *ngIf="equipment === equipmentEnums.BANDENWAGEN"></tire-wagon>
   </div>
 
   <input id="submitButton" type="submit" value="submit"

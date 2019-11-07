@@ -9,11 +9,16 @@ import {ActivatedRoute, Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private userID: number;
   private user;
   private username: string;
+  mechanicMode = false;
+  runnerMode = false;
+  adminMode = false;
+
 
   /**
-   * These are the static accounts that should be in the database
+   * These aree the static accounts that should be in the database
    */
   private staticAccounts = [
     {id: 57, username: 'runner@klm.nl', password: 'Welkom01', lastname: 'van de Kamp', role: Functions.RUNNER},
@@ -49,10 +54,21 @@ export class AuthenticationService {
     for (let i = 0; i < this.staticAccounts.length; i++) {
       if (container[i].username === username && container[i].password === password) {
         this.username = username;
+        this.userID = container[i].id;
         this.createUser(container[i]);
+
+        const userRole = this.getUser().getRole();
+        if (userRole === Functions.RUNNER) {
+          this.showRunner();
+        } else if (userRole === Functions.MECHANIC) {
+          this.showMechanic();
+        } else if (userRole === Functions.ADMIN) {
+          this.showAdmin();
+        }
         return true;
       }
     }
+
     return false;
   }
 
@@ -86,6 +102,31 @@ export class AuthenticationService {
     this.staticAccounts.push({id: (Math.round(Math.random() * 50)), username, password, lastname, role});
   }
 
+  showAdmin() {
+    this.adminMode = true;
+    this.runnerMode = false;
+    this.mechanicMode = false;
+    this.router.navigate(['/admin'], {
+      relativeTo: this.route
+    });
+  }
+
+  showRunner() {
+    this.runnerMode = true;
+    this.mechanicMode = false;
+    this.router.navigate(['/runner'], {
+      relativeTo: this.route
+    });
+  }
+
+  showMechanic() {
+    this.mechanicMode = true;
+    this.runnerMode = false;
+    this.router.navigate(['/mechanic'], {
+      relativeTo: this.route
+    });
+  }
+
   /**
    * This method returns the created user,
    * which can be used to check everything of in this application
@@ -96,6 +137,10 @@ export class AuthenticationService {
 
   public getAccounts() {
     return this.staticAccounts;
+  }
+
+  public getID() {
+    return this.userID;
   }
 
   public signOut() {
