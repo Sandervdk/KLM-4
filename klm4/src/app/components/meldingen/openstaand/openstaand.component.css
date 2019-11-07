@@ -46,6 +46,11 @@ th:first-child {
 }
 
 .acceptBtn {
+  background-color: orange;
+  color: white;
+}
+
+.bezorgdbtn {
   background-color: green;
   color: white;
 }
@@ -54,4 +59,9 @@ th:first-child {
   width: max-content;
   display: flex;
   margin: auto;
+}
+
+.ophaalbtn {
+  background-color: green;
+  color: white;
 }

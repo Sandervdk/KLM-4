@@ -29,5 +29,6 @@ export enum meldingStatus {
   Afzetten = 'Afzetten',
   Geaccepteerd = 'Geaccepteerd',
   Bezorgd = 'Bezorgd',
-  Ophalen = 'Ophalen'
+  Ophalen = 'Ophalen',
+  Afgerond = 'Afgerond'
 }
