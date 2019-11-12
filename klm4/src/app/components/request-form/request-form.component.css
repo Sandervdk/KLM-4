@@ -146,6 +146,10 @@ li.breadcrumb-item {
   color: #FFF;
   background: #00AAE7;
 }
+#timepicker:before {
+  content:'Time:';
+  margin-right:.6em;
+}
 
 @media (min-width: 768px) {
   .btn-category {
