@@ -8,8 +8,8 @@
         <li class="breadcrumb-item" *ngIf="userRole == 'MECHANIC'">
           <a routerLink="/mechanic">{{userRole.toString().substring(0, 1) + userRole.toString().substring(1).toLowerCase()}}</a>
         </li>
-        <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'RUNNER'">
-          <a routerLink="/runner/meldingen-openstaand">Openstaande meldingen</a>
+        <li class="breadcrumb-item  active" area-current="page" *ngIf="userRole == 'RUNNER'">
+          Openstaande meldingen
         </li>
         <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'MECHANIC'">
           <a routerLink="/mechanic/meldingen-openstaand">Openstaande meldingen</a>
