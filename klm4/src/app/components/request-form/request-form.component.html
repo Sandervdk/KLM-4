@@ -6,7 +6,7 @@
           <a routerLink="/mechanic">Mechanic</a>
         </li>
         <li class="breadcrumb-item active" area-current="page">
-          <a routerLink="/mechanic/request-Form">Aanvraag formulier</a>
+          Aanvraag formulier
         </li>
         <div class="auth-container">
           <a (click)="this.mechanicRouter.logOut()">Logout</a>
@@ -18,9 +18,11 @@
 
 <form (ngSubmit)="onSubmit()" #form="ngForm">
   <input name="location" type="text" class="feedback-input" placeholder="Locatie"
-         [(ngModel)]="location" required/>
-  <input name="time" type="time" class="feedback-input" placeholder="tijd"
-         [(ngModel)]="deadline" required/>
+         [(ngModel)]="location"
+         required/>
+  <input name="time" id= "timepicker" type="time" class="feedback-input" placeholder="tijd"
+         [(ngModel)]="deadline"
+         required />
 
   <select name="planeType" class="dropdown-input feedback-input"
           [(ngModel)]="planeType"

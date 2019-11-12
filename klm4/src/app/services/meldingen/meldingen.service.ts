@@ -22,7 +22,7 @@ export class MeldingenService implements OnInit {
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(156, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(156, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(156, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Ophalen));
   }
 
   public generateRandomId() {
