@@ -53,6 +53,7 @@
       </ng-container>
     </tr>
     </tbody>
+
     <ng-template #mechanic>
       <tbody>
       <tr *ngFor="let melding of meldingService.mechanicMeldingen; let i = index" (click)="showDamagedForm(i)">
@@ -63,6 +64,7 @@
           <td>{{melding.wagonTypes}}</td>
           <td>{{melding.positie}}</td>
           <td>{{melding.status}}</td>
+          <td><button class="deleteBbtn btnShape" (click)="deleteRequest(i)">Verwijderen</button> </td>
           <td *ngIf="melding.status === 'Bezorgd'"><button class="ophaalbtn btnShape" (click)="ophaalPopUp(i)">Afronden</button></td>
           <td *ngIf="damageFormOpen && melding.status == 'Bezorgd'">
             <app-damaged-form></app-damaged-form></td>

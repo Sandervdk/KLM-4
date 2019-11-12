@@ -90,7 +90,6 @@ export class RequestFormComponent implements OnInit {
    * @param index
    */
   buttonSelected(button, index) {
-    console.log(this.requestForm);
     for (let i = 0; i < button.parentNode.childElementCount; i++) {
       (<HTMLButtonElement> button.parentNode.childNodes[i]).classList.remove("btn-selected");
     }

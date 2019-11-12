@@ -59,5 +59,9 @@ export class OpenstaandComponent implements OnInit {
     if (this.meldingService.mechanicMeldingen[index].status === meldingStatus.Bezorgd)
     this.damageFormOpen = true;
   }
+
+  deleteRequest(index: number) {
+    this.meldingService.mechanicMeldingen.splice(index, 1);
+  }
 }
 
