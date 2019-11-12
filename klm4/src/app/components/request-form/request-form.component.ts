@@ -9,6 +9,7 @@ import {Melding, meldingStatus} from '../../models/melding/melding';
 import {RunnerService} from '../runnerpage/runner.service';
 import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'request-form',
@@ -22,6 +23,7 @@ export class RequestFormComponent implements OnInit {
 
   private popupOpen: boolean = false;
   private popupText: String = "";
+  private addIcon: boolean = false;
 
   private selectedEquipment = [WagonTypes.EQUIPMENT];
   private locationArray = [];
@@ -35,24 +37,24 @@ export class RequestFormComponent implements OnInit {
   private deadline: Time;
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
-              private authentication: AuthenticationService) {
+              private authentication: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
-    console.log(PlaneTypes.VLIEGTUIGTYPE);
   }
 
-    /**
+  /**
    * yeet
    * @param newSelectedEquipment
    * @param oldSelectedEquipment
    */
-  addEquipment(newSelectedEquipment: WagonTypes, oldSelectedEquipment: WagonTypes) {
+  addEquipment(newSelectedEquipment: WagonTypes, oldSelectedEquipment: WagonTypes, index: number) {
     //Removes the old selected equipment from the list with currently selected equipment
-    for (let i = 0; i < this.selectedEquipment.length; i++) {
-      if (oldSelectedEquipment === this.selectedEquipment[i] && oldSelectedEquipment !== WagonTypes.EQUIPMENT) {
-        this.remove(oldSelectedEquipment);
-      }
+    if (this.selectedEquipment[index] === this.equipmentEnums.EQUIPMENT) {
+      this.selectedEquipment[index] = newSelectedEquipment;
+    } else {
+      this.remove(oldSelectedEquipment);
+      this.selectedEquipment.push(newSelectedEquipment);
     }
 
     //removes the selected equipment from the available equipment list
@@ -61,11 +63,6 @@ export class RequestFormComponent implements OnInit {
         this.equipmentList.splice(i, 1);
       }
     }
-
-    //moves the base equipment item behind the new selected equipment
-    this.selectedEquipment.pop();
-    this.selectedEquipment.push(newSelectedEquipment);
-    this.selectedEquipment.push(WagonTypes.EQUIPMENT);
   }
 
   /**
@@ -80,7 +77,11 @@ export class RequestFormComponent implements OnInit {
         this.locationArray.splice(i, 1);
       }
     }
-    this.equipmentList.push(equipment);
+    //If the piece of equipment that is being removed from the selected equipment list isn't the default equipment
+    //enum, it will place the equipment back in the selectable equipmentlist
+    if (equipment !== this.equipmentEnums.EQUIPMENT) {
+      this.equipmentList.push(equipment);
+    }
   }
 
   /**
@@ -89,6 +90,7 @@ export class RequestFormComponent implements OnInit {
    * @param index
    */
   buttonSelected(button, index) {
+    console.log(this.requestForm);
     for (let i = 0; i < button.parentNode.childElementCount; i++) {
       (<HTMLButtonElement> button.parentNode.childNodes[i]).classList.remove("btn-selected");
     }
@@ -121,29 +123,9 @@ export class RequestFormComponent implements OnInit {
     this.popupOpen = false;
 
     //Stops the submit function in case some content hasn't been filled in
-    if(!this.checkValidity()) {
-      console.log("wut")
+    if (!this.checkValidity()) {
       return;
     }
-
-    //The selected equipment array will always contain an extra equipment piece as placeholder text for the dropdown
-    //todo do stuff
-
-
-    //todo loops through every piece of selected equipment and creates
-    for (let i = 0; i < this.selectedEquipment.length - 1; i++) {
-      console.log(this.location + " - " + this.deadline + " - " + this.planeType);
-      if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
-        console.log("bandenwagen" + this.tireWagonComponent.getTireAmount());
-      }
-    }
-
-    for (let i = 0; i < this.selectedEquipment.length - 1; i++) {
-      this.meldingService.mechanicMeldingen.push(new Melding(this.authentication.getID(), this.location, this.deadline, this.planeType, this.selectedEquipment[i], this.locationArray[i], this.generateTime(), meldingStatus.Afzetten ))
-    }
-    
-    //displays a popup when a request has been made
-    this.openPopup("Request is aangemaakt")
   }
 
   public generateTime() {
@@ -161,19 +143,23 @@ export class RequestFormComponent implements OnInit {
     }
 
     //Checks if there is any equipment selected and displays a popup
-    if (this.selectedEquipment.length === 1) {
-      this.openPopup("Er is geen equipment geselecteerd");
-      return false;
+    for (let i = 0; i < this.selectedEquipment.length; i++) {
+      let tempEquipemnt = this.selectedEquipment[i];
+      if (tempEquipemnt === this.equipmentEnums.EQUIPMENT) {
+        this.openPopup("Er is geen equipment geselecteerd");
+        return false;
+      }
     }
 
     //Checks if all the the locations have been selected, if some are missing a popup will be shown and method stops
-    if (this.locationArray.length !== this.selectedEquipment.length - 1) {
+    if (this.locationArray.length !== this.selectedEquipment.length) {
       this.openPopup("Er zijn geen locatie voor equipment geselecteerd");
       return false;
     }
 
-    for (let i = 0; i < this.selectedEquipment.length - 1; i++) {
-
+    //Checks for each different type of equipment if the equipment specific info has been filled in.
+    //todo MOVE TO THE SPECIFIC COMPONENT TS FILES
+    for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
         if (this.tireWagonComponent.getTireAmount() < 1) {
           this.openPopup("Aantal banden niet aangegeven");
@@ -181,7 +167,15 @@ export class RequestFormComponent implements OnInit {
         }
       }
     }
-    return true;
+
+    //loops through the selected equipment array and adds a new request for each piece of equipment, each requests
+    //gets the ID of the currently logged in user
+    for (let i = 0; i < this.selectedEquipment.length; i++) {
+      this.meldingService.mechanicMeldingen.push(new Melding(this.authentication.getID(), this.location, this.deadline, this.planeType, this.selectedEquipment[i], this.locationArray[i], this.generateTime(), meldingStatus.Afzetten))
+    }
+    //rerouts the user to the made requests screen after adding all the requests.
+    this.router.navigate(['/mechanic/meldingen-openstaand']);
+
   }
 
   private openPopup(text: String): void {
@@ -191,5 +185,10 @@ export class RequestFormComponent implements OnInit {
     setTimeout(() => {
       this.popupOpen = false;
     }, 3000);
+  }
+
+  addNewEquipment() {
+    this.selectedEquipment.push(WagonTypes.EQUIPMENT);
+    this.locationArray.push("");
   }
 }
