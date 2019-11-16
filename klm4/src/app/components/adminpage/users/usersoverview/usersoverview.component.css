@@ -31,3 +31,8 @@ table thead, table tbody {
 input.form-control::placeholder {
   font-family: 'FontAwesome';
 }
+
+.btn-refresh {
+  width: 100%;
+  padding: 13px;
+}

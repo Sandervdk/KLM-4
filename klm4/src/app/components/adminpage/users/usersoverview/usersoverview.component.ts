@@ -1,6 +1,6 @@
-import {Component, OnInit, PipeTransform} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../admin.service';
-import {AuthenticationService} from '../../../../services/authentication/authentication.service';
+import {UserService} from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-usersoverview',
@@ -10,11 +10,19 @@ import {AuthenticationService} from '../../../../services/authentication/authent
 
 export class UsersoverviewComponent implements OnInit {
   public userSearch: string;
+  public users;
 
-  constructor(private adminRouter: AdminService, private authService: AuthenticationService) {
+  constructor(private adminRouter: AdminService, private userService: UserService) {
   }
 
   ngOnInit() {
+    this.refreshList();
+  }
+
+  public refreshList() {
+    this.userService.getAllUsers().subscribe(data => {
+      this.users = data;
+    });
   }
 
 }
