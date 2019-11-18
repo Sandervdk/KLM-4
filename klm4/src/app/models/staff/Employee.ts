@@ -7,11 +7,11 @@ export class Employee {
   private email: string;
   private password: string;
 
-  constructor(firstname: string, lastname: string, email: string, password: string, role: string) {
+  constructor(firstname: string, lastname: string, email: string, password: string, role: string, id: number) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.role = role;
-    this.id = Employee.EMPLOYEE_NUMBER++;
+    this.id = id;
     this.password = password;
     this.email = email;
   }

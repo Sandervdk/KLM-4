@@ -77,10 +77,7 @@ export class OpenstaandComponent implements OnInit {
   }
 
   unfoldRow(index: number , subTable: Element) {
-    console.log(index, subTable);
-
     //Disables the detailed dropdown list when the is a click on the close buttons in the sub table
-
     if (subTable === null || !subTable.classList.contains('clickableRow')) {
       return;
     }
@@ -99,7 +96,6 @@ export class OpenstaandComponent implements OnInit {
     this.expandedInfo[index] = true;
     this.selectedRequest = this.meldingService.mechanicMeldingen[index];
 
-    console.log(this.selectedRequest.status, this.userRole);
     if (this.selectedRequest.status === meldingStatus.Bezorgd && this.userRole === 'MECHANIC') {
       this.numberOfButtons += 2;
       this.equipmentIsBezorgd = true;

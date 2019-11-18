@@ -46,6 +46,7 @@ export class AuthenticationService {
       for (let i = 0; i < this.users.length; i++) {
         if (this.users[i].email === username && this.users[i].password === password) {
           this.username = username;
+
           this.createUser(this.users[i]);
 
           const userRole = this.getUser().getRole();
@@ -76,15 +77,15 @@ export class AuthenticationService {
     switch (userDetails.role) {
       case Functions.ADMIN:
         this.user = new Admin(userDetails.firstname, userDetails.lastname,
-          userDetails.email, userDetails.password);
+          userDetails.email, userDetails.password, userDetails.id);
         break;
       case Functions.MECHANIC:
         this.user = new Mechanic(userDetails.firstname, userDetails.lastname,
-          userDetails.email, userDetails.password);
+          userDetails.email, userDetails.password, userDetails.id);
         break;
       case Functions.RUNNER:
         this.user = new Runner(userDetails.firstname, userDetails.lastname,
-          userDetails.email, userDetails.password);
+          userDetails.email, userDetails.password, userDetails.id);
         break;
     }
   }

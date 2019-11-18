@@ -9,10 +9,11 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.example</groupId>
-  <artifactId>demo</artifactId>
+  <artifactId>spring-boot-backend</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>klm-spring-boot</name>
-  <description>The back-end for the spring boot application</description>
+  <packaging>war</packaging>
+  <name>spring-boot-backend</name>
+  <description>Demo project for Spring Boot</description>
 
   <properties>
     <java.version>1.8</java.version>
@@ -24,6 +25,11 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -42,8 +48,8 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

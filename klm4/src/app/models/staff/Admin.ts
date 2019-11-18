@@ -6,8 +6,8 @@ import {Functions} from './Functions';
  * The Admin has the functionality to access everything that other users are able to do
  */
 export class Admin extends Employee {
-  constructor(name: string, lastname: string, email: string, password: string) {
-    super(name, lastname, email, password, Functions.ADMIN);
+  constructor(name: string, lastname: string, email: string, password: string, id: number) {
+    super(name, lastname, email, password, Functions.ADMIN, id);
   }
 
   getId(): number {

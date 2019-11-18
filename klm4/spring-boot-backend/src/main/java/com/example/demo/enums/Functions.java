@@ -1,7 +1,7 @@
 package com.example.demo.enums;
 
 public enum Functions {
-    ADMIN,
-    MECHANIC,
-    RUNNER
+  ADMIN,
+  MECHANIC,
+  RUNNER
 }
