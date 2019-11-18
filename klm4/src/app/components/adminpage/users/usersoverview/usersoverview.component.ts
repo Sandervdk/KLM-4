@@ -7,7 +7,6 @@ import {UserService} from '../../../../services/user/user.service';
   templateUrl: './usersoverview.component.html',
   styleUrls: ['./usersoverview.component.css']
 })
-
 export class UsersoverviewComponent implements OnInit {
   public userSearch: string;
   public users;
