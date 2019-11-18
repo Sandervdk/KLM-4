@@ -17,7 +17,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 col-md-10">
     <div class="form-section">
       <div class="form-group">
         <input type="text" class="form-control" name="search" placeholder="filter to find user" autocomplete="off"
@@ -28,19 +28,26 @@
       <table class="table table-responsive">
         <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Role</th>
+          <th scope="col">ID</th>
+          <th scope="col">Email</th>
+          <th scope="col">Firstname</th>
+          <th scope="col">Lastname</th>
+          <th scope="col">Role</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of authService.getAccounts() | userFilter: userSearch">
+        <tr *ngFor="let user of this.users | userFilter: userSearch">
           <td>{{user.id}}</td>
-          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.firstname}}</td>
+          <td>{{user.lastname}}</td>
           <td>{{user.role}}</td>
         </tr>
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-refresh btn-success" (click)="refreshList()">Refresh</button>
   </div>
 </div>

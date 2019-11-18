@@ -3,6 +3,7 @@ import {AdminService} from '../../admin.service';
 import {AuthenticationService} from '../../../../services/authentication/authentication.service';
 import {Functions} from '../../../../models/staff/Functions';
 import {NgForm} from '@angular/forms';
+import {UserService} from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-users-create',
@@ -13,7 +14,7 @@ export class UsersCreateComponent implements OnInit {
   public showMessage = false;
   public rolesList;
 
-  constructor(private adminRouter: AdminService, private authService: AuthenticationService) {
+  constructor(private adminRouter: AdminService, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -28,17 +29,19 @@ export class UsersCreateComponent implements OnInit {
    */
   createNewUser(form: NgForm) {
     this.showMessage = true;
-    const username = form.value.email;
+    const email = form.value.email;
     const password = form.value.password;
+    const firstname = form.value.firstname;
     const lastname = form.value.lastname;
     const role = form.value.role;
 
-    this.authService.createNewUser(username, lastname, password, role);
+    this.userService.createUser(email, firstname, lastname, password, role);
 
     setTimeout(() => {
       this.showMessage = false;
       form.reset();
     }, 4000);
   }
+
 
 }

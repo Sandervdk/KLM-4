@@ -32,6 +32,7 @@ import { MeldingFilterPipe } from './components/adminpage/searchFilters/melding-
 import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
 import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
 import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import {ProductenpageComponent} from './components/runnerpage/producten/producte
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    HttpClientModule
   ],
   providers: [MeldingenService],
   bootstrap: [AppComponent]

@@ -1,23 +1,27 @@
 export class Employee {
   private static EMPLOYEE_NUMBER = 0;
   private id: number;
-  private name: string;
+  private firstname: string;
   private lastname: string;
   private role: string;
+  private email: string;
+  private password: string;
 
-  constructor(name: string, lastname: string, role: string) {
-    this.name = name;
+  constructor(firstname: string, lastname: string, email: string, password: string, role: string) {
+    this.firstname = firstname;
     this.lastname = lastname;
     this.role = role;
     this.id = Employee.EMPLOYEE_NUMBER++;
+    this.password = password;
+    this.email = email;
   }
 
   getId(): number {
     return this.id;
   }
 
-  getName(): string {
-    return this.name;
+  getFirstname(): string {
+    return this.firstname;
   }
 
   getLastname(): string {
