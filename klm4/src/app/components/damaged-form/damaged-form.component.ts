@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {NgForm} from '@angular/forms';
 import {MechanicService} from '../mechanicpage/mechanic.service';
+import {AuthenticationService} from "../../services/authentication/authentication.service";
 
 @Component({
   selector: 'app-damaged-form',
@@ -13,11 +14,12 @@ export class DamagedFormComponent implements OnInit {
   private popupOpen: boolean = false;
   private planeTypeList = Object.values(PlaneTypes);
   private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
+  private currentTime = new Date().toLocaleTimeString().substring(0, 5);
 
   @ViewChild('damageForm', {static: false}) damageForm: NgForm;
 
 
-  constructor(private mechanicRouter: MechanicService) { }
+  constructor(private mechanicRouter: MechanicService, private authentication: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -43,5 +45,9 @@ export class DamagedFormComponent implements OnInit {
 
   onSumbitDamageForm(damageForm: NgForm) {
 
+  }
+
+  getShowForm() :boolean {
+    return this.showform;
   }
 }

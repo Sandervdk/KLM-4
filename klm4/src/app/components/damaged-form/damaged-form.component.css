@@ -85,3 +85,16 @@ li.breadcrumb-item {
   width:100%;
   box-sizing: border-box;
 }
+
+.buttonShape {
+  width: calc(100% / 3);
+  padding: 10px;
+  border: 0;
+  color: white;
+  background-color: #007bff;
+}
+
+.buttonShape:hover {
+  color: white;
+  background-color: darkgray;
+}

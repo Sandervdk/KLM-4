@@ -1,5 +1,5 @@
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSchadeformulier">
+<button type="button" data-toggle="modal" data-target="#ModalSchadeformulier" class="btnShape buttonShape">
   Schade melden
 </button>
 
@@ -21,11 +21,11 @@
           <div class="form-row">
             <div class="col"><label for="melder"></label>
               <input type="text" class="form-control" id="melder"
-                     placeholder="ID melder" readonly>
+                     placeholder="{{authentication.getID()}}" readonly>
             </div>
             <div class="col"><label for="datum"></label>
               <input type="text" class="form-control" id="datum"
-                     placeholder="Timestamp" readonly>
+                     placeholder="{{currentTime}}" readonly>
             </div>
           </div>
           <br>
