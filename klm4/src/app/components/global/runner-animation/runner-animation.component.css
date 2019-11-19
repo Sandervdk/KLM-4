@@ -1,0 +1,14 @@
+svg {
+  max-height: 310px;
+  width: 320px;
+  margin-top: -100px;
+  animation: runningAnimation 5s infinite;
+}
+@keyframes runningAnimation {
+  from {
+    margin-left: 0;
+  }
+  to {
+    margin-left: 600px;
+  }
+}

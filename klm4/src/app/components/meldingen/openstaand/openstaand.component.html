@@ -4,11 +4,11 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item" *ngIf="userRole == 'RUNNER'">
           <a routerLink="/runner">{{userRole.toString().substring(0, 1) +
-            userRole.toString().substring(1).toLowerCase()}}</a>
+          userRole.toString().substring(1).toLowerCase()}}</a>
         </li>
         <li class="breadcrumb-item" *ngIf="userRole == 'MECHANIC'">
           <a routerLink="/mechanic">{{userRole.toString().substring(0, 1) +
-            userRole.toString().substring(1).toLowerCase()}}</a>
+          userRole.toString().substring(1).toLowerCase()}}</a>
         </li>
         <li class="breadcrumb-item  active" area-current="page" *ngIf="userRole == 'RUNNER'">
           Openstaande meldingen
@@ -17,112 +17,30 @@
           <a routerLink="/mechanic/meldingen-openstaand">Openstaande meldingen</a>
         </li>
         <div class="auth-container">
-          <a (click)="this.runnerRouter.logOut()">Logout</a>
+          <a (click)="this.runnerService.logOut()">Logout</a>
         </div>
       </ol>
     </nav>
   </div>
 </div>
-<div class="tabeldiv">
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th>Locatie</th>
-      <th>Aflevertijd</th>
-      <th>Vliegtuig type</th>
-      <th>Equipment type</th>
-      <!--<th>Positie</th>-->
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
-    <tr class="clickableRow"
-        *ngFor="let melding of meldingService.mechanicMeldingen; let i = index"
-        (click)="unfoldRow(i, $event.target.parentNode)">
-    <ng-container *ngIf="melding.status !== 'Bezorgd' && melding.status !== 'Afgerond'">
-        <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
-          <td>{{melding.locatie}}</td>
-          <td>{{melding.deadline}}</td>
-          <td>{{melding.typeVliegtuig}}</td>
-          <td>{{melding.wagonTypes}}</td>
-          <td>{{melding.status}}</td>
-        </ng-container>
-
-        <ng-template #extraInfo>
-          <td colspan="99" style="padding: 0;">
-            <table class="extraInfoTable">
-              <tr class="clickableRow">
-                <td colspan="99" class="extraInfoHeader">
-                  <i class="fa fa-chevron-down"></i>
-                </td>
-              </tr>
-              <tr>
-                <th>Locatie</th>
-                <td>{{melding.locatie}}</td>
-                <th>deadline</th>
-                <td>{{melding.deadline}}</td>
-              </tr>
-              <tr>
-                <th>vliegtuigtype</th>
-                <td>{{melding.typeVliegtuig}}</td>
-                <th>positie</th>
-                <td>{{melding.positie}}</td>
-              </tr>
-              <tr>
-                <th>Equipment</th>
-                <td>{{melding.wagonTypes}}</td>
-                <th>Status</th>
-                <td>{{melding.status}}</td>
-              </tr>
-              <tr *ngIf="melding.wagonTypes === equipmentlist.BANDENWAGEN">
-                <th>
-                  Main Banden
-                </th>
-                <td>2</td>
-                <th>
-                  Neus Banden
-                </th>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td colspan="99" class="btn-container">
-                  <button class="acceptBtn btnShape"
-                          *ngIf="melding.status !== 'Geaccepteerd'"
-                          (click)="showPopUp(i)"
-                          [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Accepteren
-                  </button>
-                  <button class="ophaalbtn btnShape"
-                          *ngIf="melding.status === 'Geaccepteerd'"
-                          (click)="popUp(i)"
-                          [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Bezorgen
-                  </button>
-                  <button class="deleteBbtn btnShape"
-                          *ngIf="melding.status === 'Geaccepteerd'"
-                          [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Annuleren</button>
-                  <app-damaged-form #damageForm
-                                    (click)="openDamageForm()"
-                                    *ngIf="melding.status === 'Geaccepteerd'"
-                                    [ngStyle]="{'width': 100 / numberOfButtons + '%'}"></app-damaged-form>
-                </td>
-              </tr>
-              <tr class="clickableRow">
-                <td colspan="99" class="extraInfoHeader">
-                  <i class="fa fa-chevron-up"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </ng-template>
-      </ng-container>
-    </tr>
-    </tbody>
-
-    <ng-template #mechanic>
-      <tbody>
+<ng-template [ngIf]="!runnerAnimation">
+  <div class="tabeldiv">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Locatie</th>
+        <th>Aflevertijd</th>
+        <th>Vliegtuig type</th>
+        <th>Equipment type</th>
+        <!--<th>Positie</th>-->
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
       <tr class="clickableRow"
           *ngFor="let melding of meldingService.mechanicMeldingen; let i = index"
           (click)="unfoldRow(i, $event.target.parentNode)">
-        <ng-container *ngIf="melding.id == this.id && melding.status !== 'Ophalen'">
+        <ng-container *ngIf="melding.status !== 'Bezorgd' && melding.status !== 'Afgerond'">
           <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
             <td>{{melding.locatie}}</td>
             <td>{{melding.deadline}}</td>
@@ -130,6 +48,7 @@
             <td>{{melding.wagonTypes}}</td>
             <td>{{melding.status}}</td>
           </ng-container>
+
           <ng-template #extraInfo>
             <td colspan="99" style="padding: 0;">
               <table class="extraInfoTable">
@@ -168,19 +87,24 @@
                 </tr>
                 <tr>
                   <td colspan="99" class="btn-container">
-                    <button class="deleteBbtn btnShape"
-                            (click)="deleteRequest(i)"
-                            [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Verwijderen
+                    <button class="acceptBtn btnShape"
+                            *ngIf="melding.status !== 'Geaccepteerd'"
+                            (click)="showPopUp(i)"
+                            [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Accepteren
                     </button>
                     <button class="ophaalbtn btnShape"
-                            *ngIf="equipmentIsBezorgd"
-                            (click)="ophaalPopUp(i)"
-                            [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Afronden
+                            *ngIf="melding.status === 'Geaccepteerd'"
+                            (click)="popUp(i)"
+                            [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Bezorgen
+                    </button>
+                    <button class="deleteBbtn btnShape"
+                            *ngIf="melding.status === 'Geaccepteerd'"
+                            [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Annuleren
                     </button>
                     <app-damaged-form #damageForm
-                      (click)="openDamageForm()"
-                      *ngIf="equipmentIsBezorgd"
-                      [ngStyle]="{'width': 100 / numberOfButtons + '%'}"></app-damaged-form>
+                                      (click)="openDamageForm()"
+                                      *ngIf="melding.status === 'Geaccepteerd'"
+                                      [ngStyle]="{'width': 100 / numberOfButtons + '%'}"></app-damaged-form>
                   </td>
                 </tr>
                 <tr class="clickableRow">
@@ -194,8 +118,90 @@
         </ng-container>
       </tr>
       </tbody>
-    </ng-template>
-  </table>
-</div>
+
+      <ng-template #mechanic>
+        <tbody>
+        <tr class="clickableRow"
+            *ngFor="let melding of meldingService.mechanicMeldingen; let i = index"
+            (click)="unfoldRow(i, $event.target.parentNode)">
+          <ng-container *ngIf="melding.id == this.id && melding.status !== 'Ophalen'">
+            <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
+              <td>{{melding.locatie}}</td>
+              <td>{{melding.deadline}}</td>
+              <td>{{melding.typeVliegtuig}}</td>
+              <td>{{melding.wagonTypes}}</td>
+              <td>{{melding.status}}</td>
+            </ng-container>
+            <ng-template #extraInfo>
+              <td colspan="99" style="padding: 0;">
+                <table class="extraInfoTable">
+                  <tr class="clickableRow">
+                    <td colspan="99" class="extraInfoHeader">
+                      <i class="fa fa-chevron-down"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Locatie</th>
+                    <td>{{melding.locatie}}</td>
+                    <th>deadline</th>
+                    <td>{{melding.deadline}}</td>
+                  </tr>
+                  <tr>
+                    <th>vliegtuigtype</th>
+                    <td>{{melding.typeVliegtuig}}</td>
+                    <th>positie</th>
+                    <td>{{melding.positie}}</td>
+                  </tr>
+                  <tr>
+                    <th>Equipment</th>
+                    <td>{{melding.wagonTypes}}</td>
+                    <th>Status</th>
+                    <td>{{melding.status}}</td>
+                  </tr>
+                  <tr *ngIf="melding.wagonTypes === equipmentlist.BANDENWAGEN">
+                    <th>
+                      Main Banden
+                    </th>
+                    <td>2</td>
+                    <th>
+                      Neus Banden
+                    </th>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td colspan="99" class="btn-container">
+                      <button class="deleteBbtn btnShape"
+                              (click)="deleteRequest(i)"
+                              [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Verwijderen
+                      </button>
+                      <button class="ophaalbtn btnShape"
+                              *ngIf="equipmentIsBezorgd"
+                              (click)="ophaalPopUp(i)"
+                              [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Afronden
+                      </button>
+                      <app-damaged-form #damageForm
+                                        (click)="openDamageForm()"
+                                        *ngIf="equipmentIsBezorgd"
+                                        [ngStyle]="{'width': 100 / numberOfButtons + '%'}"></app-damaged-form>
+                    </td>
+                  </tr>
+                  <tr class="clickableRow">
+                    <td colspan="99" class="extraInfoHeader">
+                      <i class="fa fa-chevron-up"></i>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </ng-template>
+          </ng-container>
+        </tr>
+        </tbody>
+      </ng-template>
+    </table>
+  </div>
+</ng-template>
+<ng-template [ngIf]="runnerAnimation">
+  <app-runner-animation></app-runner-animation>
+</ng-template>
 
 

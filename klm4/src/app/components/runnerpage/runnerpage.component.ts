@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {AdminService} from '../adminpage/admin.service';
+import {Component, OnInit} from '@angular/core';
 import {RunnerService} from './runner.service';
 
 @Component({
@@ -8,8 +7,6 @@ import {RunnerService} from './runner.service';
   styleUrls: ['./runnerpage.component.css']
 })
 export class RunnerpageComponent implements OnInit {
-
-
   constructor(private runnerRouter: RunnerService) {
   }
 

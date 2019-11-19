@@ -18,6 +18,7 @@ import {SystemLogsComponent} from './components/adminpage/system-logs/system-log
 import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
 import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
 import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
+import {RunnerAnimationComponent} from './components/global/runner-animation/runner-animation.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
     path: 'runner', component: RunnerpageComponent, children: [
       {path: 'meldingen-openstaand', component: OpenstaandComponent},
       {path: 'producten', component: ProductenpageComponent},
+      {path: 'map', component: WorkplaceMapComponent},
     ]
   },
   {
@@ -51,12 +53,12 @@ const routes: Routes = [
     ]
   },
   {path: 'signin', component: SignInComponent},
-  {path: 'map', component: WorkplaceMapComponent},
-  {path: 'request-Form', component: RequestFormComponent},
-  {path: 'damaged-form', component: DamagedFormComponent},
-  {path: 'meldingen-openstaand', component: OpenstaandComponent},
-  {path: 'not-found', component: PageNotFoundComponent},
-  {path: '*', redirectTo: '/not-found'}
+  {
+    path: 'not-found', component: PageNotFoundComponent
+  },
+  {
+    path: '*', redirectTo: '/not-found'
+  }
 ];
 
 @NgModule({

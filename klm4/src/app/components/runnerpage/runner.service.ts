@@ -29,12 +29,4 @@ export class RunnerService {
     this.authService.signOut();
     this.router.navigate(['/signin']);
   }
-
-  // /**
-  // UNSUBSCRIBING BREAKS THE APPLICATION!!!!!
-  //  * This method will unsubscribe the navigate method with the application
-  //  */
-  // private unsubscribe() {
-  //   this.subscription.unsubscribe();
-  // }
 }

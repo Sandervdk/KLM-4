@@ -35,7 +35,7 @@ export class SignInComponent implements OnInit {
         this.showWarning = true;
         this.animationQueue = false;
       }
-    }, 3000);
+    }, 1500);
   }
 
 }

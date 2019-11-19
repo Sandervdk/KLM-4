@@ -33,6 +33,8 @@ import {RunnerpageComponent} from './components/runnerpage/runnerpage.component'
 import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
 import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
 import {HttpClientModule} from '@angular/common/http';
+import { LoginAnimationComponent } from './components/global/login-animation/login-animation.component';
+import { RunnerAnimationComponent } from './components/global/runner-animation/runner-animation.component';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import {HttpClientModule} from '@angular/common/http';
     MeldingFilterPipe,
     RunnerpageComponent,
     MechanicpageComponent,
-    ProductenpageComponent
+    ProductenpageComponent,
+    LoginAnimationComponent,
+    RunnerAnimationComponent
   ],
   imports: [
     BrowserModule,
