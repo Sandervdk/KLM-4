@@ -1,20 +1,6 @@
 <div class="container">
   <ng-template [ngIf]="!adminService.hideNavButtons">
     <div class="row">
-      <div class="col-12">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a routerLink="/admin">Admin</a>
-            </li>
-            <div class="auth-container">
-              <a (click)="this.adminService.logOut()">Logout</a>
-            </div>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-12 col-md-6 col-lg-4">
         <a routerLink="/admin/users" class="btn btn-category">
           Users

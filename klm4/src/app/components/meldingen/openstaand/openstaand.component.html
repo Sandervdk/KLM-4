@@ -1,28 +1,3 @@
-<div class="row">
-  <div class="col-12">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" *ngIf="userRole == 'RUNNER'">
-          <a routerLink="/runner">{{userRole.toString().substring(0, 1) +
-          userRole.toString().substring(1).toLowerCase()}}</a>
-        </li>
-        <li class="breadcrumb-item" *ngIf="userRole == 'MECHANIC'">
-          <a routerLink="/mechanic">{{userRole.toString().substring(0, 1) +
-          userRole.toString().substring(1).toLowerCase()}}</a>
-        </li>
-        <li class="breadcrumb-item  active" area-current="page" *ngIf="userRole == 'RUNNER'">
-          Openstaande meldingen
-        </li>
-        <li class="breadcrumb-item  active" aria-current="page" *ngIf="userRole == 'MECHANIC'">
-          <a routerLink="/mechanic/meldingen-openstaand">Openstaande meldingen</a>
-        </li>
-        <div class="auth-container">
-          <a (click)="this.runnerService.logOut()">Logout</a>
-        </div>
-      </ol>
-    </nav>
-  </div>
-</div>
 <ng-template [ngIf]="!runnerAnimation">
   <div class="tabeldiv">
     <table class="table table-hover">
