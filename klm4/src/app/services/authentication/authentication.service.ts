@@ -5,14 +5,13 @@ import {Mechanic} from '../../models/staff/Mechanic';
 import {Runner} from '../../models/staff/Runner';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user/user.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private users;
   private user;
-  private username: string;
   mechanicMode = false;
   runnerMode = false;
   adminMode = false;
@@ -30,42 +29,22 @@ export class AuthenticationService {
         relativeTo: this.route
       });
     }
-    userService.getAllUsers();
+    // userService.getAllUsers().;
   }
 
   /**
    * This method will use the given username and password, check them in the database
    * and give access to the information of that user
-   *
-   * @param username the username of the signed in user
-   * @param password  the password of the signed in user
    */
-  public login(username: string, password: string): boolean {
-    this.userService.getAllUsers().subscribe(data => {
-      this.users = data;
-      for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i].email === username && this.users[i].password === password) {
-          this.username = username;
-
-          this.createUser(this.users[i]);
-
-          const userRole = this.getUser().getRole();
-          if (userRole === Functions.RUNNER) {
-            this.showRunner();
-          } else if (userRole === Functions.MECHANIC) {
-            this.showMechanic();
-          } else if (userRole === Functions.ADMIN) {
-            this.showAdmin();
-          }
-
-          return true;
-        }
-      }
-
-      this.users = null;
-    });
-
-    return false;
+  public login() {
+    const userRole = this.getUser().getRole();
+    if (userRole === Functions.RUNNER) {
+      this.showRunner();
+    } else if (userRole === Functions.MECHANIC) {
+      this.showMechanic();
+    } else if (userRole === Functions.ADMIN) {
+      this.showAdmin();
+    }
   }
 
   /**
@@ -73,7 +52,7 @@ export class AuthenticationService {
    *
    * @param userDetails the details given from the database
    */
-  private createUser(userDetails): void {
+  public createUser(userDetails): void {
     switch (userDetails.role) {
       case Functions.ADMIN:
         this.user = new Admin(userDetails.firstname, userDetails.lastname,
