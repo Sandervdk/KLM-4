@@ -2,20 +2,30 @@ import {Injectable, OnInit} from '@angular/core';
 import {Melding, meldingStatus} from '../../models/melding/melding';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeldingenService implements OnInit {
   public mechanicMeldingen: Melding[] = [];
+  private readonly URL: string = 'http://localhost:8080';
   public time = new Date().toLocaleTimeString();
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
+
     this.randomMeldingen();
   }
 
   ngOnInit() {
   }
+
+  public getAllMeldingen(): Observable<Melding[]> {
+    return this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen')
+  }
+
+
 
   public randomMeldingen() {
     this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));

@@ -1,4 +1,4 @@
-package com.example.demo.user;
+package com.example.demo.models;
 
 import com.example.demo.enums.Functions;
 
@@ -20,6 +20,10 @@ public class User {
 
   public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getEmail() {
