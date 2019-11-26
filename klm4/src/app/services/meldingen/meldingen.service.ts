@@ -4,6 +4,7 @@ import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class MeldingenService implements OnInit {
   public time = new Date().toLocaleTimeString();
   public index: number = 0;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
 
     this.randomMeldingen();
   }
