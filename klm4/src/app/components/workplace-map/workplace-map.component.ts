@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, LayerGroup, tileLayer} from 'leaflet';
 import {WagonsService} from '../../services/wagons/wagons.service';
+import {meldingStatus} from "../../models/melding/melding";
+import {MeldingenService} from "../../services/meldingen/meldingen.service";
+import {Router} from "@angular/router";
 
 declare let L;
 
@@ -16,7 +19,9 @@ export class WorkplaceMapComponent implements OnInit {
 
   private readonly fuelWagonsLayer: LayerGroup;
 
-  constructor(private wagonServices: WagonsService) {
+  constructor(private wagonServices: WagonsService,
+              private meldingService: MeldingenService,
+              private router: Router) {
     this.fuelWagonsLayer = wagonServices.getFuelWagonsLayer(); // layer with all the fuelwagon points
   }
 
@@ -47,5 +52,4 @@ export class WorkplaceMapComponent implements OnInit {
     checkBoxes.getContainer().setAttribute('class', '');
     document.querySelector('#jpt .wagons-container .card-body').appendChild(checkBoxes.getContainer());
   }
-
 }

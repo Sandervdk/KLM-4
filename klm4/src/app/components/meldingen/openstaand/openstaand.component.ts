@@ -58,6 +58,7 @@ export class OpenstaandComponent implements OnInit {
     if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
       if (this.meldingService.mechanicMeldingen[index].status === meldingStatus.Afzetten) {
         this.meldingService.mechanicMeldingen[index].status = meldingStatus.Geaccepteerd;
+        this.meldingService.index = index;
         this.nextScreen();
       } else {
         this.meldingService.mechanicMeldingen[index].status = meldingStatus.Afgerond;

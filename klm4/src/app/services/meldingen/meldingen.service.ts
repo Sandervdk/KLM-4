@@ -12,6 +12,7 @@ export class MeldingenService implements OnInit {
   public mechanicMeldingen: Melding[] = [];
   private readonly URL: string = 'http://localhost:8080';
   public time = new Date().toLocaleTimeString();
+  public index: number = 0;
 
   constructor(private httpClient: HttpClient) {
 
@@ -28,9 +29,9 @@ export class MeldingenService implements OnInit {
 
 
   public randomMeldingen() {
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(this.generateRandomId(), 'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(1, 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(1, 'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(1, 'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(1, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(1, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.SKYDROLWAGEN, 'Rechts', this.time, meldingStatus.Bezorgd));
     this.mechanicMeldingen.push(new Melding(1, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Ophalen));
@@ -38,9 +39,9 @@ export class MeldingenService implements OnInit {
     this.mechanicMeldingen.push(new Melding(156, 'B2', '11:11', PlaneTypes.Ambraer190, WagonTypes.SKYDROLWAGEN, 'Rechts', this.time, meldingStatus.Bezorgd));
     this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
     this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(156, 'A7', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(156, 'A2', '12:30', PlaneTypes.Ambraer190, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
+    this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Ophalen));
+    this.mechanicMeldingen.push(new Melding(156, 'A7', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Geaccepteerd));
+    this.mechanicMeldingen.push(new Melding(156, 'A2', '12:30', PlaneTypes.Ambraer190, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Geaccepteerd));
     this.sortMeldingen();
   }
 
@@ -62,6 +63,14 @@ export class MeldingenService implements OnInit {
         return 1;
       }
     });
+  }
+
+  public bezorgd(index: number) {
+    console.log(this.index);
+    if (confirm('Equipment is bezorgd?')) {
+      this.mechanicMeldingen[index].status = meldingStatus.Bezorgd;
+       this.router.navigate(['/runner/meldingen-openstaand']);
+    }
   }
 
 }
