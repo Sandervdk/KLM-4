@@ -7,6 +7,7 @@ import com.example.demo.models.Melding;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -21,8 +22,8 @@ public class MeldingRepositorie {
   private List<Melding> meldingen = new ArrayList<>();
 
   public MeldingRepositorie() {
-    this.meldingen.add(new Melding(1, "F5", "14:15", PlaneTypes.Boeing737, WagonTypes.BANDENWAGEN, "test", "10:10", MeldingStatus.Afgerond));
-    this.meldingen.add(new Melding(2, "F5", "14:15", PlaneTypes.AirbusA330, WagonTypes.SKYDROLWAGEN, "test", "10:10", MeldingStatus.Afgerond));
+    this.meldingen.add(new Melding(1, "F5", LocalDateTime.now(), PlaneTypes.Boeing737, WagonTypes.BANDENWAGEN, "test", LocalDateTime.now(), MeldingStatus.Afgerond));
+    this.meldingen.add(new Melding(2, "F5", LocalDateTime.now(), PlaneTypes.AirbusA330, WagonTypes.SKYDROLWAGEN, "test", LocalDateTime.now(), MeldingStatus.Afgerond));
   }
 
   public List<Melding> findAll() {

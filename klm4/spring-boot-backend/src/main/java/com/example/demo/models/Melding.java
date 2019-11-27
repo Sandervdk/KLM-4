@@ -4,20 +4,21 @@ import com.example.demo.enums.MeldingStatus;
 import com.example.demo.enums.PlaneTypes;
 import com.example.demo.enums.WagonTypes;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Melding {
 
   private long id;
-  private String locatie;
-  private String deadline;
+  private String locatie, positie;
+  private LocalDateTime tijd, deadline;
   private PlaneTypes typeVliegtuig;
   private WagonTypes wagonTypes;
-  private String positie;
-  private String tijd;
   private MeldingStatus status;
 
   public Melding(){}
 
-  public Melding(long id, String locatie, String deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, String tijd, MeldingStatus status) {
+  public Melding(long id, String locatie, LocalDateTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalDateTime tijd, MeldingStatus status) {
     this.id = id;
     this.locatie = locatie;
     this.deadline = deadline;
@@ -44,11 +45,11 @@ public class Melding {
     this.locatie = locatie;
   }
 
-  public String getDeadline() {
+  public LocalDateTime getDeadline() {
     return deadline;
   }
 
-  public void setDeadline(String deadline) {
+  public void setDeadline(LocalDateTime deadline) {
     this.deadline = deadline;
   }
 
@@ -76,11 +77,11 @@ public class Melding {
     this.positie = positie;
   }
 
-  public String getTijd() {
+  public LocalDateTime getTijd() {
     return tijd;
   }
 
-  public void setTijd(String tijd) {
+  public void setTijd(LocalDateTime tijd) {
     this.tijd = tijd;
   }
 
