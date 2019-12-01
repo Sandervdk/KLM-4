@@ -4,22 +4,31 @@ import com.example.demo.enums.MeldingStatus;
 import com.example.demo.enums.PlaneTypes;
 import com.example.demo.enums.WagonTypes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
+import java.util.Objects;
 
+@Entity
 public class Melding {
 
+  @Id
+  @GeneratedValue
   private long id;
+
   private String locatie, positie;
-  private LocalDateTime tijd, deadline;
+  private LocalTime tijd, deadline;
   private PlaneTypes typeVliegtuig;
   private WagonTypes wagonTypes;
   private MeldingStatus status;
 
-  public Melding(){}
+  protected Melding(){}
 
-  public Melding(long id, String locatie, LocalDateTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalDateTime tijd, MeldingStatus status) {
-    this.id = id;
+  //Constructor with no id. This will be generated.
+  public Melding(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalTime tijd, MeldingStatus status) {
     this.locatie = locatie;
     this.deadline = deadline;
     this.typeVliegtuig = typeVliegtuig;
@@ -27,6 +36,19 @@ public class Melding {
     this.positie = positie;
     this.tijd = tijd;
     this.status = status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Melding melding = (Melding) o;
+    return id == melding.id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 
   public long getId() {
@@ -45,11 +67,11 @@ public class Melding {
     this.locatie = locatie;
   }
 
-  public LocalDateTime getDeadline() {
+  public LocalTime getDeadline() {
     return deadline;
   }
 
-  public void setDeadline(LocalDateTime deadline) {
+  public void setDeadline(LocalTime deadline) {
     this.deadline = deadline;
   }
 
@@ -77,11 +99,11 @@ public class Melding {
     this.positie = positie;
   }
 
-  public LocalDateTime getTijd() {
+  public LocalTime getTijd() {
     return tijd;
   }
 
-  public void setTijd(LocalDateTime tijd) {
+  public void setTijd(LocalTime tijd) {
     this.tijd = tijd;
   }
 

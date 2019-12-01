@@ -1,29 +1,54 @@
 package com.example.demo.models;
 
 import com.example.demo.enums.Functions;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import java.util.Objects;
+
+@Entity
 public class User {
-  private int id;
-  private String email, password, firstname, lastname;
+
+  @Id
+  @GeneratedValue
+  private long id;
+
+  @JsonIgnore
+  private String password;
+
+  private String email, firstname, lastname;
   private Functions role;
 
-  public User() {}
+  protected User() {
+  }
 
-  public User(String firstname, String lastname, String email, String password, Functions role, int id) {
+  //Constructor with no ID parameter. This will be generated.
+  public User(String email, String password, String firstname, String lastname, Functions role) {
     this.email = email;
+    this.password = password;
     this.firstname = firstname;
     this.lastname = lastname;
-    this.password = password;
-    this.id = id;
     this.role = role;
   }
 
-  public int getId() {
-    return id;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    User user = (User) o;
+    return id == user.id;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  public long getId() {
+    return id;
   }
 
   public String getEmail() {
