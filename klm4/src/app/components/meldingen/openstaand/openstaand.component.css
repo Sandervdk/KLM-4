@@ -8,6 +8,7 @@ table{
 
 th, td{
   padding: 8px;
+  font-size: var(--application-font-size);
 }
 
 th {
