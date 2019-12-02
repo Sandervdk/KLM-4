@@ -16,7 +16,6 @@ public class User {
   @GeneratedValue
   private long id;
 
-//  @JsonIgnore
   private String password;
 
   private String email, firstname, lastname;
