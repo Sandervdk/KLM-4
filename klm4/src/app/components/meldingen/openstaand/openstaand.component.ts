@@ -6,8 +6,7 @@ import {Functions} from '../../../models/staff/Functions';
 import {Melding} from '../../../models/melding/melding';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
-import {RunnerService} from '../../runnerpage/runner.service';
-import {RequestStatus} from "../../../models/enums/requestStatus";
+import {RequestStatus} from '../../../models/enums/requestStatus';
 
 @Component({
   selector: 'app-openstaand',

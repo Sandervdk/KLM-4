@@ -1,78 +1,82 @@
-<form (ngSubmit)="onSubmit()" #form="ngForm">
-  <input name="location" type="text" class="feedback-input" placeholder="Locatie"
-         [(ngModel)]="location"
-         required/>
-  <input name="time" id= "timepicker" type="time" class="feedback-input" placeholder="tijd"
-         [(ngModel)]="deadline"
-         required />
+<ng-template [ngIf]="!mechanicAnimation">
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <input name="location" type="text" class="feedback-input" placeholder="Locatie"
+           [(ngModel)]="location"
+           required/>
+    <input name="time" id= "timepicker" type="time" class="feedback-input" placeholder="tijd"
+           [(ngModel)]="deadline"
+           required />
 
-  <select name="planeType" class="dropdown-input feedback-input"
-          [(ngModel)]="planeType"
-          (change)="changeType(planeType)">
-    <option hidden>{{planeType}}</option>
-    <option
-      *ngFor="let type of planeTypeList| slice:1">{{type}}
-    </option>
-  </select>
+    <select name="planeType" class="dropdown-input feedback-input"
+            [(ngModel)]="planeType"
+            (change)="changeType(planeType)">
+      <option hidden>{{planeType}}</option>
+      <option
+        *ngFor="let type of planeTypeList| slice:1">{{type}}
+      </option>
+    </select>
 
-  <div
-    *ngFor="let equipment of selectedEquipment; let i = index">
-    <ng-container *ngIf="selectedEquipment.length !== 0">
-      <div class="flex-container">
-        <div class="equipmentContrainer">
+    <div
+      *ngFor="let equipment of selectedEquipment; let i = index">
+      <ng-container *ngIf="selectedEquipment.length !== 0">
+        <div class="flex-container">
+          <div class="equipmentContrainer">
 
-          <select title="equipment" name="equipment1" class="dropdown-input"
-                  (change)="addEquipment($event.target.value, equipment, i)"
-                  required>
-            <option hidden>{{selectedEquipment[i]}}</option>
-            <option
-              *ngFor="let equipment of equipmentList| slice:1"
-              value="{{equipment}}">{{equipment}}
-            </option>
-          </select>
+            <select title="equipment" name="equipment1" class="dropdown-input"
+                    (change)="addEquipment($event.target.value, equipment, i)"
+                    required>
+              <option hidden>{{selectedEquipment[i]}}</option>
+              <option
+                *ngFor="let equipment of equipmentList| slice:1"
+                value="{{equipment}}">{{equipment}}
+              </option>
+            </select>
 
-          <div class="flex-container"
-               *ngIf="equipment !== 'Equipment'">
-            <div class="btn btn-outline-primary flex-btn btn-left"
-                 (click)="buttonSelected($event.target, i)">Links
+            <div class="flex-container"
+                 *ngIf="equipment !== 'Equipment'">
+              <div class="btn btn-outline-primary flex-btn btn-left"
+                   (click)="buttonSelected($event.target, i)">Links
+              </div>
+              <div class="btn btn-outline-primary flex-btn"
+                   (click)="buttonSelected($event.target, i)">Neus
+              </div>
+              <div class="btn btn-outline-primary flex-btn btn-right"
+                   (click)="buttonSelected($event.target, i)">Rechts
+              </div>
             </div>
-            <div class="btn btn-outline-primary flex-btn"
-                 (click)="buttonSelected($event.target, i)">Neus
-            </div>
-            <div class="btn btn-outline-primary flex-btn btn-right"
-                 (click)="buttonSelected($event.target, i)">Rechts
-            </div>
+
           </div>
+
+          <button class="removeButton"
+                  *ngIf="selectedEquipment.length !== 1"
+                  (click)="remove(equipment)">X
+          </button>
 
         </div>
 
-        <button class="removeButton"
-                *ngIf="selectedEquipment.length !== 1"
-                (click)="remove(equipment)">X
-        </button>
+        <nitrogen-wagon
+          *ngIf="equipment === equipmentEnums.STIKSTOFWAGEN">
+        </nitrogen-wagon>
 
-      </div>
+        <tire-wagon
+          [planeType]="planeType"
+          *ngIf="equipment === equipmentEnums.BANDENWAGEN">
+        </tire-wagon>
 
-      <nitrogen-wagon
-        *ngIf="equipment === equipmentEnums.STIKSTOFWAGEN">
-      </nitrogen-wagon>
-
-      <tire-wagon
-        [planeType]="planeType"
-        *ngIf="equipment === equipmentEnums.BANDENWAGEN">
-      </tire-wagon>
-
-    </ng-container>
-  </div>
-  <div class="text-center"
-    *ngIf="selectedEquipment[0] !== equipmentEnums.EQUIPMENT && equipmentList.length !== 1">
-    <button type="button" class="feedback-input"
-      (click)="addNewEquipment();">+</button>
-  </div>
-  <input id="submitButton" type="submit" value="submit"
-         [disabled]="!form.valid"/>
-</form>
-
+      </ng-container>
+    </div>
+    <div class="text-center"
+         *ngIf="selectedEquipment[0] !== equipmentEnums.EQUIPMENT && equipmentList.length !== 1">
+      <button type="button" class="feedback-input"
+              (click)="addNewEquipment();">+</button>
+    </div>
+    <input id="submitButton" type="submit" value="submit"
+           [disabled]="!form.valid"/>
+  </form>
+</ng-template>
+<ng-template [ngIf]="mechanicAnimation">
+  <app-mechanic-animation></app-mechanic-animation>
+</ng-template>
 <div
   *ngIf="popupOpen" class="popup">
   <span>{{popupText}}</span>

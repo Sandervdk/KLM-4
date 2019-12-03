@@ -1,12 +1,12 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Melding, meldingStatus} from '../../models/melding/melding';
+import {Melding} from '../../models/melding/melding';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../authentication/authentication.service";
-import {RequestStatus} from "../../models/enums/requestStatus";
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../authentication/authentication.service';
+import {RequestStatus} from '../../models/enums/requestStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class MeldingenService implements OnInit {
   }
 
   public getAllMeldingen(): Observable<Melding[]> {
-    return this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen')
+    return this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen');
 
     // todo Voor extra lijst met alleen meldingen van actieve mechanic
     // this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen').subscribe((melding) => {
@@ -76,7 +76,7 @@ export class MeldingenService implements OnInit {
     console.log(this.index);
     if (confirm('Equipment is bezorgd?')) {
       this.mechanicMeldingen[index].status = RequestStatus.Delivered;
-       this.router.navigate(['/runner/meldingen-openstaand']);
+      this.router.navigate(['/runner/meldingen-openstaand']);
     }
   }
 

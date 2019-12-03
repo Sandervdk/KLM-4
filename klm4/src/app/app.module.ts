@@ -35,6 +35,7 @@ import {ProductenpageComponent} from './components/runnerpage/producten/producte
 import {HttpClientModule} from '@angular/common/http';
 import { LoginAnimationComponent } from './components/global/login-animation/login-animation.component';
 import { RunnerAnimationComponent } from './components/global/runner-animation/runner-animation.component';
+import { MechanicAnimationComponent } from './components/global/mechanic-animation/mechanic-animation.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { RunnerAnimationComponent } from './components/global/runner-animation/r
     MechanicpageComponent,
     ProductenpageComponent,
     LoginAnimationComponent,
-    RunnerAnimationComponent
+    RunnerAnimationComponent,
+    MechanicAnimationComponent
   ],
   imports: [
     BrowserModule,
