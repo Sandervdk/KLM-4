@@ -1,14 +1,13 @@
 <ng-template [ngIf]="!runnerAnimation">
-  <h1>Afzetten</h1>
+  <h1>{{requestStatus.Drop_Off}}</h1>
   <div class="tabeldiv">
     <table class="table table-hover">
       <thead>
       <tr>
-        <th>Locatie</th>
-        <th>Aflevertijd</th>
-        <th>Vliegtuig type</th>
-        <th>Equipment type</th>
-        <!--<th>Positie</th>-->
+        <th>Location</th>
+        <th>Deadline</th>
+        <th>Planetype</th>
+        <th>Equipmentype</th>
         <th>Status</th>
       </tr>
       </thead>
@@ -16,12 +15,12 @@
       <tr class="clickableRow"
           *ngFor="let melding of meldingService.mechanicMeldingen; let i = index"
           (click)="unfoldRow(i, $event.target.parentNode)">
-        <ng-container *ngIf="melding.status === 'Afzetten'">
+        <ng-container *ngIf="melding.status === requestStatus.Drop_Off">
           <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
-            <td>{{melding.locatie}}</td>
-            <td>{{melding.deadline}}</td>
-            <td>{{melding.typeVliegtuig}}</td>
-            <td>{{melding.wagonTypes}}</td>
+            <td>{{melding.location}}</td>
+            <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
+            <td>{{melding.planetype}}</td>
+            <td>{{melding.wagonType}}</td>
             <td>{{melding.status}}</td>
           </ng-container>
 
@@ -34,24 +33,24 @@
                   </td>
                 </tr>
                 <tr>
-                  <th>Locatie</th>
-                  <td>{{melding.locatie}}</td>
+                  <th>Location</th>
+                  <td>{{melding.location}}</td>
                   <th>deadline</th>
-                  <td>{{melding.deadline}}</td>
+                  <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
                 </tr>
                 <tr>
-                  <th>vliegtuigtype</th>
-                  <td>{{melding.typeVliegtuig}}</td>
-                  <th>positie</th>
-                  <td>{{melding.positie}}</td>
+                  <th>Planetype</th>
+                  <td>{{melding.planetype}}</td>
+                  <th>Position</th>
+                  <td>{{melding.position}}</td>
                 </tr>
                 <tr>
                   <th>Equipment</th>
-                  <td>{{melding.wagonTypes}}</td>
+                  <td>{{melding.wagonType}}</td>
                   <th>Status</th>
                   <td>{{melding.status}}</td>
                 </tr>
-                <tr *ngIf="melding.wagonTypes === equipmentlist.BANDENWAGEN">
+                <tr *ngIf="melding.wagonType === equipmentlist.BANDENWAGEN">
                   <th>
                     Main Banden
                   </th>
@@ -64,22 +63,22 @@
                 <tr>
                   <td colspan="99" class="btn-container">
                     <button class="acceptBtn btnShape"
-                            *ngIf="melding.status !== 'Geaccepteerd'"
+                            *ngIf="melding.status !== requestStatus.Accepted"
                             (click)="showPopUp(i)"
                             [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Accepteren
                     </button>
                     <button class="ophaalbtn btnShape"
-                            *ngIf="melding.status === 'Geaccepteerd'"
+                            *ngIf="melding.status === requestStatus.Accepted"
                             (click)="popUp(i)"
                             [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Bezorgen
                     </button>
                     <button class="deleteBbtn btnShape"
-                            *ngIf="melding.status === 'Geaccepteerd'"
+                            *ngIf="melding.status === requestStatus.Accepted"
                             [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Annuleren
                     </button>
                     <app-damaged-form #damageForm
                                       (click)="openDamageForm()"
-                                      *ngIf="melding.status === 'Geaccepteerd'"
+                                      *ngIf="melding.status === requestStatus.Accepted"
                                       [ngStyle]="{'width': 100 / numberOfButtons + '%'}"></app-damaged-form>
                   </td>
                 </tr>
@@ -100,12 +99,12 @@
         <tr class="clickableRow"
             *ngFor="let melding of meldingService.mechanicMeldingen; let i = index"
             (click)="unfoldRow(i, $event.target.parentNode)">
-          <ng-container *ngIf="melding.id == this.id && melding.status !== 'Ophalen'">
+          <ng-container *ngIf="melding.id == this.id && melding.status !== requestStatus.Collect">
             <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
-              <td>{{melding.locatie}}</td>
-              <td>{{melding.deadline}}</td>
-              <td>{{melding.typeVliegtuig}}</td>
-              <td>{{melding.wagonTypes}}</td>
+              <td>{{melding.location}}</td>
+              <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
+              <td>{{melding.planetype}}</td>
+              <td>{{melding.wagonType}}</td>
               <td>{{melding.status}}</td>
             </ng-container>
             <ng-template #extraInfo>
@@ -117,24 +116,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <th>Locatie</th>
-                    <td>{{melding.locatie}}</td>
+                    <th>Location</th>
+                    <td>{{melding.location}}</td>
                     <th>deadline</th>
-                    <td>{{melding.deadline}}</td>
+                    <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
                   </tr>
                   <tr>
-                    <th>vliegtuigtype</th>
-                    <td>{{melding.typeVliegtuig}}</td>
-                    <th>positie</th>
-                    <td>{{melding.positie}}</td>
+                    <th>Planetype</th>
+                    <td>{{melding.planetype}}</td>
+                    <th>Position</th>
+                    <td>{{melding.position}}</td>
                   </tr>
                   <tr>
                     <th>Equipment</th>
-                    <td>{{melding.wagonTypes}}</td>
+                    <td>{{melding.wagonType}}</td>
                     <th>Status</th>
                     <td>{{melding.status}}</td>
                   </tr>
-                  <tr *ngIf="melding.wagonTypes === equipmentlist.BANDENWAGEN">
+                  <tr *ngIf="melding.wagonType === equipmentlist.BANDENWAGEN">
                     <th>
                       Main Banden
                     </th>
@@ -148,12 +147,12 @@
                     <td colspan="99" class="btn-container">
                       <button class="deleteBbtn btnShape"
                               (click)="deleteRequest(i)"
-                              [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Verwijderen
+                              [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Delete
                       </button>
                       <button class="ophaalbtn btnShape"
                               *ngIf="equipmentIsBezorgd"
                               (click)="ophaalPopUp(i)"
-                              [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Afronden
+                              [ngStyle]="{'width': 100 / numberOfButtons + '%'}">Finish
                       </button>
                       <app-damaged-form #damageForm
                                         (click)="openDamageForm()"
@@ -179,16 +178,15 @@
 
 <ng-template [ngIf]="!runnerAnimation">
   <div *ngIf="'MECHANIC' !== userRole">
-    <h1>Ophalen</h1>
+    <h1>{{requestStatus.Collect}}</h1>
     <div class="tabeldiv">
       <table class="table table-hover">
         <thead>
         <tr>
-          <th>Locatie</th>
-          <th>Aflevertijd</th>
-          <th>Vliegtuig type</th>
+          <th>Location</th>
+          <th>Deadline</th>
+          <th>Planetype</th>
           <th>Equipment type</th>
-          <!--<th>Positie</th>-->
           <th>Status</th>
         </tr>
         </thead>
@@ -196,12 +194,12 @@
         <tr class="clickableRow"
             *ngFor="let melding of meldingService.mechanicMeldingen; let i = index"
             (click)="unfoldRow(i, $event.target.parentNode)">
-          <ng-container *ngIf="melding.status === 'Ophalen'">
+          <ng-container *ngIf="melding.status === requestStatus.Collect">
             <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
-              <td>{{melding.locatie}}</td>
-              <td>{{melding.deadline}}</td>
-              <td>{{melding.typeVliegtuig}}</td>
-              <td>{{melding.wagonTypes}}</td>
+              <td>{{melding.location}}</td>
+              <td>{{melding.deadline.toLocaleTimeString()}}</td>
+              <td>{{melding.planetype}}</td>
+              <td>{{melding.wagonType}}</td>
               <td>{{melding.status}}</td>
             </ng-container>
 
@@ -214,24 +212,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <th>Locatie</th>
-                    <td>{{melding.locatie}}</td>
+                    <th>Location</th>
+                    <td>{{melding.location}}</td>
                     <th>deadline</th>
-                    <td>{{melding.deadline}}</td>
+                    <td>{{melding.deadline.toLocaleString(getTime())}}</td>
                   </tr>
                   <tr>
-                    <th>vliegtuigtype</th>
-                    <td>{{melding.typeVliegtuig}}</td>
-                    <th>positie</th>
-                    <td>{{melding.positie}}</td>
+                    <th>Planetype</th>
+                    <td>{{melding.planetype}}</td>
+                    <th>Position</th>
+                    <td>{{melding.position}}</td>
                   </tr>
                   <tr>
                     <th>Equipment</th>
-                    <td>{{melding.wagonTypes}}</td>
+                    <td>{{melding.wagonType}}</td>
                     <th>Status</th>
                     <td>{{melding.status}}</td>
                   </tr>
-                  <tr *ngIf="melding.wagonTypes === equipmentlist.BANDENWAGEN">
+                  <tr *ngIf="melding.wagonType === equipmentlist.BANDENWAGEN">
                     <th>
                       Main Banden
                     </th>
