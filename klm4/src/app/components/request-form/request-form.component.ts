@@ -6,10 +6,9 @@ import {TireWagon} from './tire-wagon/tire-wagon';
 import {Time} from '@angular/common';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
 import {Melding, meldingStatus} from '../../models/melding/melding';
-import {RunnerService} from '../runnerpage/runner.service';
 import {MechanicService} from '../mechanicpage/mechanic.service';
-import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {Router} from "@angular/router";
+import {AuthenticationService} from '../../services/authentication/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'request-form',

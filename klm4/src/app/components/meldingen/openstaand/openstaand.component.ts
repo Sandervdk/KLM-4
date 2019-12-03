@@ -28,7 +28,7 @@ export class OpenstaandComponent implements OnInit {
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
   constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
-              private authentication: AuthenticationService, private runnerService: RunnerService) {
+              private authentication: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -87,7 +87,7 @@ export class OpenstaandComponent implements OnInit {
   }
 
   unfoldRow(index: number, subTable: Element) {
-    //Disables the detailed dropdown list when the is a click on the close buttons in the sub table
+    // Disables the detailed dropdown list when the is a click on the close buttons in the sub table
     if (subTable === null || !subTable.classList.contains('clickableRow')) {
       return;
     }

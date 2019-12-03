@@ -1,6 +1,4 @@
 import {PlaneTypes} from '../enums/planeTypes';
-import {WagonTypes} from '../enums/wagonTypes';
-import {Time} from '@angular/common';
 
 export class Melding {
   id: number;

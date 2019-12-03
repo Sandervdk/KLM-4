@@ -14,9 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@Transactional
 public class UserController {
-
 
   @Autowired
   private UserRepositorie userRepositorie; // creates an instance of the userDaoService
@@ -31,8 +29,8 @@ public class UserController {
   @GetMapping("/users/{id}")
   public User getUser(@PathVariable long id) {
     User user = userRepositorie.findUser(id);
-    if (user == null){
-      throw  new UserNotFoundException("User met de id: " + id + " is niet gevonden.");
+    if (user == null) {
+      throw new UserNotFoundException("User met de id: " + id + " is niet gevonden.");
     }
     return user;
   }
