@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, LayerGroup, tileLayer} from 'leaflet';
 import {WagonsService} from '../../services/wagons/wagons.service';
-import {meldingStatus} from "../../models/melding/melding";
 import {MeldingenService} from "../../services/meldingen/meldingen.service";
 import {Router} from "@angular/router";
 

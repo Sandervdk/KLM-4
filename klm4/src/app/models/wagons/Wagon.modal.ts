@@ -1,16 +1,20 @@
 import {WagonTypes} from '../enums/wagonTypes';
+import {LatLng} from "leaflet";
+import {EquipmentStatus} from "../enums/equipmentStatus";
 
 export class Wagon {
   private id: number;
   private title: string;
-  private lastSeen: {};
+  private lastSeen: LatLng;
   private wagonType: WagonTypes;
+  private equipmentStatus: EquipmentStatus;
 
-  constructor(id: number, title: string, lastSeen: {}, wagonType: WagonTypes) {
+  constructor(id: number, title: string, lastSeen: LatLng, wagonType: WagonTypes, equipmentStatus: EquipmentStatus) {
     this.id = id;
     this.title = title;
     this.lastSeen = lastSeen;
     this.wagonType = wagonType;
+    this.equipmentStatus = equipmentStatus;
   }
 
   getID() {
@@ -27,5 +31,9 @@ export class Wagon {
 
   getWagonType() {
     return this.wagonType;
+  }
+
+  getEquipmentStatus() {
+    return this.equipmentStatus;
   }
 }

@@ -7,6 +7,8 @@ import {Melding} from '../../../models/melding/melding';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
+import {DomEvent} from "leaflet";
+import off = DomEvent.off;
 
 @Component({
   selector: 'app-openstaand',
@@ -14,6 +16,8 @@ import {RequestStatus} from '../../../models/enums/requestStatus';
   styleUrls: ['./openstaand.component.css']
 })
 export class OpenstaandComponent implements OnInit {
+  private meldingen: Melding[];
+  private mechanicMeldingein: Melding[];
   private userRole: Functions;
   private expandedInfo: boolean[];
   private selectedRequest: Melding;
@@ -37,7 +41,9 @@ export class OpenstaandComponent implements OnInit {
     this.id = this.authentication.getID();
     this.expandedInfo = [];
     this.numberOfButtons = 1;
-    for (let i = 0; i < this.meldingService.mechanicMeldingen.length; i++) {
+    this.meldingen = this.meldingService.getMeldingen();
+    this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
+    for (let i = 0; i < this.meldingen.length; i++) {
       this.expandedInfo.push(false);
     }
   }
@@ -57,12 +63,12 @@ export class OpenstaandComponent implements OnInit {
 
   showPopUp(index: number) {
     if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
-      if (this.meldingService.mechanicMeldingen[index].status === RequestStatus.Drop_Off) {
-        this.meldingService.mechanicMeldingen[index].status = RequestStatus.Accepted;
+      if (this.meldingen[index].status === RequestStatus.Pending) {
+        this.meldingen[index].status = RequestStatus.Accepted;
         this.meldingService.index = index;
         this.nextScreen();
       } else {
-        this.meldingService.mechanicMeldingen[index].status = RequestStatus.Finished;
+        this.meldingen[index].status = RequestStatus.Finished;
       }
       this.expandedInfo[index] = false;
       this.oldIndex = undefined;
@@ -71,7 +77,7 @@ export class OpenstaandComponent implements OnInit {
 
   popUp(index: number) {
     if (confirm('Equipment is bezorgd?')) {
-      this.meldingService.mechanicMeldingen[index].status = RequestStatus.Delivered;
+      this.meldingen[index].status = RequestStatus.Delivered;
       this.expandedInfo[index] = false;
       this.oldIndex = undefined;
     }
@@ -79,17 +85,18 @@ export class OpenstaandComponent implements OnInit {
 
   ophaalPopUp(index: number) {
     if (confirm('Weet je zeker dat je klaar bent?')) {
-      this.meldingService.mechanicMeldingen[index].status = RequestStatus.Collect;
+      this.meldingen[index].status = RequestStatus.Collect;
     }
   }
 
   deleteRequest(index: number) {
-    this.meldingService.mechanicMeldingen.splice(index, 1);
+    this.mechanicMeldingein.splice(index, 1);
+    this.expandedInfo[index] = false;
   }
 
   unfoldRow(index: number, subTable: Element) {
     // Disables the detailed dropdown list when the is a click on the close buttons in the sub table
-    if (subTable === null || !subTable.classList.contains('clickableRow')) {
+    if (subTable === null || !subTable.classList.contains('clickableRow') && !subTable.classList.contains('extraInfoHeader')) {
       return;
     }
 
@@ -105,7 +112,11 @@ export class OpenstaandComponent implements OnInit {
 
     this.numberOfButtons = 1;
     this.expandedInfo[index] = true;
-    this.selectedRequest = this.meldingService.mechanicMeldingen[index];
+    if (this.userRole === 'MECHANIC') {
+      this.selectedRequest = this.mechanicMeldingein[index];
+    } else {
+      this.selectedRequest = this.meldingen[index];
+    }
 
     if (this.selectedRequest.status === RequestStatus.Delivered && this.userRole === 'MECHANIC') {
       this.numberOfButtons += 2;

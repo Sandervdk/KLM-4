@@ -172,11 +172,14 @@ export class RequestFormComponent implements OnInit {
     // loops through the selected equipment array and adds a new request for each piece of equipment, each requests
     // gets the ID of the currently logged in user
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      this.meldingService.mechanicMeldingen.push(new Melding(this.authentication.getID(), this.location,
+      let request = new Melding(this.authentication.getID(), this.location,
         new Date(new Date().setHours(
           parseInt(this.deadline.toString().substr(0, 3)),
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
-        this.planeType, this.selectedEquipment[i], this.locationArray[i], RequestStatus.Drop_Off));
+        this.planeType, this.selectedEquipment[i], this.locationArray[i], RequestStatus.Pending);
+
+      this.meldingService.getMeldingen().push(request);
+      this.meldingService.getMechanicMeldingen().push(request);
     }
 
     // rerouts the user to the made requests screen after adding all the requests.

@@ -1,5 +1,5 @@
 export enum RequestStatus {
-  Drop_Off = 'Drop off',
+  Pending = 'Pending',
   Accepted = 'Accepted',
   Delivered = 'Delivered',
   Collect = 'Collect',
