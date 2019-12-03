@@ -3,10 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MeldingenService} from '../../../services/meldingen/meldingen.service';
 import {AuthenticationService} from '../../../services/authentication/authentication.service';
 import {Functions} from '../../../models/staff/Functions';
-import {Melding, meldingStatus} from '../../../models/melding/melding';
+import {Melding} from '../../../models/melding/melding';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RunnerService} from '../../runnerpage/runner.service';
+import {RequestStatus} from "../../../models/enums/requestStatus";
 
 @Component({
   selector: 'app-openstaand',
@@ -17,6 +18,7 @@ export class OpenstaandComponent implements OnInit {
   private userRole: Functions;
   private expandedInfo: boolean[];
   private selectedRequest: Melding;
+  private requestStatus = RequestStatus;
   private id: number;
   private numberOfButtons: number;
   private oldIndex: number;
@@ -56,12 +58,12 @@ export class OpenstaandComponent implements OnInit {
 
   showPopUp(index: number) {
     if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
-      if (this.meldingService.mechanicMeldingen[index].status === meldingStatus.Afzetten) {
-        this.meldingService.mechanicMeldingen[index].status = meldingStatus.Geaccepteerd;
+      if (this.meldingService.mechanicMeldingen[index].status === RequestStatus.Drop_Off) {
+        this.meldingService.mechanicMeldingen[index].status = RequestStatus.Accepted;
         this.meldingService.index = index;
         this.nextScreen();
       } else {
-        this.meldingService.mechanicMeldingen[index].status = meldingStatus.Afgerond;
+        this.meldingService.mechanicMeldingen[index].status = RequestStatus.Finished;
       }
       this.expandedInfo[index] = false;
       this.oldIndex = undefined;
@@ -70,7 +72,7 @@ export class OpenstaandComponent implements OnInit {
 
   popUp(index: number) {
     if (confirm('Equipment is bezorgd?')) {
-      this.meldingService.mechanicMeldingen[index].status = meldingStatus.Bezorgd;
+      this.meldingService.mechanicMeldingen[index].status = RequestStatus.Delivered;
       this.expandedInfo[index] = false;
       this.oldIndex = undefined;
     }
@@ -78,7 +80,7 @@ export class OpenstaandComponent implements OnInit {
 
   ophaalPopUp(index: number) {
     if (confirm('Weet je zeker dat je klaar bent?')) {
-      this.meldingService.mechanicMeldingen[index].status = meldingStatus.Ophalen;
+      this.meldingService.mechanicMeldingen[index].status = RequestStatus.Collect;
     }
   }
 
@@ -106,10 +108,10 @@ export class OpenstaandComponent implements OnInit {
     this.expandedInfo[index] = true;
     this.selectedRequest = this.meldingService.mechanicMeldingen[index];
 
-    if (this.selectedRequest.status === meldingStatus.Bezorgd && this.userRole === 'MECHANIC') {
+    if (this.selectedRequest.status === RequestStatus.Delivered && this.userRole === 'MECHANIC') {
       this.numberOfButtons += 2;
       this.equipmentIsBezorgd = true;
-    } else if (this.selectedRequest.status === meldingStatus.Geaccepteerd && this.userRole === 'RUNNER') {
+    } else if (this.selectedRequest.status === RequestStatus.Accepted && this.userRole === 'RUNNER') {
       this.numberOfButtons += 2;
       this.equipmentIsBezorgd = true;
     }

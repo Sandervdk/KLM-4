@@ -5,10 +5,11 @@ import {WagonTypes} from '../../models/enums/wagonTypes';
 import {TireWagon} from './tire-wagon/tire-wagon';
 import {Time} from '@angular/common';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
-import {Melding, meldingStatus} from '../../models/melding/melding';
+import {Melding} from '../../models/melding/melding';
 import {MechanicService} from '../mechanicpage/mechanic.service';
-import {AuthenticationService} from '../../services/authentication/authentication.service';
-import {Router} from '@angular/router';
+import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {Router} from "@angular/router";
+import {RequestStatus} from "../../models/enums/requestStatus";
 
 @Component({
   selector: 'request-form',
@@ -42,7 +43,7 @@ export class RequestFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  /**
+  /**f
    * yeet
    * @param newSelectedEquipment
    * @param oldSelectedEquipment
@@ -169,7 +170,11 @@ export class RequestFormComponent implements OnInit {
     //loops through the selected equipment array and adds a new request for each piece of equipment, each requests
     //gets the ID of the currently logged in user
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      this.meldingService.mechanicMeldingen.push(new Melding(this.authentication.getID(), this.location, this.deadline, this.planeType, this.selectedEquipment[i], this.locationArray[i], this.generateTime(), meldingStatus.Afzetten))
+      this.meldingService.mechanicMeldingen.push(new Melding(this.authentication.getID(), this.location,
+        new Date(new Date().setHours(
+          parseInt(this.deadline.toString().substr(0, 3)),
+          parseInt(this.deadline.toString().substr(3)), 0, 0)),
+        this.planeType, this.selectedEquipment[i], this.locationArray[i], RequestStatus.Drop_Off))
     }
     //rerouts the user to the made requests screen after adding all the requests.
     this.router.navigate(['/mechanic/meldingen-openstaand']);

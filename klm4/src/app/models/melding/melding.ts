@@ -1,32 +1,28 @@
 import {PlaneTypes} from '../enums/planeTypes';
+import {WagonTypes} from '../enums/wagonTypes';
+import {RequestStatus} from "../enums/requestStatus";
 
 export class Melding {
   id: number;
-  locatie: string;
-  deadline: any;
-  typeVliegtuig: PlaneTypes;
-  wagonTypes: any;
-  positie: any;
-  tijd: any;
-  status: meldingStatus;
+  location: string;
+  requestTime: Date;
+  deadline: Date;
+  planetype: PlaneTypes;
+  wagonType: WagonTypes;
+  position: string;
+  status: RequestStatus;
 
-
-  constructor(id: number, locatie: string, deadline: any, typeVliegtuig: PlaneTypes, wagonTypes: any, positie: any, tijd: any, status: meldingStatus) {
+  constructor(id: number, location: string, deadline: Date, planetype: PlaneTypes, wagonType: WagonTypes, position: string, status: RequestStatus) {
     this.id = id;
-    this.locatie = locatie;
+    this.location = location;
     this.deadline = deadline;
-    this.typeVliegtuig = typeVliegtuig;
-    this.wagonTypes = wagonTypes;
-    this.positie = positie;
-    this.tijd = tijd;
+    this.planetype = planetype;
+    this.wagonType = wagonType;
+    this.position = position;
+    this.deadline = deadline;
+    this.requestTime = new Date();
     this.status = status;
   }
 }
 
-export enum meldingStatus {
-  Afzetten = 'Afzetten',
-  Geaccepteerd = 'Geaccepteerd',
-  Bezorgd = 'Bezorgd',
-  Ophalen = 'Ophalen',
-  Afgerond = 'Afgerond'
-}
+

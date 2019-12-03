@@ -1,10 +1,6 @@
 package com.example.demo.repositories;
 
-import com.example.demo.enums.MeldingStatus;
-import com.example.demo.enums.PlaneTypes;
-import com.example.demo.enums.WagonTypes;
 import com.example.demo.models.Melding;
-import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -12,10 +8,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @Component

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {icon, LayerGroup, marker, Marker} from 'leaflet';
+import {icon, LatLng, LayerGroup, marker, Marker} from 'leaflet';
 import {FuelWagon} from '../../../models/wagons/FuelWagon.modal';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 
@@ -14,7 +14,7 @@ export class FuelwagonService {
 
   public long = 4.767863;
   public lat = 52.311720;
-
+  private teehee: LatLng;
   private fuelWagonMarkers: Marker[] = [];
   private fuelWagonslayer: LayerGroup;
 

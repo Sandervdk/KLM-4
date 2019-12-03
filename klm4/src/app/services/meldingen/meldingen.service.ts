@@ -5,17 +5,21 @@ import {WagonTypes} from '../../models/enums/wagonTypes';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../authentication/authentication.service";
+import {RequestStatus} from "../../models/enums/requestStatus";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeldingenService implements OnInit {
+  private meldingen: Melding[];                             //
+  private mechanicMeldingen: Melding[];                     // Array van meldingen voor de actieve mechanic
   public mechanicMeldingen: Melding[] = [];
   private readonly URL: string = 'http://localhost:8080';
   public time = new Date().toLocaleTimeString();
   public index: number = 0;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
 
     this.randomMeldingen();
   }
@@ -25,25 +29,38 @@ export class MeldingenService implements OnInit {
 
   public getAllMeldingen(): Observable<Melding[]> {
     return this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen')
+
+    // todo Voor extra lijst met alleen meldingen van actieve mechanic
+    // this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen').subscribe((melding) => {
+    //   this.mechanicMeldingen = melding;
+    //   if (this.authentication.mechanicMode === false)
+    //     return;
+    //   for (let i = 0; i < this.meldingen.length; i++) {
+    //     if (this.meldingen[i].id === this.authentication.getID()) {
+    //       this.mechanicMeldingen.push(this.meldingen[i]);
+    //     }
+    //   }
+    // })
   }
 
-
-
   public randomMeldingen() {
-    this.mechanicMeldingen.push(new Melding(1, 'F5', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(1, 'E9', '11:45', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(1, 'A7', '13:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(1, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(1, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.SKYDROLWAGEN, 'Rechts', this.time, meldingStatus.Bezorgd));
-    this.mechanicMeldingen.push(new Melding(1, 'F3', '09:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Ophalen));
-    this.mechanicMeldingen.push(new Melding(1, 'B2', '11:11', PlaneTypes.Ambraer190, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Bezorgd));
-    this.mechanicMeldingen.push(new Melding(156, 'B2', '11:11', PlaneTypes.Ambraer190, WagonTypes.SKYDROLWAGEN, 'Rechts', this.time, meldingStatus.Bezorgd));
-    this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.STIKSTOFWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Rechts', this.time, meldingStatus.Afzetten));
-    this.mechanicMeldingen.push(new Melding(156, 'C5', '13:40', PlaneTypes.BOEING737, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Ophalen));
-    this.mechanicMeldingen.push(new Melding(156, 'A7', '14:45', PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Geaccepteerd));
-    this.mechanicMeldingen.push(new Melding(156, 'A2', '12:30', PlaneTypes.Ambraer190, WagonTypes.BANDENWAGEN, 'Rechts', this.time, meldingStatus.Geaccepteerd));
-    this.sortMeldingen();
+    // this.mechanicMeldingen.push(new Melding(1, 'F5',
+    //   new Date(2019, 01, 0O5, 17, 23, 42, 1) ,
+    //   PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Drop_Off));
+    // this.mechanicMeldingen.push(new Melding(1, 'E9', new Date(), PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Links', RequestStatus.Drop_Off));
+    // this.mechanicMeldingen.push(new Melding(1, 'A7',
+    //   new Date(2019, 12, 0O5, 17, 23, 42, 1) ,
+    //   PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', RequestStatus.Drop_Off));
+    this.mechanicMeldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Rechts', RequestStatus.Drop_Off));
+    this.mechanicMeldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.AirbusA330, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Delivered));
+    this.mechanicMeldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Delivered));
+    this.mechanicMeldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.Ambraer190, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Delivered));
+    this.mechanicMeldingen.push(new Melding(156, 'B2', new Date(), PlaneTypes.Ambraer190, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Delivered));
+    this.mechanicMeldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.BOEING737, WagonTypes.STIKSTOFWAGEN, 'Rechts', RequestStatus.Drop_Off));
+    this.mechanicMeldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.BOEING737, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Drop_Off));
+    this.mechanicMeldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.BOEING737, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Collect));
+    this.mechanicMeldingen.push(new Melding(156, 'A7', new Date(), PlaneTypes.AirbusA330, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Accepted));
+    this.mechanicMeldingen.push(new Melding(156, 'A2', new Date(), PlaneTypes.Ambraer190, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Accepted));
   }
 
   public generateRandomId() {
@@ -54,22 +71,11 @@ export class MeldingenService implements OnInit {
     return this.mechanicMeldingen;
   }
 
-  public sortMeldingen() {
-    this.mechanicMeldingen.sort((request1, request2) => {
-      if (request1.tijd < request2.tijd) {
-        return -1;
-      } else if (request1.tijd > request2.tijd) {
-        return 1;
-      } else {
-        return 1;
-      }
-    });
-  }
 
   public bezorgd(index: number) {
     console.log(this.index);
     if (confirm('Equipment is bezorgd?')) {
-      this.mechanicMeldingen[index].status = meldingStatus.Bezorgd;
+      this.mechanicMeldingen[index].status = RequestStatus.Delivered;
        this.router.navigate(['/runner/meldingen-openstaand']);
     }
   }
