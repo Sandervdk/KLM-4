@@ -21,7 +21,7 @@ export class MeldingenService implements OnInit {
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
 
     this.randomMeldingen();
-    for(let i = 0; i < this.meldingen.length; i++) {
+    for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].id === authentication.getID()) {
         this.mechanicMeldingen.push(this.meldingen[i]);
       }
@@ -33,7 +33,6 @@ export class MeldingenService implements OnInit {
 
   public getAllMeldingen(): Observable<Melding[]> {
     return this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen');
-
   }
 
   public randomMeldingen() {
@@ -75,6 +74,10 @@ export class MeldingenService implements OnInit {
 
   public getMeldingen(): Melding[] {
     return this.meldingen;
+  }
+
+  public getMeldingAtIndex(index: number) {
+    return this.meldingen[index];
   }
 
   public getMechanicMeldingen(): Melding[] {

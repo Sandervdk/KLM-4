@@ -9,6 +9,10 @@ export class Runner extends Employee {
     super(name, lastname, email, password, Functions.RUNNER, id);
   }
 
+  getLastname(): string {
+    return super.getLastname();
+  }
+
   getId(): number {
     return super.getId();
   }

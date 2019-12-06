@@ -4,8 +4,6 @@ import {Admin} from '../../models/staff/Admin';
 import {Mechanic} from '../../models/staff/Mechanic';
 import {Runner} from '../../models/staff/Runner';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../user/user.service';
-import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +21,12 @@ export class AuthenticationService {
    * @param router this will navigate the application to the desired page
    * @param route this will check the current route
    */
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     if (this.user == null) {
       this.router.navigate(['/signin'], {
         relativeTo: this.route
       });
     }
-    // userService.getAllUsers().;
   }
 
   /**

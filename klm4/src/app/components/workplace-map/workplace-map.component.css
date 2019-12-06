@@ -11,3 +11,7 @@
 .leaflet-control-layers-toggle {
   display: none !important;
 }
+
+h3 {
+  margin-top: 15px;
+}

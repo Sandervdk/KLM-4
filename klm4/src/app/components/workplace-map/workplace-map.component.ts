@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {latLng, LayerGroup, tileLayer} from 'leaflet';
+import {latLng, tileLayer} from 'leaflet';
 import {WagonsService} from '../../services/wagons/wagons.service';
-import {MeldingenService} from "../../services/meldingen/meldingen.service";
-import {Router} from "@angular/router";
+import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {AuthenticationService} from '../../services/authentication/authentication.service';
 
 declare let L;
 
@@ -13,15 +13,12 @@ declare let L;
 })
 export class WorkplaceMapComponent implements OnInit {
   public map;
+  public equipment;
   private long = 4.766361511202604;
   private lat = 52.30678841808895;
 
-  private readonly fuelWagonsLayer: LayerGroup;
-
-  constructor(private wagonServices: WagonsService,
-              private meldingService: MeldingenService,
-              private router: Router) {
-    this.fuelWagonsLayer = wagonServices.getFuelWagonsLayer(); // layer with all the fuelwagon points
+  constructor(private authService: AuthenticationService, private wagonServices: WagonsService, private meldingService: MeldingenService) {
+    this.equipment = this.meldingService.getMeldingAtIndex(this.meldingService.index); // selected equipment from list
   }
 
   ngOnInit() {
@@ -35,7 +32,7 @@ export class WorkplaceMapComponent implements OnInit {
           attribution: 'Made by KLM-4 Of HVA'
         })
       ],
-      zoom: 12,
+      zoom: 13,
       center: latLng(this.lat, this.long)// these are starting points when the map is initialized
     });
 
@@ -44,11 +41,12 @@ export class WorkplaceMapComponent implements OnInit {
 
   private setUpLayers() {
     const layers = {
-      'Stikstof wagens': this.fuelWagonsLayer
+      [this.equipment.wagonType]: this.wagonServices.getFuelWagonsLayer()
     };
 
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
     checkBoxes.getContainer().setAttribute('class', '');
+    checkBoxes.checked = true;
     document.querySelector('#jpt .wagons-container .card-body').appendChild(checkBoxes.getContainer());
   }
 }

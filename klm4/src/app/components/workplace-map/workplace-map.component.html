@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-10">
+    <div class="col-12 col-lg-10">
       <div id="map-container"></div>
     </div>
-    <div class="col-md-2">
-      <h2>Beheer</h2>
+    <div class="col-12 col-lg-2">
+      <h2>Equipment</h2>
       <div>
         <div id="jpt">
           <div class="wagons-container">
@@ -12,8 +12,8 @@
               <div class="card">
                 <div class="card-header">
                   <span class="col-form-label" data-toggle="collapse" data-target="#collapseOne"
-                         aria-expanded="true" aria-controls="collapseOne">
-                    Wagens
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Equipment (Carts)
                   </span>
                 </div>
 
@@ -29,8 +29,24 @@
         </div>
 
         <button class="bezorgdbtn" (click)="this.meldingService.bezorgd(meldingService.index)">Bezorgd!</button>
-
-        <div class="new-parent"></div>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <h3>Details</h3>
+
+      <p>Welcome, {{this.authService.getUser().getLastname()}}<br>
+        You're working on the request with the code: <b>{{equipment.id}}</b>
+      </p>
+
+      <p>
+        Location: <b>{{equipment.location}}</b><br>
+        Planetype: <b>{{equipment.planetype}}</b><br>
+        Position: <b>{{equipment.position}}</b><br>
+        CartType: <b>{{equipment.wagonType}}</b><br>
+        Deadline: <b>{{equipment.deadline.toLocaleString()}}</b><br>
+      </p>
+    </div>
+  </div>
+</div>

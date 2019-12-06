@@ -7,8 +7,6 @@ import {Melding} from '../../../models/melding/melding';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
-import {DomEvent} from "leaflet";
-import off = DomEvent.off;
 
 @Component({
   selector: 'app-openstaand',
@@ -49,7 +47,7 @@ export class OpenstaandComponent implements OnInit {
   }
 
   /**
-   * Should have a better name, but will change in future
+   * Should have a better name, but may change in future
    */
   nextScreen() {
     this.runnerAnimation = true;
