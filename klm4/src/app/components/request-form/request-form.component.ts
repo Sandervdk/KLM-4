@@ -41,8 +41,8 @@ export class RequestFormComponent implements OnInit {
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
-    this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes);
-    this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes);
+    this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes.EQUIPMENT);
+    this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes.PLANETYPE);
   }
 
   ngOnInit() {

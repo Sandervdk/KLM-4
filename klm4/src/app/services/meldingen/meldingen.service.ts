@@ -63,9 +63,9 @@ export class MeldingenService implements OnInit {
     return this.mechanicMeldingen;
   }
 
-  public sortEnumsMostUsed(list: string[], enumType: PlaneTypes | WagonTypes) {
+  public sortEnumsMostUsed(list: string[], enumType: PlaneTypes.PLANETYPE | WagonTypes.EQUIPMENT) {
     let newList = [];
-    if (enumType === PlaneTypes) {
+    if (enumType === PlaneTypes.PLANETYPE) {
       //Adds the first planetype to the newList, since it can't check for existing values if the newList is empty
       newList.push({type: this.meldingen[0].planetype, amount: 1});
 
@@ -96,7 +96,7 @@ export class MeldingenService implements OnInit {
           }
         }
       }
-    } else if (enumType === WagonTypes) {
+    } else if (enumType === WagonTypes.EQUIPMENT) {
       //Adds the first planetype to the newList, since it can't check for existing values if the newList is empty
       newList.push({type: this.meldingen[0].wagonType, amount: 1});
 
