@@ -15,7 +15,6 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {RequestFormComponent} from './components/request-form/request-form.component';
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
-import {NitrogenWagon} from './components/request-form/nitrogen-wagon/nitrogen-wagon';
 import {TireWagon} from './components/request-form/tire-wagon/tire-wagon';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/users/usersoverview/usersoverview.component';
@@ -51,7 +50,6 @@ import { MechanicAnimationComponent } from './components/global/mechanic-animati
     RequestFormComponent,
     DamagedFormComponent,
     OpenstaandComponent,
-    NitrogenWagon,
     TireWagon,
     AdminpageComponent,
     AdminpageComponent,

@@ -13,7 +13,7 @@ export class DamagedFormComponent implements OnInit {
   private showform: boolean = false;
   private popupOpen: boolean = false;
   private planeTypeList = Object.values(PlaneTypes);
-  private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
+  private planeType: PlaneTypes = PlaneTypes.PLANETYPE;
   private currentTime = new Date().toLocaleTimeString().substring(0, 5);
 
   @ViewChild('damageForm', {static: false}) damageForm: NgForm;

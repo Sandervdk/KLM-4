@@ -10,8 +10,9 @@
     <select name="planeType" class="dropdown-input feedback-input"
             [(ngModel)]="planeType"
             (change)="changeType(planeType)">
-      <option hidden>{{planeType}}</option>
+      <option hidden>{{planeTypeEnums.PLANETYPE}}</option>
       <option
+        [hidden]="type === planeTypeEnums.PLANETYPE"
         *ngFor="let type of planeTypeList| slice:1">{{type}}
       </option>
     </select>
@@ -27,6 +28,7 @@
                     required>
               <option hidden>{{selectedEquipment[i]}}</option>
               <option
+                [hidden]="equipment == equipmentEnums.EQUIPMENT"
                 *ngFor="let equipment of equipmentList| slice:1"
                 value="{{equipment}}">{{equipment}}
               </option>
@@ -54,13 +56,9 @@
 
         </div>
 
-        <nitrogen-wagon
-          *ngIf="equipment === equipmentEnums.STIKSTOFWAGEN">
-        </nitrogen-wagon>
-
         <tire-wagon
           [planeType]="planeType"
-          *ngIf="equipment === equipmentEnums.BANDENWAGEN">
+          *ngIf="equipment === equipmentEnums.TIRECART">
         </tire-wagon>
 
       </ng-container>

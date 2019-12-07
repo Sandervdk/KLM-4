@@ -36,11 +36,11 @@ export class WagonsService {
     const lastSeen = {lat: 52.311720, long: 4.767863};
 
     switch (type) {
-      case WagonTypes.STIKSTOFWAGEN:
+      case WagonTypes.NITROGENCART:
         this.allWagons.push({id: Math.round(Math.random() * this.allWagons.length), title, type, lastSeen});
         // new FuelWagon()
         break;
-      case WagonTypes.BANDENWAGEN:
+      case WagonTypes.TIRECART:
         this.allWagons.push({id: Math.round(Math.random() * this.allWagons.length), title, type, lastSeen});
         break;
       case WagonTypes.EQUIPMENT:

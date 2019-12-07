@@ -10,6 +10,7 @@ import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {Router} from '@angular/router';
 import {RequestStatus} from '../../models/enums/requestStatus';
+import {Equal} from "tslint/lib/utils";
 
 @Component({
   selector: 'request-form',
@@ -27,11 +28,12 @@ export class RequestFormComponent implements OnInit {
 
   private selectedEquipment = [WagonTypes.EQUIPMENT];
   private locationArray = [];
-  private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
+  private planeType: PlaneTypes = PlaneTypes.PLANETYPE;
   private equipmentList = Object.values(WagonTypes);
   private planeTypeList = Object.values(PlaneTypes);
   private locationSelected: boolean = false;
   private equipmentEnums = WagonTypes;
+  private planeTypeEnums = PlaneTypes;
 
   private location: string;
   private deadline: Time;
@@ -39,9 +41,12 @@ export class RequestFormComponent implements OnInit {
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
+    this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes);
+    this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes);
   }
 
   ngOnInit() {
+
   }
 
   /**f
@@ -68,7 +73,6 @@ export class RequestFormComponent implements OnInit {
 
   /**
    * Removes an item from the selected equipment list and places it in the list with available equipment
-   * todo sort the list based on mosed used pieces of equipment
    * @param equipment the piece of equipment that was selected
    */
   remove(equipment) {
@@ -110,7 +114,7 @@ export class RequestFormComponent implements OnInit {
    */
   changeType(planetype: PlaneTypes) {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
+      if (this.selectedEquipment[i] === WagonTypes.TIRECART) {
         this.tireWagonComponent.changeType(planetype);
       }
     }
@@ -138,7 +142,7 @@ export class RequestFormComponent implements OnInit {
    */
   private checkValidity(): boolean {
     // checks if a planetype is selected and displays a popup
-    if (this.planeType === PlaneTypes.VLIEGTUIGTYPE) {
+    if (this.planeType === PlaneTypes.PLANETYPE) {
       this.openPopup('Er is geen vliegtuig type geselecteerd');
       return false;
     }
@@ -161,7 +165,7 @@ export class RequestFormComponent implements OnInit {
     // Checks for each different type of equipment if the equipment specific info has been filled in.
     //todo MOVE TO THE SPECIFIC COMPONENT TS FILES
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
+      if (this.selectedEquipment[i] === WagonTypes.TIRECART) {
         if (this.tireWagonComponent.getTireAmount() < 1) {
           this.openPopup('Aantal banden niet aangegeven');
           return false;
@@ -206,4 +210,5 @@ export class RequestFormComponent implements OnInit {
     this.selectedEquipment.push(WagonTypes.EQUIPMENT);
     this.locationArray.push('');
   }
+
 }

@@ -24,33 +24,33 @@ export class FuelwagonService {
   private fuelWagons: any[] = [
     {
       id: 0,
-      title: WagonTypes.STIKSTOFWAGEN,
+      title: WagonTypes.NITROGENCART,
       lastSeen: {lat: this.lat, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 1,
-      title: WagonTypes.STIKSTOFWAGEN,
+      title: WagonTypes.NITROGENCART,
       lastSeen: {lat: this.lat + 0.00123, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 2,
-      title: WagonTypes.STIKSTOFWAGEN,
+      title: WagonTypes.NITROGENCART,
       lastSeen: {lat: this.lat - 0.01023, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 3,
-      title: WagonTypes.STIKSTOFWAGEN,
+      title: WagonTypes.NITROGENCART,
       lastSeen: {lat: this.lat - 0.01167, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 4,
-      title: WagonTypes.STIKSTOFWAGEN,
+      title: WagonTypes.NITROGENCART,
       lastSeen: {lat: this.lat - 0.01435, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     }
   ];
 

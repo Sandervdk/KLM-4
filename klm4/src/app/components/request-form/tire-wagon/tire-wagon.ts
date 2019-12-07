@@ -26,15 +26,14 @@ export class TireWagon implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.PlaneType);
     this.changeType(this.PlaneType);
   }
 
   changeType(planeType: PlaneTypes) {
     switch (planeType) {
-      case PlaneTypes.Ambraer190: this.differentTireTypes = false; break;
-      case PlaneTypes.BOEING737: this.differentTireTypes = true; break;
-      case PlaneTypes.AirbusA330: this.differentTireTypes = true; break;
+      case PlaneTypes.A330_300: this.differentTireTypes = false; break;
+      case PlaneTypes.B737_700: this.differentTireTypes = true; break;
+      case PlaneTypes.A330_200: this.differentTireTypes = true; break;
     }
     this.cd.detectChanges();
   }
