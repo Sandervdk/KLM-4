@@ -137,9 +137,9 @@ export class MeldingenService implements OnInit {
         list[i] = newList[i].type;
       }
     }
-
-    console.log(newList);
-    console.log(list);
+    //
+    // console.log(newList);
+    // console.log(list);
   }
 
 
