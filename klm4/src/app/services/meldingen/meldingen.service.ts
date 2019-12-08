@@ -43,16 +43,16 @@ export class MeldingenService implements OnInit {
     // this.mechanicMeldingen.push(new Melding(1, 'A7',
     //   new Date(2019, 12, 0O5, 17, 23, 42, 1) ,
     //   PlaneTypes.AirbusA330, WagonTypes.NITROGENCART, 'Neus', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.A330_200, WagonTypes.NITROGENCART, 'Rechts', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.A330_300, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.B737_700, WagonTypes.TIRECART, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.A330_200, WagonTypes.TIRECART, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(156, 'B2', new Date(), PlaneTypes.A330_200, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.B747_400F, WagonTypes.NITROGENCART, 'Rechts', RequestStatus.Pending));
-    this.meldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.B737_800, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Pending));
-    this.meldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.B737_700, WagonTypes.TIRECART, 'Rechts', RequestStatus.Collect));
-    this.meldingen.push(new Melding(156, 'A7', new Date(), PlaneTypes.B777_300, WagonTypes.TIRECART, 'Rechts', RequestStatus.Accepted));
-    this.meldingen.push(new Melding(156, 'A2', new Date(), PlaneTypes.B777_300, WagonTypes.TIRECART, 'Rechts', RequestStatus.Accepted));
+    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.A330_200, WagonTypes.NITROGENCART, 'Right', RequestStatus.Pending));
+    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.A330_300, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.B737_700, WagonTypes.TIRECART, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.A330_200, WagonTypes.TIRECART, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(156, 'B2', new Date(), PlaneTypes.A330_200, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.B747_400F, WagonTypes.NITROGENCART, 'Right', RequestStatus.Pending));
+    this.meldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.B737_800, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Pending));
+    this.meldingen.push(new Melding(156, 'C5', new Date(), PlaneTypes.B737_700, WagonTypes.TIRECART, 'Right', RequestStatus.Collect));
+    this.meldingen.push(new Melding(156, 'A7', new Date(), PlaneTypes.B777_300, WagonTypes.TIRECART, 'Right', RequestStatus.Accepted));
+    this.meldingen.push(new Melding(156, 'A2', new Date(), PlaneTypes.B777_300, WagonTypes.TIRECART, 'Right', RequestStatus.Accepted));
   }
 
   public generateRandomId() {
@@ -130,7 +130,7 @@ export class MeldingenService implements OnInit {
     }
 
     //Sorts the list based on the amount of times it has been used
-    newList.sort((a , b) => b.amount - a.amount);
+    newList.sort((a, b) => b.amount - a.amount);
     // Checks if the lists are the same size (should always be correct), sets the list as the sorted list.
     if (newList.length === list.length) {
       for (let i = 0; i < list.length; i++) {
@@ -144,18 +144,20 @@ export class MeldingenService implements OnInit {
 
 
   public bezorgd(index: number) {
-    if (confirm('Equipment is bezorgd?')) {
-      this.mechanicMeldingen[index].status = RequestStatus.Delivered;
+    if (confirm('Equipment delivered?')) {
+      this.mechanicMeldingen.filter(m => { // Find the same request in the mechanic RequestList, to change the status
+        if (m === this.meldingen[index]) {
+          this.meldingen[index].status = RequestStatus.Delivered;
+        }
+      });
+
+      this.meldingen[index].status = RequestStatus.Delivered; // change the status in the list with all the requests
       this.router.navigate(['/runner/meldingen-openstaand']);
     }
   }
 
   public getMeldingen(): Melding[] {
     return this.meldingen;
-  }
-
-  public getMeldingAtIndex(index: number) {
-    return this.meldingen[index];
   }
 
   public getMechanicMeldingen(): Melding[] {

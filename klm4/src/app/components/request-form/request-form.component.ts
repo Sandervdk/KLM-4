@@ -10,7 +10,6 @@ import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {Router} from '@angular/router';
 import {RequestStatus} from '../../models/enums/requestStatus';
-import {Equal} from "tslint/lib/utils";
 
 @Component({
   selector: 'request-form',
@@ -143,7 +142,7 @@ export class RequestFormComponent implements OnInit {
   private checkValidity(): boolean {
     // checks if a planetype is selected and displays a popup
     if (this.planeType === PlaneTypes.PLANETYPE) {
-      this.openPopup('Er is geen vliegtuig type geselecteerd');
+      this.openPopup('There\'s no airplane selected!');
       return false;
     }
 
@@ -151,14 +150,14 @@ export class RequestFormComponent implements OnInit {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       let tempEquipemnt = this.selectedEquipment[i];
       if (tempEquipemnt === this.equipmentEnums.EQUIPMENT) {
-        this.openPopup('Er is geen equipment geselecteerd');
+        this.openPopup('There\'s no equipment selected!');
         return false;
       }
     }
 
     // Checks if all the the locations have been selected, if some are missing a popup will be shown and method stops
     if (this.locationArray.length !== this.selectedEquipment.length) {
-      this.openPopup('Er zijn geen locatie voor equipment geselecteerd');
+      this.openPopup('There\'re no locations for the equipment selected!');
       return false;
     }
 
@@ -167,7 +166,7 @@ export class RequestFormComponent implements OnInit {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === WagonTypes.TIRECART) {
         if (this.tireWagonComponent.getTireAmount() < 1) {
-          this.openPopup('Aantal banden niet aangegeven');
+          this.openPopup('Number of wheels where not given');
           return false;
         }
       }
@@ -186,15 +185,12 @@ export class RequestFormComponent implements OnInit {
       this.meldingService.getMechanicMeldingen().push(request);
     }
 
-    // rerouts the user to the made requests screen after adding all the requests.
+    // redirect the user to the made requests screen.
     this.mechanicAnimation = true;
-
     setTimeout(() => {
       this.mechanicAnimation = false;
       this.router.navigate(['/mechanic/meldingen-openstaand']);
     }, 1500);
-
-
   }
 
   private openPopup(text: string): void {

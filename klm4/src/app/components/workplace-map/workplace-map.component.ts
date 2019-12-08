@@ -18,7 +18,7 @@ export class WorkplaceMapComponent implements OnInit {
   private lat = 52.30678841808895;
 
   constructor(private authService: AuthenticationService, private wagonServices: WagonsService, private meldingService: MeldingenService) {
-    this.equipment = this.meldingService.getMeldingAtIndex(this.meldingService.index); // selected equipment from list
+    this.equipment = this.meldingService.getMeldingen()[this.meldingService.index]; // selected equipment from list
   }
 
   ngOnInit() {
