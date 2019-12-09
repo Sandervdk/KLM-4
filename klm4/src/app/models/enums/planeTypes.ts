@@ -1,6 +1,13 @@
 export enum PlaneTypes {
-  VLIEGTUIGTYPE = "type vliegtuig",
-  BOEING737 = "Boeing 737",
-  AirbusA330 = "Airbus A330",
-  Ambraer190 = "Embraer 190"
+  VLIEGTUIGTYPE = "Aircraft type",
+  BOEING737700 = "737-700",
+  BOEING737800 = "737-800",
+  BOEING737900 = "737-900",
+  BOEING747400 = "747-400",
+  BOEING777200 = "777-200",
+  BOEING777300 = "777-300",
+  BOEING7879 = "787-9",
+  AIRBUSA330200 = "A330-200",
+  AIRBUSA330300 = "A330-300",
+  AIRBUS747400F = "747-400F"
 }
