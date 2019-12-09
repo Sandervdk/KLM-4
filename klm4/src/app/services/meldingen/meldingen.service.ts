@@ -44,16 +44,16 @@ export class MeldingenService implements OnInit {
     // this.mechanicMeldingen.push(new Melding(1, 'A7',
     //   new Date(2019, 12, 0O5, 17, 23, 42, 1) ,
     //   PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING737700, WagonTypes.STIKSTOFWAGEN, 'Rechts', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING737900, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING777200, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.AIRBUS747400F, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.BOEING7879, WagonTypes.STIKSTOFWAGEN, 'Rechts', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.BOEING777300, WagonTypes.SKYDROLWAGEN, 'Rechts', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.AIRBUSA330300, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Collect));
-    this.meldingen.push(new Melding(1, 'A7', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Accepted));
-    this.meldingen.push(new Melding(1, 'A2', new Date(), PlaneTypes.BOEING737800, WagonTypes.BANDENWAGEN, 'Rechts', RequestStatus.Accepted));
+    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING737700, WagonTypes.STIKSTOFWAGEN, 'Right', RequestStatus.Pending));
+    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING737900, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING777200, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.AIRBUS747400F, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.BOEING7879, WagonTypes.STIKSTOFWAGEN, 'Right', RequestStatus.Pending));
+    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.BOEING777300, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Pending));
+    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.AIRBUSA330300, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Collect));
+    this.meldingen.push(new Melding(1, 'A7', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Accepted));
+    this.meldingen.push(new Melding(1, 'A2', new Date(), PlaneTypes.BOEING737800, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Accepted));
   }
 
   public generateRandomId() {
