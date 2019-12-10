@@ -99,7 +99,7 @@
         <tr class="clickableRow"
             *ngFor="let melding of mechanicMeldingein; let i = index"
             (click)="unfoldRow(i, $event.target.parentNode)">
-          <ng-container *ngIf="melding.id == this.id && melding.status == requestStatus.Pending">
+          <ng-container *ngIf="melding.id == this.id && melding.status == requestStatus.Pending || melding.status == requestStatus.Accepted">
             <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
               <td>{{melding.location}}</td>
               <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>

@@ -54,6 +54,9 @@ export class MeldingenService implements OnInit {
     this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.AIRBUSA330300, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Collect));
     this.meldingen.push(new Melding(1, 'A7', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Accepted));
     this.meldingen.push(new Melding(1, 'A2', new Date(), PlaneTypes.BOEING737800, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Accepted));
+    this.meldingen.push(new Melding(1, 'A2', new Date(), PlaneTypes.BOEING737800, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Delivered));
+    this.meldingen.push(new Melding(1, 'F9', new Date(), PlaneTypes.BOEING737900, WagonTypes.STIKSTOFWAGEN, 'Left', RequestStatus.Collect));
+    this.meldingen.push(new Melding(1, 'C3', new Date(), PlaneTypes.BOEING737700, WagonTypes.STIKSTOFWAGEN, 'Nose', RequestStatus.Collect));
   }
 
   public generateRandomId() {
