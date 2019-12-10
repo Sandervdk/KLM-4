@@ -5,7 +5,6 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {SignInComponent} from './components/sign-in/sign-in.component';
 import {WorkplaceMapComponent} from './components/workplace-map/workplace-map.component';
 import {RequestFormComponent} from './components/request-form/request-form.component';
-import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
 import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/users/usersoverview/usersoverview.component';
@@ -18,20 +17,19 @@ import {SystemLogsComponent} from './components/adminpage/system-logs/system-log
 import {ProductenpageComponent} from './components/runnerpage/producten/productenpage/productenpage.component';
 import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
 import {MechanicpageComponent} from './components/mechanicpage/mechanicpage.component';
-import {RunnerAnimationComponent} from './components/global/runner-animation/runner-animation.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {
     path: 'runner', component: RunnerpageComponent, children: [
-      {path: 'meldingen-openstaand', component: OpenstaandComponent},
+      {path: 'open-requests', component: OpenstaandComponent},
       {path: 'producten', component: ProductenpageComponent},
       {path: 'map', component: WorkplaceMapComponent},
     ]
   },
   {
     path: 'mechanic', component: MechanicpageComponent, children: [
-      {path: 'meldingen-openstaand', component: OpenstaandComponent},
+      {path: 'open-requests', component: OpenstaandComponent},
       {path: 'request-Form', component: RequestFormComponent},
     ]
   },

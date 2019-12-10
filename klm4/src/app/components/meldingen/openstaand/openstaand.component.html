@@ -305,7 +305,7 @@
                     <th>Location</th>
                     <td>{{melding.location}}</td>
                     <th>deadline</th>
-                    <td>{{melding.deadline.toLocaleString(getTime())}}</td>
+                    <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
                   </tr>
                   <tr>
                     <th>Planetype</th>

@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {RequestStatus} from '../../models/enums/requestStatus';
+import {TailType} from "../../models/enums/tailType";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class MeldingenService implements OnInit {
   ngOnInit() {
   }
 
-  public getAllMeldingen(): Observable<Melding[]> {
+  public getAllMeldingenFromSpring(): Observable<Melding[]> {
     return this.httpClient.get<Melding[]>(this.URL + '/openstaande-meldingen');
 
   }
@@ -44,19 +45,10 @@ export class MeldingenService implements OnInit {
     // this.mechanicMeldingen.push(new Melding(1, 'A7',
     //   new Date(2019, 12, 0O5, 17, 23, 42, 1) ,
     //   PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING737700, WagonTypes.STIKSTOFWAGEN, 'Right', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING737900, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'F3', new Date(), PlaneTypes.BOEING777200, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.AIRBUS747400F, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'B2', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.BOEING7879, WagonTypes.STIKSTOFWAGEN, 'Right', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.BOEING777300, WagonTypes.SKYDROLWAGEN, 'Right', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1, 'C5', new Date(), PlaneTypes.AIRBUSA330300, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Collect));
-    this.meldingen.push(new Melding(1, 'A7', new Date(), PlaneTypes.AIRBUSA330200, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Accepted));
-    this.meldingen.push(new Melding(1, 'A2', new Date(), PlaneTypes.BOEING737800, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Accepted));
-    this.meldingen.push(new Melding(1, 'A2', new Date(), PlaneTypes.BOEING737800, WagonTypes.BANDENWAGEN, 'Right', RequestStatus.Delivered));
-    this.meldingen.push(new Melding(1, 'F9', new Date(), PlaneTypes.BOEING737900, WagonTypes.STIKSTOFWAGEN, 'Left', RequestStatus.Collect));
-    this.meldingen.push(new Melding(1, 'C3', new Date(), PlaneTypes.BOEING737700, WagonTypes.STIKSTOFWAGEN, 'Nose', RequestStatus.Collect));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.STIKSTOFWAGEN, null,  'Right', RequestStatus.Pending, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.BANDENWAGEN, null,  'Left', RequestStatus.Collect, "n:1, m:0"));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.BRAKES_CART, null,  'Nose', RequestStatus.Delivered, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.SKYDROLWAGEN, null,  'Right', RequestStatus.Pending, null));
   }
 
   public generateRandomId() {
@@ -72,7 +64,7 @@ export class MeldingenService implements OnInit {
     console.log(this.index);
     if (confirm('Equipment is bezorgd?')) {
       this.meldingen[index].status = RequestStatus.Delivered;
-      this.router.navigate(['/runner/meldingen-openstaand']);
+      this.router.navigate(['/runner/open-requests']);
     }
   }
 

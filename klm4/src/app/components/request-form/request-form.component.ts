@@ -187,7 +187,7 @@ export class RequestFormComponent implements OnInit {
 
     setTimeout(() => {
       this.mechanicAnimation = false;
-      this.router.navigate(['/mechanic/meldingen-openstaand']);
+      this.router.navigate(['/mechanic/open-requests']);
     }, 1500);
 
 

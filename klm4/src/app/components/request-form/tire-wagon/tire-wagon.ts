@@ -32,9 +32,16 @@ export class TireWagon implements OnInit {
 
   changeType(planeType: PlaneTypes) {
     switch (planeType) {
-      case PlaneTypes.Ambraer190: this.differentTireTypes = false; break;
-      case PlaneTypes.BOEING737: this.differentTireTypes = true; break;
-      case PlaneTypes.AirbusA330: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING737700: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING737800: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING777300: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING7879: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING777200: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING737900: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING747400: this.differentTireTypes = true; break;
+      case PlaneTypes.AIRBUSA330200: this.differentTireTypes = true; break;
+      case PlaneTypes.AIRBUSA330300: this.differentTireTypes = true; break;
+      case PlaneTypes.AIRBUS747400F: this.differentTireTypes = true; break;
     }
     this.cd.detectChanges();
   }
