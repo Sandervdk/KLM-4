@@ -13,7 +13,6 @@ export enum WagonTypes {
   TECHNICAL_STAIRS = "Technical stairs",
   DRAIN_CART_FUEL = "Drain Cart Fuel",
   DRAIN_CART_SKYDROL = "Drain Cart Skydrol",
-  TECHNICAL_STAIRS = "Technical Stars",
   WORK_LIFT = "Work Lift",
   SKYDROL_HYDRAULIC_FUEL_CART = "Skydrol Hydrolic fuel",
   HYJET5_HYDRAULIC_FLUID_CART = "yjet5 hydraulic fuel cart",
