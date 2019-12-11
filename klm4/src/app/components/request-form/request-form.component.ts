@@ -10,6 +10,16 @@ import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {Router} from '@angular/router';
 import {RequestStatus} from '../../models/enums/requestStatus';
+import {TailType} from "../../models/enums/tailTypeEnums/TailTypes";
+import {Boeing737700_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_737_700-TailTypes";
+import {Boeing737800_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_737_800-TailTypes";
+import {Boeing737900_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_737_900-TailTypes";
+import {AirbusA330200_TailTypes} from "../../models/enums/tailTypeEnums/Airbus_A330_200-TailTypes";
+import {Boeing747400_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_747_400-TailTypes";
+import {Boeing747400F_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_747_400F-TailTypes";
+import {Boeing777200_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_777_200-TailTypes";
+import {Boeing777300_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_777_300-TailTypes";
+import {Boeing7879_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_787_9-TailTypes";
 
 @Component({
   selector: 'request-form',
@@ -24,6 +34,7 @@ export class RequestFormComponent implements OnInit {
   private popupOpen: boolean = false;
   private popupText: String = '';
   private addIcon: boolean = false;
+  private popupTextTimeOut;
 
   private selectedEquipment = [WagonTypes.EQUIPMENT];
   private locationArray = [];
@@ -32,6 +43,8 @@ export class RequestFormComponent implements OnInit {
   private planeTypeList = Object.values(PlaneTypes);
   private locationSelected: boolean = false;
   private equipmentEnums = WagonTypes;
+  private tailType = TailType.TAILTYPE;
+  private tailTypeList;
 
   private location: string;
   private deadline: Time;
@@ -68,7 +81,6 @@ export class RequestFormComponent implements OnInit {
 
   /**
    * Removes an item from the selected equipment list and places it in the list with available equipment
-   * todo sort the list based on mosed used pieces of equipment
    * @param equipment the piece of equipment that was selected
    */
   remove(equipment) {
@@ -114,6 +126,22 @@ export class RequestFormComponent implements OnInit {
         this.tireWagonComponent.changeType(planetype);
       }
     }
+    switch (planetype) {
+      case PlaneTypes.AIRBUSA330200: this.selectTailTypeList(AirbusA330200_TailTypes); break;
+      case PlaneTypes.AIRBUSA330300: this.selectTailTypeList(AirbusA330200_TailTypes); break;
+      case PlaneTypes.BOEING737700: this.selectTailTypeList(Boeing737700_TailTypes); break;
+      case PlaneTypes.BOEING737800: this.selectTailTypeList(Boeing737800_TailTypes); break;
+      case PlaneTypes.BOEING737900: this.selectTailTypeList(Boeing737900_TailTypes); break;
+      case PlaneTypes.BOEING747400: this.selectTailTypeList(Boeing747400_TailTypes); break;
+      case PlaneTypes.BOEING747400F: this.selectTailTypeList(Boeing747400F_TailTypes); break;
+      case PlaneTypes.BOEING777200: this.selectTailTypeList(Boeing777200_TailTypes); break;
+      case PlaneTypes.BOEING777300: this.selectTailTypeList(Boeing777300_TailTypes); break;
+      case PlaneTypes.BOEING7879: this.selectTailTypeList(Boeing7879_TailTypes); break;
+    }
+  }
+
+  selectTailTypeList(tailType) {
+    this.tailTypeList = Object.keys(tailType);
   }
 
   /**
@@ -137,9 +165,29 @@ export class RequestFormComponent implements OnInit {
    * Checks every possible option in the
    */
   private checkValidity(): boolean {
+    if (this.location === undefined || this.location.trim() === "") {
+      //removes the space from the location
+      if (this.location !== undefined) {
+        this.location = this.location.trim();
+      }
+      this.openPopup('There\'s no location selected');
+      return false;
+    }
+
+    if (this.deadline === undefined) {
+      this.openPopup('There\'s no deadline selected');
+      return false;
+    }
+
+    console.log(this.deadline);
     // checks if a planetype is selected and displays a popup
     if (this.planeType === PlaneTypes.VLIEGTUIGTYPE) {
-      this.openPopup('Er is geen vliegtuig type geselecteerd');
+      this.openPopup('There\'s no Aircraft type selected');
+      return false;
+    }
+
+    if (this.tailType === TailType.TAILTYPE) {
+      this.openPopup('There\'s no tail type selected');
       return false;
     }
 
@@ -147,23 +195,22 @@ export class RequestFormComponent implements OnInit {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       let tempEquipemnt = this.selectedEquipment[i];
       if (tempEquipemnt === this.equipmentEnums.EQUIPMENT) {
-        this.openPopup('Er is geen equipment geselecteerd');
+        this.openPopup('There\'s no equipment selected');
         return false;
       }
     }
 
     // Checks if all the the locations have been selected, if some are missing a popup will be shown and method stops
     if (this.locationArray.length !== this.selectedEquipment.length) {
-      this.openPopup('Er zijn geen locatie voor equipment geselecteerd');
+      this.openPopup('There is no location selected for the equipment');
       return false;
     }
 
     // Checks for each different type of equipment if the equipment specific info has been filled in.
-    //todo MOVE TO THE SPECIFIC COMPONENT TS FILES
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
         if (this.tireWagonComponent.getTireAmount() < 1) {
-          this.openPopup('Aantal banden niet aangegeven');
+          this.openPopup('There\'s no number of tires given');
           return false;
         }
       }
@@ -172,12 +219,12 @@ export class RequestFormComponent implements OnInit {
     // loops through the selected equipment array and adds a new request for each piece of equipment, each requests
     // gets the ID of the currently logged in user
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      let request = new Melding(this.authentication.getID(), this.location,
+      let request = new Melding(this.authentication.getID(), this.location, new Date(),
         new Date(new Date().setHours(
           parseInt(this.deadline.toString().substr(0, 3)),
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
-        this.planeType, this.selectedEquipment[i], this.locationArray[i], RequestStatus.Pending);
-
+        this.planeType, this.tailType, this.selectedEquipment[i], null, this.locationArray[i],
+        RequestStatus.Pending, null);
       this.meldingService.getMeldingen().push(request);
       this.meldingService.getMechanicMeldingen().push(request);
     }
@@ -188,16 +235,16 @@ export class RequestFormComponent implements OnInit {
     setTimeout(() => {
       this.mechanicAnimation = false;
       this.router.navigate(['/mechanic/open-requests']);
-    }, 1500);
+    }, 2500);
 
 
   }
 
   private openPopup(text: string): void {
+    clearTimeout(this.popupTextTimeOut);
     this.popupOpen = true;
     this.popupText = text;
-
-    setTimeout(() => {
+    this.popupTextTimeOut= setTimeout(() => {
       this.popupOpen = false;
     }, 3000);
   }

@@ -1,7 +1,7 @@
 import {PlaneTypes} from '../enums/planeTypes';
 import {WagonTypes} from '../enums/wagonTypes';
 import {RequestStatus} from "../enums/requestStatus";
-import {TailType} from "../enums/tailType";
+import {TailType} from "../enums/tailTypeEnums/TailTypes";
 
 export class Melding {
   id: number;

@@ -2,8 +2,9 @@
   <form (ngSubmit)="onSubmit()" #form="ngForm">
     <input name="location" type="text" class="feedback-input" placeholder="Location"
            [(ngModel)]="location"
-           required/>
-    <input name="time" id= "timepicker" type="time" class="feedback-input" placeholder="Time"
+           required
+          pattern="^[A-Za-z][0-9]+"/>
+    <input name="time" id= "timepicker" type="time" class="feedback-input" placeholder="Deadline"
            [(ngModel)]="deadline"
            required />
 
@@ -13,6 +14,14 @@
       <option hidden>{{planeType}}</option>
       <option
         *ngFor="let type of planeTypeList| slice:1">{{type}}
+      </option>
+    </select>
+
+    <select name="TailTypes" class="dropdown-input feedback-input"
+            [(ngModel)]="tailType">
+      <option hidden>{{tailType}}</option>
+      <option
+        *ngFor="let type of tailTypeList">{{type}}
       </option>
     </select>
 
@@ -70,8 +79,7 @@
       <button type="button" class="feedback-input"
               (click)="addNewEquipment();">+</button>
     </div>
-    <input id="submitButton" type="submit" value="submit"
-           [disabled]="!form.valid"/>
+    <input id="submitButton" type="submit" value="submit"/>
   </form>
 </ng-template>
 <ng-template [ngIf]="mechanicAnimation">

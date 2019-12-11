@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {RequestStatus} from '../../models/enums/requestStatus';
-import {TailType} from "../../models/enums/tailType";
+import {Boeing737800_TailTypes} from "../../models/enums/tailTypeEnums/Boeing_737_800-TailTypes";
 
 @Injectable({
   providedIn: 'root'
@@ -45,10 +45,10 @@ export class MeldingenService implements OnInit {
     // this.mechanicMeldingen.push(new Melding(1, 'A7',
     //   new Date(2019, 12, 0O5, 17, 23, 42, 1) ,
     //   PlaneTypes.AirbusA330, WagonTypes.STIKSTOFWAGEN, 'Neus', RequestStatus.Pending));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.STIKSTOFWAGEN, null,  'Right', RequestStatus.Pending, null));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.BANDENWAGEN, null,  'Left', RequestStatus.Collect, "n:1, m:0"));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.BRAKES_CART, null,  'Nose', RequestStatus.Delivered, null));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700,TailType.hoi, WagonTypes.SKYDROLWAGEN, null,  'Right', RequestStatus.Pending, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, Boeing737800_TailTypes.PH_BCD, WagonTypes.STIKSTOFWAGEN, null,  'Right', RequestStatus.Pending, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, Boeing737800_TailTypes.PH_BXB, WagonTypes.BANDENWAGEN, null,  'Left', RequestStatus.Collect, "n:1, m:0"));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, Boeing737800_TailTypes.PH_BCD, WagonTypes.BRAKES_CART, null,  'Nose', RequestStatus.Delivered, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, Boeing737800_TailTypes.PH_BCB, WagonTypes.SKYDROLWAGEN, null,  'Right', RequestStatus.Pending, null));
   }
 
   public generateRandomId() {
