@@ -1,7 +1,7 @@
 export enum WagonTypes {
   EQUIPMENT = "Equipment",
-  STIKSTOFWAGEN = "Nitrogen Cart",
-  BANDENWAGEN = "Tires Cart",
+  TIRECART = "Tires Cart",
+  NITROGENCART = "Nitrogen Cart",
   SKYDROLWAGEN = "Skydrolwagen",
   BRAKES_CART = "Brakes Cart",
   IDG_CART = "IDG Cart",
@@ -11,34 +11,24 @@ export enum WagonTypes {
   FUEL_CART = "Fuel Cart",
   WORKING_LIFT_PLATFORM = "Working Lift Platform",
   TECHNICAL_STAIRS = "Technical stairs",
+  DRAIN_CART_FUEL = "Drain Cart Fuel",
+  DRAIN_CART_SKYDROL = "Drain Cart Skydrol",
+  TECHNICAL_STAIRS = "Technical Stars",
+  WORK_LIFT = "Work Lift",
+  SKYDROL_HYDRAULIC_FUEL_CART = "Skydrol Hydrolic fuel",
+  HYJET5_HYDRAULIC_FLUID_CART = "yjet5 hydraulic fuel cart",
   PUMP_STAIRS = "Pump Stairs",
   PYLON_STAIRS = "Pylon Stairs",
+  BRAKES_COOLER = "Brakes Cooler",
+  COOLING_CART = "Cooling Cart",
+  POLAR_HEATER = "Polar Heater",
+  HEATER = "Heater",
   AIR_DATA_CART = "Air Data Cart",
   SPILL_CART = "Spill Cart",
   HOIST_CART = "Hoist Cart",
   GREASE_CART = "Grease Cart",
-  CLEANING_CART = "Cleaning Cart"
+  CLEANING_CART = "Cleaning Cart",
+  SPILL_KIT_CART = "Spill Kit Cart"
 }
-// •         Nitrogen cart
-// •         Tires and brakes cart
-// •         Tires cart
-// •         Tires cart nose wheel
-// •         Brakes cart
-// •         IDG cart
-// •         Drain cart fuel
-// •         Drain cart Skydrol
-// •         Technical stairs
-// •         Work Lift
-// •         Skydrol hydraulic Fluid cart
-// •         Hyjet5 hydraulic Fluid cart
-// •         Pump stairs
-// •         Pylon stairs
-// •         Brakes cooler
-// •         Cooling cart
-// •         Polar heater
-// •         Heater
-// •         Air Data cart
-// •         Spill kit cart
-
 
 

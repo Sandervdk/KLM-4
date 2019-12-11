@@ -42,6 +42,7 @@ export class RequestFormComponent implements OnInit {
   private equipmentList = Object.values(WagonTypes);
   private planeTypeList = Object.values(PlaneTypes);
   private locationSelected: boolean = false;
+  private planeTypeEnums = PlaneTypes;
   private equipmentEnums = WagonTypes;
   private tailType = TailType.TAILTYPE;
   private tailTypeList;
@@ -52,6 +53,8 @@ export class RequestFormComponent implements OnInit {
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
+    this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes.EQUIPMENT);
+    this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes.VLIEGTUIGTYPE);
   }
 
   ngOnInit() {
@@ -122,7 +125,7 @@ export class RequestFormComponent implements OnInit {
    */
   changeType(planetype: PlaneTypes) {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
+      if (this.selectedEquipment[i] === WagonTypes.TIRECART) {
         this.tireWagonComponent.changeType(planetype);
       }
     }
@@ -179,7 +182,6 @@ export class RequestFormComponent implements OnInit {
       return false;
     }
 
-    console.log(this.deadline);
     // checks if a planetype is selected and displays a popup
     if (this.planeType === PlaneTypes.VLIEGTUIGTYPE) {
       this.openPopup('There\'s no Aircraft type selected');
@@ -208,7 +210,7 @@ export class RequestFormComponent implements OnInit {
 
     // Checks for each different type of equipment if the equipment specific info has been filled in.
     for (let i = 0; i < this.selectedEquipment.length; i++) {
-      if (this.selectedEquipment[i] === WagonTypes.BANDENWAGEN) {
+      if (this.selectedEquipment[i] === WagonTypes.TIRECART) {
         if (this.tireWagonComponent.getTireAmount() < 1) {
           this.openPopup('There\'s no number of tires given');
           return false;
@@ -231,6 +233,7 @@ export class RequestFormComponent implements OnInit {
 
     // rerouts the user to the made requests screen after adding all the requests.
     this.mechanicAnimation = true;
+    this.meldingService.sortAllRequests();
 
     setTimeout(() => {
       this.mechanicAnimation = false;

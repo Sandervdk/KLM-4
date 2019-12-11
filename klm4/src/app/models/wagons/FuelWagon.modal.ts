@@ -5,6 +5,6 @@ import {LatLng} from "leaflet";
 
 export class FuelWagon extends Wagon {
   constructor(id: number, title: string, lastSeen: LatLng) {
-    super(id, title, lastSeen, WagonTypes.STIKSTOFWAGEN, EquipmentStatus.AVAILABLE);
+    super(id, title, lastSeen, WagonTypes.NITROGENCART, EquipmentStatus.AVAILABLE);
   }
 }

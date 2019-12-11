@@ -23,31 +23,31 @@ export class FuelwagonService {
       id: 0,
       title: 'Stikstof wagen',
       lastSeen: {lat: this.lat, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 1,
       title: 'Stikstof wagen',
       lastSeen: {lat: this.lat + 0.00123, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 2,
       title: 'Stikstof wagen',
       lastSeen: {lat: this.lat - 0.01023, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 3,
       title: 'Stikstof wagen',
       lastSeen: {lat: this.lat - 0.01167, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     },
     {
       id: 4,
       title: 'Stikstof wagen',
       lastSeen: {lat: this.lat - 0.01435, long: this.long},
-      type: WagonTypes.STIKSTOFWAGEN
+      type: WagonTypes.NITROGENCART
     }
   ];
 
