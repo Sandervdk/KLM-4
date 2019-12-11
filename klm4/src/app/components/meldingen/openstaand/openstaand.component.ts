@@ -29,11 +29,16 @@ export class OpenstaandComponent implements OnInit {
   private damageFormOpen = false;
   private equipmentlist = WagonTypes;
   public runnerAnimation = false;
+  private currentTime;
+  private comparingTime;      //Current time plus 30 minutes
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
   constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
               private authentication: AuthenticationService) {
+    this.currentTime = new Date();
+    this.comparingTime = new Date();
+    this.comparingTime.setTime(this.currentTime.getTime() + (30 * 60 * 1000));
   }
 
   ngOnInit() {

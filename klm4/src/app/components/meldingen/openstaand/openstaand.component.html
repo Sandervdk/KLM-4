@@ -14,7 +14,8 @@
       <tbody *ngIf="'MECHANIC' !== userRole; else mechanic">
       <tr class="clickableRow"
           *ngFor="let melding of meldingen; let i = index"
-          (click)="unfoldRow(i, $event.target.parentNode)">
+          (click)="unfoldRow(i, $event.target.parentNode)"
+          [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
         <ng-container *ngIf="melding.status === requestStatus.Pending">
           <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
             <td>{{melding.location}}</td>
@@ -283,11 +284,13 @@
         <tbody>
         <tr class="clickableRow"
             *ngFor="let melding of meldingen; let i = index"
-            (click)="unfoldRow(i, $event.target.parentNode)">
+            (click)="unfoldRow(i, $event.target.parentNode)"
+            [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
+
           <ng-container *ngIf="melding.status === requestStatus.Collect">
             <ng-container *ngIf="!expandedInfo[i]; else extraInfo">
               <td>{{melding.location}}</td>
-              <td>{{melding.deadline.toLocaleTimeString()}}</td>
+              <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
               <td>{{melding.planetype}}</td>
               <td>{{melding.wagonType}}</td>
               <td>{{melding.status}}</td>

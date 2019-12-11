@@ -11,22 +11,30 @@ th, td{
   font-size: var(--application-font-size);
 }
 
+.table thead th {
+  border-bottom: none;
+}
+
 th {
   cursor: default;
   text-align: center;
   color: white;
   background-color: #00AAE7;
-  border: 1px solid white;
+  border: none;
 }
 
 td {
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: none;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 280px;
   text-align: center;
+}
+
+tr td {
+  border-bottom: 1px solid lightgray;
 }
 
 tr:nth-child(even){
@@ -136,6 +144,14 @@ li.breadcrumb-item {
 .btn-container {
   padding: 0;
   border: none;
+}
+
+.warning {
+  background-color: rgba(254, 177, 0, 0.3) !important;
+}
+
+.late {
+  background-color: rgba(255, 0, 0, 0.3) !important;
 }
 
 @media (min-width: 768px) {

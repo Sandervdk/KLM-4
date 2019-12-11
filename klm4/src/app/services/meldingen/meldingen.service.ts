@@ -30,7 +30,7 @@ export class MeldingenService implements OnInit {
       }
     }
 
-    // todo UNCOMMENT ONCE SPRING BOOT REQUESTS ARE PROPERLY IMPLEMENTED AND HOPE THAT IT WORKS
+    // todo UNCOMMENT ONCE SPRING BOOT REQUESTS ARE PROPERLY IMPLEMENTED AND HOPE THAT IT WORKS :^)
     // this.getAllMeldingenFromSpring().subscribe((requests) => {
     //   this.alleMeldingen = requests;
     //   //loops through every request that has been made
