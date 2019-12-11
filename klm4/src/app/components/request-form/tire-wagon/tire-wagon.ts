@@ -41,7 +41,7 @@ export class TireWagon implements OnInit {
       case PlaneTypes.BOEING747400: this.differentTireTypes = true; break;
       case PlaneTypes.AIRBUSA330200: this.differentTireTypes = true; break;
       case PlaneTypes.AIRBUSA330300: this.differentTireTypes = true; break;
-      case PlaneTypes.AIRBUS747400F: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING747400F: this.differentTireTypes = true; break;
     }
     this.cd.detectChanges();
   }
@@ -53,6 +53,20 @@ export class TireWagon implements OnInit {
   //     return new TireWagon(this.mainTires);
   //   }
   // }
+
+  getNoseTires(): number {
+    if (this.noseTires === undefined) {
+      return 0;
+    }
+    return this.noseTires;
+  }
+
+  getMainTires(): number {
+    if (this.mainTires === undefined) {
+      return 0;
+    }
+    return this.mainTires;
+  }
 
   getTireAmount(): number {
     if (this.noseTires === undefined && this.mainTires === undefined) {

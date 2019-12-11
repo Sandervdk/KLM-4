@@ -14,7 +14,7 @@
       <option hidden>{{planeType}}</option>
       <option
         [hidden]="type === planeTypeEnums.VLIEGTUIGTYPE"
-        *ngFor="let type of planeTypeList| slice:1">{{type}}
+        *ngFor="let type of planeTypeList">{{type}}
       </option>
     </select>
 
@@ -38,7 +38,7 @@
               <option hidden>{{selectedEquipment[i]}}</option>
               <option
                 [hidden]="equipment === equipmentEnums.EQUIPMENT"
-                *ngFor="let equipment of equipmentList| slice:1"
+                *ngFor="let equipment of equipmentList"
                 value="{{equipment}}">{{equipment}}
               </option>
             </select>
