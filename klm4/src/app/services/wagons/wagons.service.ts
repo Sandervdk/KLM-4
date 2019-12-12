@@ -38,7 +38,6 @@ export class WagonsService {
     switch (type) {
       case WagonTypes.NITROGENCART:
         this.allWagons.push({id: Math.round(Math.random() * this.allWagons.length), title, type, lastSeen});
-        // new FuelWagon()
         break;
       case WagonTypes.TIRECART:
         this.allWagons.push({id: Math.round(Math.random() * this.allWagons.length), title, type, lastSeen});
