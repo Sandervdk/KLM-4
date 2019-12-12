@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.models.User;
+import com.example.demo.repositories.MeldingRepositorie;
 import com.example.demo.repositories.UserRepositorie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,9 @@ public class KlmSpringBootApplication implements CommandLineRunner {
   @Autowired
   private UserRepositorie userRepositorie;
 
+  @Autowired
+  private MeldingRepositorie meldingRepositorie;
+
   private Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public static void main(String[] args) {
@@ -23,6 +27,5 @@ public class KlmSpringBootApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-
   }
 }

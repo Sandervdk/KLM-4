@@ -3,32 +3,42 @@ package com.example.demo.models;
 import com.example.demo.enums.MeldingStatus;
 import com.example.demo.enums.PlaneTypes;
 import com.example.demo.enums.WagonTypes;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Melding {
+public class Request {
 
   @Id
   @GeneratedValue
   private long id;
 
   private String locatie, positie;
+
   private LocalTime tijd, deadline;
   private PlaneTypes typeVliegtuig;
   private WagonTypes wagonTypes;
   private MeldingStatus status;
 
-  protected Melding(){}
+//  @CreatedDate
+//  private LocalTime requestCreated;
+//
+//  @LastModifiedDate
+//  private LocalTime requestUpdated;
+//
+//  private LocalTime deadline;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private User user;
+
+  protected Request(){}
 
   //Constructor with no id. This will be generated.
-  public Melding(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalTime tijd, MeldingStatus status) {
+  public Request(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalTime tijd, MeldingStatus status) {
     this.locatie = locatie;
     this.deadline = deadline;
     this.typeVliegtuig = typeVliegtuig;
@@ -42,8 +52,8 @@ public class Melding {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Melding melding = (Melding) o;
-    return id == melding.id;
+    Request request = (Request) o;
+    return id == request.id;
   }
 
   @Override
@@ -53,6 +63,14 @@ public class Melding {
 
   public long getId() {
     return id;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public void setId(long id) {

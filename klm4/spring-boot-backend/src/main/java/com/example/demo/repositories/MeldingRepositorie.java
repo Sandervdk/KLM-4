@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.Melding;
+import com.example.demo.models.Request;
+import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -18,34 +19,41 @@ public class MeldingRepositorie {
   @Autowired
   protected EntityManager entityManager;
 
-  //Find all users. Shows message that it can't resolve 'user' but it works.
-  public List<Melding> findAll() {
-    TypedQuery<Melding> findAllMeldings = entityManager.createQuery("select m from Melding m", Melding.class);
+  @Autowired
+  protected UserRepositorie userRepositorie;
+
+  //Find all requests
+  public List<Request> findAll() {
+    TypedQuery<Request> findAllMeldings = entityManager.createQuery("select r from Request r ", Request.class);
     return findAllMeldings.getResultList();
   }
 
-
-  //find a user
-  public Melding findMelding(long id) {
-    return entityManager.find(Melding.class, id);
+  //find a request
+  public Request findRequest(long id) {
+    return entityManager.find(Request.class, id);
   }
 
-  //insert or update a user
-  public Melding save(Melding melding) {
-    if (melding.getId() == 0) {
-      entityManager.persist(melding);
-    } else {
-      entityManager.merge(melding);
-    }
-    return melding;
+  //delete a request
+  public Request deleteRequest(long id) {
+    Request deleteRequest = this.findRequest(id);
+    entityManager.remove(deleteRequest);
+    return deleteRequest;
   }
 
-  //delete a user
-  public Melding deleteMelding(long id){
-    Melding deleteMelding = this.findMelding(id);
-    entityManager.remove(deleteMelding);
-    return deleteMelding;
+  public Request addRequestsToUser(long userId, Request request) {
+    //find a user
+    User user = userRepositorie.findUser(userId);
+    //add the request to user and set the relations
+    user.addMelding(request);
+    request.setUser(user);
+    //save to the database
+    entityManager.persist(request);
+    return request;
   }
+
+
+
+
 
   /*
   private long idCounter = 2;

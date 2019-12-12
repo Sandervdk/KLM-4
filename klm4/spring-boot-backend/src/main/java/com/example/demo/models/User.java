@@ -1,12 +1,10 @@
 package com.example.demo.models;
 
 import com.example.demo.enums.Functions;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,9 +15,12 @@ public class User {
   private long id;
 
   private String password;
-
   private String email, firstname, lastname;
   private Functions role;
+
+  //TODO bewust 'mappedby' weggelaten. Dit zorgt ervoor dat inloggen niet meer lukt. Fix deze bug.
+  @OneToMany(fetch = FetchType.LAZY) // is LAZY by default but just te be sure.
+  private List<Request> requestList = new ArrayList<>();
 
   protected User() {
   }
@@ -48,6 +49,18 @@ public class User {
 
   public long getId() {
     return id;
+  }
+
+  public List<Request> getRequestList() {
+    return requestList;
+  }
+
+  public void addMelding(Request request) {
+    this.requestList.add(request);
+  }
+
+  public void deleteMelding(Request request) {
+    this.requestList.remove(request);
   }
 
   public String getEmail() {
