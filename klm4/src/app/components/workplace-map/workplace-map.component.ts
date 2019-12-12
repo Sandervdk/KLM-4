@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, LayerGroup, tileLayer} from 'leaflet';
 import {WagonsService} from '../../services/wagons/wagons.service';
-import {MeldingenService} from "../../services/meldingen/meldingen.service";
-import {Router} from "@angular/router";
+import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {Router} from '@angular/router';
+import {WagonTypes} from '../../models/enums/wagonTypes';
+import {AuthenticationService} from '../../services/authentication/authentication.service';
 
 declare let L;
 
@@ -13,19 +15,19 @@ declare let L;
 })
 export class WorkplaceMapComponent implements OnInit {
   public map;
+  protected equipment;
   private long = 4.766361511202604;
   private lat = 52.30678841808895;
 
-  private readonly fuelWagonsLayer: LayerGroup;
-
   constructor(private wagonServices: WagonsService,
               private meldingService: MeldingenService,
-              private router: Router) {
-    this.fuelWagonsLayer = wagonServices.getFuelWagonsLayer(); // layer with all the fuelwagon points
+              private authService: AuthenticationService) {
+    this.equipment = this.meldingService.getMeldingen()[this.meldingService.index];
   }
 
   ngOnInit() {
     this.createMap();
+    console.log(this.equipment);
   }
 
   private createMap() {
@@ -43,9 +45,14 @@ export class WorkplaceMapComponent implements OnInit {
   }
 
   private setUpLayers() {
-    const layers = {
-      'Stikstof wagens': this.fuelWagonsLayer
-    };
+    let layers;
+    switch (this.equipment.wagonType) {
+      case WagonTypes.NITROGENCART: // TODO: make a NitrogenCart modal
+        layers = {
+          [WagonTypes.NITROGENCART]: this.wagonServices.getFuelWagonsLayer()
+        };
+        break;
+    }
 
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
     checkBoxes.getContainer().setAttribute('class', '');

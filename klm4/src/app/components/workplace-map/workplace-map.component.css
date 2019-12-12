@@ -1,6 +1,24 @@
+/*Text style*/
+.pagetitle {
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bezorgdbtn {
+  background: #00000008;
+  border: #000000f2 0.5px solid;
+  color: #000;
+}
+
+/*style for the map*/
 #map-container {
   height: 500px;
   width: 100%;
+}
+
+#jpt .wagons-container {
+  border-bottom: solid .5px #cece;
 }
 
 #jpt .wagons-container .card-body,

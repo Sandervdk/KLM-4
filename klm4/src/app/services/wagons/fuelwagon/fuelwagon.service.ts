@@ -9,8 +9,13 @@ declare let L; // used for Leaflet.js
   providedIn: 'root'
 })
 
+/**
+ * This class is will create the markers for the fuelwagons
+ *
+ * @author Acdaling Edusei
+ */
 export class FuelwagonService {
-  private static FUEL_WAGON_ICON = 'https://png.pngtree.com/svg/20170825/nitrogen_dioxide_898.png';
+  private static FUEL_WAGON_ICON = 'https://cdn4.iconfinder.com/data/icons/basic-ui-pack-flat-s94-1/64/Basic_UI_Icon_Pack_-_Flat_map_pointer-512.png';
 
   public long = 4.767863;
   public lat = 52.311720;
@@ -21,33 +26,33 @@ export class FuelwagonService {
   private fuelWagons: any[] = [
     {
       id: 0,
-      title: 'Stikstof wagen',
+      title: WagonTypes.FUEL_CART,
       lastSeen: {lat: this.lat, long: this.long},
-      type: WagonTypes.NITROGENCART
+      type: WagonTypes.FUEL_CART
     },
     {
       id: 1,
-      title: 'Stikstof wagen',
+      title: WagonTypes.FUEL_CART,
       lastSeen: {lat: this.lat + 0.00123, long: this.long},
-      type: WagonTypes.NITROGENCART
+      type: WagonTypes.FUEL_CART
     },
     {
       id: 2,
-      title: 'Stikstof wagen',
+      title: WagonTypes.FUEL_CART,
       lastSeen: {lat: this.lat - 0.01023, long: this.long},
-      type: WagonTypes.NITROGENCART
+      type: WagonTypes.FUEL_CART
     },
     {
       id: 3,
-      title: 'Stikstof wagen',
+      title: WagonTypes.FUEL_CART,
       lastSeen: {lat: this.lat - 0.01167, long: this.long},
-      type: WagonTypes.NITROGENCART
+      type: WagonTypes.FUEL_CART
     },
     {
       id: 4,
-      title: 'Stikstof wagen',
+      title: WagonTypes.FUEL_CART,
       lastSeen: {lat: this.lat - 0.01435, long: this.long},
-      type: WagonTypes.NITROGENCART
+      type: WagonTypes.FUEL_CART
     }
   ];
 

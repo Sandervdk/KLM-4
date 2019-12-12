@@ -1,36 +1,58 @@
 <div class="container">
   <div class="row">
+    <div class="col-12">
+      <h1 class="pagetitle">{{equipment.deadline.toLocaleString()}} | {{equipment.location}}</h1>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-12 col-md-10">
       <div id="map-container"></div>
     </div>
     <div class="col-md-2">
-      <h2>Beheer</h2>
-      <div>
-        <div id="jpt">
-          <div class="wagons-container">
-            <div class="accordion" id="accordionExample">
-              <div class="card">
-                <div class="card-header">
+      <h2>Equipment</h2>
+      <div id="jpt" class="mb-2">
+        <div class="wagons-container">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header">
                   <span class="col-form-label" data-toggle="collapse" data-target="#collapseOne"
-                         aria-expanded="true" aria-controls="collapseOne">
-                    Wagens
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Equipment (Carts)
                   </span>
-                </div>
+              </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                     data-parent="#accordionExample">
-                  <div class="card-body">
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                   data-parent="#accordionExample">
+                <div class="card-body">
 
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <button class="bezorgdbtn" (click)="this.meldingService.bezorgd(meldingService.index)">Bezorgd!</button>
-
-        <div class="new-parent"></div>
       </div>
+      <button class="btn bezorgdbtn" (click)="this.meldingService.bezorgd(meldingService.index)">Delivered!</button>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Request details</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>
+        Welcome, {{this.authService.getUser().getRole()}} <br>
+        Here some information about your accepted request.
+      </p>
+      <p>
+        <strong>Id:</strong> {{this.equipment.id}} <br>
+        <strong>Location:</strong> {{this.equipment.location}}<br>
+        <strong>Planetype:</strong> {{this.equipment.planetype}}<br>
+        <strong>Position:</strong> {{this.equipment.position}}<br>
+        <strong>Status:</strong> {{this.equipment.status}}<br>
+        <strong>Tailtype:</strong> {{this.equipment.tailtype}}<br>
+      </p>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {RequestStatus} from '../../models/enums/requestStatus';
-import {TailType} from "../../models/enums/tailTypeEnums/TailTypes";
+import {TailType} from '../../models/enums/tailTypeEnums/TailTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class MeldingenService implements OnInit {
 
     this.randomMeldingen();
     this.alleMeldingen = this.meldingen;
-    for(let i = 0; i < this.meldingen.length; i++) {
+    for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].id === authentication.getID()) {
         this.mechanicMeldingen.push(this.meldingen[i]);
       }
@@ -59,18 +59,18 @@ export class MeldingenService implements OnInit {
   }
 
   public randomMeldingen() {
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.NITROGENCART, null,  'Right', RequestStatus.Pending, null));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, TailType.PH_BXB, WagonTypes.TIRECART, null,  'Left', RequestStatus.Collect, "n:1, m:0"));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.BRAKES_CART, null,  'Nose', RequestStatus.Delivered, null));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(),  PlaneTypes.BOEING737700, TailType.PH_BCB, WagonTypes.SKYDROLWAGEN, null,  'Right', RequestStatus.Pending, null));
-    this.sortAllRequests()
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.NITROGENCART, null, 'Right', RequestStatus.Pending, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BXB, WagonTypes.TIRECART, null, 'Left', RequestStatus.Collect, 'n:1, m:0'));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.BRAKES_CART, null, 'Nose', RequestStatus.Delivered, null));
+    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCB, WagonTypes.SKYDROLWAGEN, null, 'Right', RequestStatus.Pending, null));
+    this.sortAllRequests();
   }
 
   // Sorts both the general requests and the mechanic requests from earliest to latest by deadline
   public sortAllRequests() {
     this.meldingen = this.meldingen.sort((a, b) => {
       if (a.deadline < b.deadline) {
-        return -1
+        return -1;
       } else if (a.deadline > b.deadline) {
         return 1;
       } else {
@@ -80,7 +80,7 @@ export class MeldingenService implements OnInit {
 
     this.mechanicMeldingen = this.mechanicMeldingen.sort((a, b) => {
       if (a.deadline < b.deadline) {
-        return -1
+        return -1;
       } else if (a.deadline > b.deadline) {
         return 1;
       } else {
@@ -93,13 +93,13 @@ export class MeldingenService implements OnInit {
   public sortRequestsByDate(requests: Melding[]) {
     requests = requests.sort((a, b) => {
       if (a.deadline < b.deadline) {
-        return -1
+        return -1;
       } else if (a.deadline > b.deadline) {
         return 1;
       } else {
         return 0;
       }
-    })
+    });
   }
 
   public generateRandomId() {
@@ -193,7 +193,7 @@ export class MeldingenService implements OnInit {
     }
 
     //Sorts the list based on the amount of times it has been used
-    newList.sort((a , b) => b.amount - a.amount);
+    newList.sort((a, b) => b.amount - a.amount);
     // Checks if the lists are the same size (should always be correct), sets the list as the sorted list.
     if (newList.length === list.length) {
       for (let i = 0; i < list.length; i++) {
