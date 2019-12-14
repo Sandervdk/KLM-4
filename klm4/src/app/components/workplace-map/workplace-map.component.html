@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <button class="btn bezorgdbtn" (click)="this.meldingService.bezorgd(meldingService.index)">Delivered!</button>
+      <button class="btn bezorgdbtn" (click)="openPopUp()">Delivered</button>
     </div>
   </div>
   <div class="row">
@@ -43,7 +43,7 @@
     <div class="col-12">
       <p>
         Welcome, {{this.authService.getUser().getRole()}} <br>
-        Here some information about your accepted request.
+        Here is some information about your accepted request.
       </p>
       <p>
         <strong>Id:</strong> {{this.equipment.id}} <br>
@@ -57,3 +57,15 @@
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="check == true">
+  <div class="box">
+    <div class="closeBtndiv">
+      <a class="closeBtn" (click)="closePopUp()">X</a>
+    </div>
+    <p>Are you sure you delivered the equipment?</p>
+    <br>
+    <button (click)="closePopUp()" class="cancelBtn">Cancel</button>
+    <button (click)="bezorgd(meldingService.index)" class="deliveredBtn">Delivered</button>
+  </div>
+</ng-container>

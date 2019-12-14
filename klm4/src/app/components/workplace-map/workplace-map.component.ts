@@ -18,6 +18,7 @@ export class WorkplaceMapComponent implements OnInit {
   protected equipment;
   private long = 4.766361511202604;
   private lat = 52.30678841808895;
+  public check = false;
 
   constructor(private wagonServices: WagonsService,
               private meldingService: MeldingenService,
@@ -196,5 +197,18 @@ export class WorkplaceMapComponent implements OnInit {
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
     checkBoxes.getContainer().setAttribute('class', '');
     document.querySelector('#jpt .wagons-container .card-body').appendChild(checkBoxes.getContainer());
+  }
+
+  openPopUp() {
+    this.check = true;
+  }
+
+  closePopUp() {
+    this.check = false;
+  }
+
+  bezorgd(index: number) {
+    this.check = false;
+    this.meldingService.bezorgd(index);
   }
 }

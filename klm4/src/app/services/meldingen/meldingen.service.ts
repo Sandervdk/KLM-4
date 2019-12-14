@@ -112,10 +112,8 @@ export class MeldingenService implements OnInit {
 
 
   public bezorgd(index: number) {
-    if (confirm('Equipment is bezorgd?')) {
       this.meldingen[index].status = RequestStatus.Delivered;
       this.router.navigate(['/runner/open-requests']);
-    }
   }
 
   public getMeldingen(): Melding[] {
