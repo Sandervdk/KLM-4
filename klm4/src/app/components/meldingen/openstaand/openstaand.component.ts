@@ -31,6 +31,9 @@ export class OpenstaandComponent implements OnInit {
   public runnerAnimation = false;
   private currentTime;
   private comparingTime;      //Current time plus 30 minutes
+  public click = false;
+  public check = false;
+  public number;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
@@ -66,38 +69,38 @@ export class OpenstaandComponent implements OnInit {
     }, 1500);
   }
 
-  showPopUp(index: number) {
-    if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
-      if (this.meldingen[index].status === RequestStatus.Pending) {
-        this.meldingen[index].status = RequestStatus.Accepted;
-        this.meldingService.index = index;
-        this.nextScreen();
-      } else {
-        this.meldingen[index].status = RequestStatus.Finished;
-      }
-      this.expandedInfo[index] = false;
-      this.oldIndex = undefined;
-    }
-  }
+  // showPopUp(index: number) {
+  //   if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
+  //     if (this.meldingen[index].status === RequestStatus.Pending) {
+  //       this.meldingen[index].status = RequestStatus.Accepted;
+  //       this.meldingService.index = index;
+  //       this.nextScreen();
+  //     } else {
+  //       this.meldingen[index].status = RequestStatus.Finished;
+  //     }
+  //     this.expandedInfo[index] = false;
+  //     this.oldIndex = undefined;
+  //   }
+  // }
 
-  popUp(index: number) {
-    if (confirm('Equipment is bezorgd?')) {
-      this.meldingen[index].status = RequestStatus.Delivered;
-      this.expandedInfo[index] = false;
-      this.oldIndex = undefined;
-    }
-  }
-
-  ophaalPopUp(index: number) {
-    if (confirm('Weet je zeker dat je klaar bent?')) {
-      this.meldingen[index].status = RequestStatus.Collect;
-    }
-  }
-
-  deleteRequest(index: number) {
-    this.mechanicMeldingein.splice(index, 1);
-    this.expandedInfo[index] = false;
-  }
+  // popUp(index: number) {
+  //   if (confirm('Equipment is bezorgd?')) {
+  //     this.meldingen[index].status = RequestStatus.Delivered;
+  //     this.expandedInfo[index] = false;
+  //     this.oldIndex = undefined;
+  //   }
+  // }
+  //
+  // ophaalPopUp(index: number) {
+  //   if (confirm('Weet je zeker dat je klaar bent?')) {
+  //     this.meldingen[index].status = RequestStatus.Collect;
+  //   }
+  // }
+  //
+  // deleteRequest(index: number) {
+  //   this.mechanicMeldingein.splice(index, 1);
+  //   this.expandedInfo[index] = false;
+  // }
 
   unfoldRow(index: number, subTable: Element) {
     // Disables the detailed dropdown list when the is a click on the close buttons in the sub table
@@ -137,6 +140,51 @@ export class OpenstaandComponent implements OnInit {
 
   openDamageForm() {
     this.damageFormOpen = true;
+  }
+
+  openPopUp(index: number) {
+    this.click = true;
+    this.setNumber(index)
+  }
+
+  closePopUp() {
+    this.click = false;
+  }
+
+  setNumber(index: number) {
+    this.number = index;
+  }
+
+  acceptMelding(index: number) {
+    this.meldingen[index].status = RequestStatus.Accepted;
+    this.meldingService.index = index;
+    this.click = false;
+    this.nextScreen();
+  }
+
+  openPopUp2(index: number) {
+    this.check = true;
+    this.setNumber(index)
+  }
+
+  closePopUp2() {
+    this.check = false;
+  }
+
+  deleteMelding(index: number) {
+    this.mechanicMeldingein.splice(index, 1);
+    this.check = false;
+  }
+
+  ophaalmelding(index: number) {
+    this.meldingen[index].status = RequestStatus.Collect;
+    this.check = false;
+  }
+
+  afrondMelding(index: number) {
+    this.click = false;
+    this.meldingen[index].status = RequestStatus.Finished;
+
   }
 }
 

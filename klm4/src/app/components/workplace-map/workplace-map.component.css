@@ -29,3 +29,17 @@
 .leaflet-control-layers-toggle {
   display: none !important;
 }
+
+.bezorgdbtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-weight: 700;
+  width: 100px;
+  height: 30px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: #00AAE7;
+}
