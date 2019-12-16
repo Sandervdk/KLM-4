@@ -79,6 +79,7 @@
         </ng-container>
       </tr>
       </tbody>
+          <ng-container *ngIf="textcheck == true; else text"></ng-container>
 
       <ng-template #mechanic>
         <tbody>
@@ -466,6 +467,12 @@
       <button *ngIf="mechanicMeldingein[number].status === requestStatus.Pending" class="delBtn" (click)="deleteMelding(number)">Delete notification</button>
       <button *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered" class="yesBtn" (click)="ophaalmelding(number)">Complete</button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #text>
+  <div class="textDiv">
+  <p class="text"><strong>There aren't any notifications as of this moment!</strong></p>
   </div>
 </ng-template>
 

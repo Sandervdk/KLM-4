@@ -8,7 +8,6 @@ import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
 import {DomEvent} from "leaflet";
-import off = DomEvent.off;
 
 @Component({
   selector: 'app-openstaand',
@@ -34,6 +33,8 @@ export class OpenstaandComponent implements OnInit {
   public click = false;
   public check = false;
   public number;
+  public counter = 0;
+  public textcheck = true;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
@@ -54,6 +55,7 @@ export class OpenstaandComponent implements OnInit {
     for (let i = 0; i < this.meldingen.length; i++) {
       this.expandedInfo.push(false);
     }
+    this.checkstatus();
   }
 
   /**
@@ -159,6 +161,8 @@ export class OpenstaandComponent implements OnInit {
     this.meldingen[index].status = RequestStatus.Accepted;
     this.meldingService.index = index;
     this.click = false;
+    this.checkstatus();
+    console.log(this.textcheck);
     this.nextScreen();
   }
 
@@ -184,6 +188,20 @@ export class OpenstaandComponent implements OnInit {
   afrondMelding(index: number) {
     this.click = false;
     this.meldingen[index].status = RequestStatus.Finished;
+
+  }
+
+  checkstatus() {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].status == RequestStatus.Pending) {
+        this.counter++
+      }
+    }
+    if (this.counter > 0) {
+      this.counter = 0;
+      this.textcheck = true;
+    }
+    else this.textcheck = false;
 
   }
 }
