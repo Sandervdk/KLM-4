@@ -79,7 +79,6 @@
         </ng-container>
       </tr>
       </tbody>
-          <ng-container *ngIf="textcheck == true; else text"></ng-container>
 
       <ng-template #mechanic>
         <tbody>
@@ -163,6 +162,7 @@
       </ng-template>
     </table>
   </div>
+  <ng-container *ngIf="textcheck == true; else text"></ng-container>
 
   <ng-container *ngIf="'MECHANIC' == userRole">
     <h1>{{requestStatus.Delivered}}</h1>
