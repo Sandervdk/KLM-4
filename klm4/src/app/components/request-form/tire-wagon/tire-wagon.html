@@ -1,9 +1,9 @@
 <div *ngIf="differentTireTypes; else enkelType">
-  <input name="tijd" type="number" class="feedback-input" placeholder="Aantal neus Banden"
+  <input name="tijd" type="number" class="feedback-input" placeholder="Amount of nose tires"
          [(ngModel)]="noseTires"
          [required]="mainTires < 1 || mainTires === undefined"
          pattern="[0-2]"/>
-  <input name="tijd" type="number" class="feedback-input" placeholder="Aantal main Banden"
+  <input name="tijd" type="number" class="feedback-input" placeholder="Amoint of main  tires"
          [(ngModel)]="mainTires"
          [required]="noseTires < 1 || noseTires === undefined"
          pattern="[0-2]"/>

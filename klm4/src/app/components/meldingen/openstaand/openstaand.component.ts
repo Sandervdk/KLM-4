@@ -33,8 +33,6 @@ export class OpenstaandComponent implements OnInit {
   public click = false;
   public check = false;
   public number;
-  public counter = 0;
-  public textcheck = true;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
@@ -55,7 +53,9 @@ export class OpenstaandComponent implements OnInit {
     for (let i = 0; i < this.meldingen.length; i++) {
       this.expandedInfo.push(false);
     }
-    this.checkstatus();
+    this.meldingService.checkPendingStatus();
+    this.meldingService.checkCollectStatus();
+    this.meldingService.checkDeliveredStatus();
   }
 
   /**
@@ -161,8 +161,9 @@ export class OpenstaandComponent implements OnInit {
     this.meldingen[index].status = RequestStatus.Accepted;
     this.meldingService.index = index;
     this.click = false;
-    this.checkstatus();
-    console.log(this.textcheck);
+    this.meldingService.checkPendingStatus();
+    this.meldingService.checkCollectStatus();
+    console.log(this.meldingService.pendingTextCheck);
     this.nextScreen();
   }
 
@@ -178,31 +179,20 @@ export class OpenstaandComponent implements OnInit {
   deleteMelding(index: number) {
     this.mechanicMeldingein.splice(index, 1);
     this.check = false;
+    this.meldingService.checkPendingStatus();
   }
 
   ophaalmelding(index: number) {
     this.meldingen[index].status = RequestStatus.Collect;
     this.check = false;
+    this.meldingService.checkCollectStatus();
+    this.meldingService.checkDeliveredStatus();
   }
 
   afrondMelding(index: number) {
     this.click = false;
     this.meldingen[index].status = RequestStatus.Finished;
-
-  }
-
-  checkstatus() {
-    for (let i = 0; i < this.meldingen.length; i++) {
-      if (this.meldingen[i].status == RequestStatus.Pending) {
-        this.counter++
-      }
-    }
-    if (this.counter > 0) {
-      this.counter = 0;
-      this.textcheck = true;
-    }
-    else this.textcheck = false;
-
+    this.meldingService.checkCollectStatus();
   }
 }
 

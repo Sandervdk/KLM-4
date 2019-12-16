@@ -259,5 +259,6 @@ export class RequestFormComponent implements OnInit {
   addNewEquipment() {
     this.selectedEquipment.push(WagonTypes.EQUIPMENT);
     this.locationArray.push('');
+    this.meldingService.checkPendingStatus();
   }
 }

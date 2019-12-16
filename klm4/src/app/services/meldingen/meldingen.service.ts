@@ -19,6 +19,12 @@ export class MeldingenService implements OnInit {
   private readonly URL: string = 'http://localhost:8080';
   public time = new Date().toLocaleTimeString();
   public index: number = 0;
+  public pendingTextCheck = true;
+  public collectTextCheck = true;
+  public deliveredTextCheck = true;
+  public counter = 0;
+  public counter2 = 0;
+  public counter3 = 0;
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
 
@@ -48,6 +54,54 @@ export class MeldingenService implements OnInit {
     //   }
     //   this.sortAllRequests();
     // })
+  }
+
+  checkPendingStatus() {
+    if (this.authentication.getUser().getRole() == 'RUNNER') {
+      for (let i = 0; i < this.meldingen.length; i++) {
+        if (this.meldingen[i].status == RequestStatus.Pending) {
+          this.counter++
+        }
+      }
+      if (this.counter > 0) {
+        this.counter = 0;
+        this.pendingTextCheck = true;
+      } else this.pendingTextCheck = false;
+    } else {
+      for (let i = 0; i < this.mechanicMeldingen.length; i++) {
+        if (this.mechanicMeldingen[i].status == RequestStatus.Pending) {
+          this.counter++
+        }
+      }
+      if (this.counter > 0) {
+        this.counter = 0;
+        this.pendingTextCheck = true;
+      } else this.pendingTextCheck = false;
+    }
+  }
+
+  checkCollectStatus() {
+      for (let i = 0; i < this.meldingen.length; i++) {
+        if (this.meldingen[i].status == RequestStatus.Collect) {
+          this.counter2++
+        }
+      }
+      if (this.counter2 > 0) {
+        this.counter2 = 0;
+        this.collectTextCheck = true;
+      } else this.collectTextCheck = false;
+  }
+
+  checkDeliveredStatus() {
+    for (let i = 0; i < this.mechanicMeldingen.length; i++) {
+      if (this.mechanicMeldingen[i].status == RequestStatus.Delivered) {
+        this.counter3++
+      }
+    }
+    if (this.counter3 > 0) {
+      this.counter3 = 0;
+      this.deliveredTextCheck = true;
+    } else this.deliveredTextCheck = false;
   }
 
   ngOnInit() {
@@ -113,6 +167,7 @@ export class MeldingenService implements OnInit {
 
   public bezorgd(index: number) {
       this.meldingen[index].status = RequestStatus.Delivered;
+      this.checkDeliveredStatus();
       this.router.navigate(['/runner/open-requests']);
   }
 

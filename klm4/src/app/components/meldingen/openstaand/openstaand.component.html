@@ -162,7 +162,7 @@
       </ng-template>
     </table>
   </div>
-  <ng-container *ngIf="textcheck == true; else text"></ng-container>
+  <ng-container *ngIf="meldingService.pendingTextCheck == true; else text"></ng-container>
 
   <ng-container *ngIf="'MECHANIC' == userRole">
     <h1>{{requestStatus.Delivered}}</h1>
@@ -255,6 +255,7 @@
             </tbody>
       </table>
     </div>
+    <ng-container *ngIf="meldingService.deliveredTextCheck == true; else text"></ng-container>
   </ng-container>
 
 </ng-template>
@@ -363,6 +364,7 @@
         </tbody>
       </table>
     </div>
+    <ng-container *ngIf="meldingService.collectTextCheck == true; else text"></ng-container>
   </div>
 </ng-template>
 
