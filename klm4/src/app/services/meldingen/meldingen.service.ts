@@ -27,16 +27,11 @@ export class MeldingenService implements OnInit {
   public counter3 = 0;
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
-
     this.randomMeldingen();
     this.alleMeldingen = this.meldingen;
-    for (let i = 0; i < this.meldingen.length; i++) {
-      if (this.meldingen[i].id === authentication.getID()) {
-        this.mechanicMeldingen.push(this.meldingen[i]);
-      }
-    }
 
-    // todo UNCOMMENT ONCE SPRING BOOT REQUESTS ARE PROPERLY IMPLEMENTED AND HOPE THAT IT WORKS :^)
+
+    // todo Don't uncomment plz
     // this.getAllMeldingenFromSpring().subscribe((requests) => {
     //   this.alleMeldingen = requests;
     //   //loops through every request that has been made
@@ -114,9 +109,9 @@ export class MeldingenService implements OnInit {
 
   public randomMeldingen() {
     this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.NITROGENCART, null, 'Right', RequestStatus.Pending, null));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BXB, WagonTypes.TIRECART, null, 'Left', RequestStatus.Collect, 'n:1, m:0'));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.BRAKES_CART, null, 'Nose', RequestStatus.Delivered, null));
-    this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCB, WagonTypes.SKYDROLWAGEN, null, 'Right', RequestStatus.Pending, null));
+    this.meldingen.push(new Melding(1001, 'F4', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BXB, WagonTypes.TIRECART, null, 'Left', RequestStatus.Collect, 'n:1, m:0'));
+    this.meldingen.push(new Melding(1001, 'F5', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.BRAKES_CART, null, 'Nose', RequestStatus.Delivered, null));
+    this.meldingen.push(new Melding(1001, 'F6', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCB, WagonTypes.SKYDROLWAGEN, null, 'Right', RequestStatus.Pending, null));
     this.sortAllRequests();
   }
 

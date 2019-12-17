@@ -53,6 +53,12 @@ export class OpenstaandComponent implements OnInit {
     for (let i = 0; i < this.meldingen.length; i++) {
       this.expandedInfo.push(false);
     }
+
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id === this.authentication.getID()) {
+        this.mechanicMeldingein.push(this.meldingen[i]);
+      }
+    }
     this.meldingService.checkPendingStatus();
     this.meldingService.checkCollectStatus();
     this.meldingService.checkDeliveredStatus();
@@ -163,7 +169,6 @@ export class OpenstaandComponent implements OnInit {
     this.click = false;
     this.meldingService.checkPendingStatus();
     this.meldingService.checkCollectStatus();
-    console.log(this.meldingService.pendingTextCheck);
     this.nextScreen();
   }
 
@@ -177,6 +182,14 @@ export class OpenstaandComponent implements OnInit {
   }
 
   deleteMelding(index: number) {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].deadline === this.mechanicMeldingein[index].deadline &&
+            this.meldingen[i].wagonType === this.mechanicMeldingein[index].wagonType &&
+            this.meldingen[i].location === this.mechanicMeldingein[index].location) {
+        this.meldingen.splice(i, 1);
+        break;
+      }
+    }
     this.mechanicMeldingein.splice(index, 1);
     this.check = false;
     this.meldingService.checkPendingStatus();
