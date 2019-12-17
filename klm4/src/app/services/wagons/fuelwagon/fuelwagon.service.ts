@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {icon, LatLng, LayerGroup, marker, Marker} from 'leaflet';
 import {FuelWagon} from '../../../models/wagons/FuelWagon.modal';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
+import {Wagon} from '../../../models/wagons/Wagon.modal';
+import {WagonsService} from '../wagons.service';
 
 declare let L; // used for Leaflet.js
 
@@ -15,13 +17,11 @@ declare let L; // used for Leaflet.js
  * @author Acdaling Edusei
  */
 export class FuelwagonService {
-  private static FUEL_WAGON_ICON = 'https://cdn4.iconfinder.com/data/icons/basic-ui-pack-flat-s94-1/64/Basic_UI_Icon_Pack_-_Flat_map_pointer-512.png';
-
   public long = 4.767863;
   public lat = 52.311720;
   private teehee: LatLng;
-  private fuelWagonMarkers: Marker[] = [];
-  private fuelWagonslayer: LayerGroup;
+  private fuelWagonMarkers: Marker[] = []; // marker points on the map
+  private fuelWagonslayer: LayerGroup; // all the markers of this Cart type
 
   private fuelWagons: any[] = [
     {
@@ -79,7 +79,7 @@ export class FuelwagonService {
           icon: icon({
             iconSize: [30, 30],
             iconAnchor: [13, 5],
-            iconUrl: FuelwagonService.FUEL_WAGON_ICON
+            iconUrl: Wagon.WAGON_ICONS.MAINTENANCE
           })
         }).bindPopup(`${fuelWagon.getTitle()} (${fuelWagon.getID()})`)
       );

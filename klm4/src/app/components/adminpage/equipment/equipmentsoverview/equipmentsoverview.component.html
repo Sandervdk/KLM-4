@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let wagon of wagonsService.getAllWagons() | wagonsFilter: equipmentSearch">
+        <tr *ngFor="let wagon of this.carts | wagonsFilter: equipmentSearch">
           <th scope="row">{{wagon.id}}</th>
           <td>{{wagon.title}}</td>
           <td>{{wagon.type}}</td>

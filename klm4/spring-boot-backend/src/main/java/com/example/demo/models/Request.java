@@ -2,9 +2,7 @@ package com.example.demo.models;
 
 import com.example.demo.enums.MeldingStatus;
 import com.example.demo.enums.PlaneTypes;
-import com.example.demo.enums.WagonTypes;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import com.example.demo.enums.CartTypes;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -21,7 +19,7 @@ public class Request {
 
   private LocalTime tijd, deadline;
   private PlaneTypes typeVliegtuig;
-  private WagonTypes wagonTypes;
+  private CartTypes cartTypes;
   private MeldingStatus status;
 
 //  @CreatedDate
@@ -38,11 +36,11 @@ public class Request {
   protected Request(){}
 
   //Constructor with no id. This will be generated.
-  public Request(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalTime tijd, MeldingStatus status) {
+  public Request(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, CartTypes cartTypes, String positie, LocalTime tijd, MeldingStatus status) {
     this.locatie = locatie;
     this.deadline = deadline;
     this.typeVliegtuig = typeVliegtuig;
-    this.wagonTypes = wagonTypes;
+    this.cartTypes = cartTypes;
     this.positie = positie;
     this.tijd = tijd;
     this.status = status;
@@ -101,12 +99,12 @@ public class Request {
     this.typeVliegtuig = typeVliegtuig;
   }
 
-  public WagonTypes getEquipment() {
-    return wagonTypes;
+  public CartTypes getEquipment() {
+    return cartTypes;
   }
 
-  public void setEquipment(WagonTypes wagonTypes) {
-    this.wagonTypes = wagonTypes;
+  public void setEquipment(CartTypes cartTypes) {
+    this.cartTypes = cartTypes;
   }
 
   public String getPositie() {
@@ -140,7 +138,7 @@ public class Request {
       ", locatie='" + locatie + '\'' +
       ", deadline=" + deadline +
       ", typeVliegtuig=" + typeVliegtuig +
-      ", equipment=" + wagonTypes +
+      ", equipment=" + cartTypes +
       ", positie='" + positie + '\'' +
       ", tijd=" + tijd +
       ", meldingStatus=" + status +

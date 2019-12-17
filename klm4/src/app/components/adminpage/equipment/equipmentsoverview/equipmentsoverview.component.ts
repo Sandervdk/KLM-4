@@ -10,11 +10,15 @@ import {AdminService} from '../../admin.service';
 })
 export class EquipmentsoverviewComponent implements OnInit {
   public equipmentSearch: string;
+  public carts = [];
 
   constructor(private adminService: AdminService, private wagonsService: WagonsService) {
   }
 
   ngOnInit() {
+    this.wagonsService.getAllWagons().subscribe(data => {
+      this.carts = data;
+    });
   }
 
 }
