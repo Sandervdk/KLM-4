@@ -48,13 +48,14 @@ export class RequestFormComponent implements OnInit {
   private tailTypeList;
 
   private location: string;
-  private deadline: Time;
+  private deadline;
   private mechanicAnimation: boolean;
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
     this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes.EQUIPMENT);
     this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes.VLIEGTUIGTYPE);
+    this.deadline = new Date().toLocaleTimeString().substr(0, 5);
   }
 
   ngOnInit() {
@@ -225,6 +226,7 @@ export class RequestFormComponent implements OnInit {
       if (this.selectedEquipment[i] === this.equipmentEnums.TIRECART) {
         extraInfo = 'N:' + this.tireWagonComponent.getNoseTires() + ' ,m:' + this.tireWagonComponent.getMainTires();
       }
+      console.log(extraInfo);
       let request = new Melding(this.authentication.getID(), this.location, new Date(),
         new Date(new Date().setHours(
           parseInt(this.deadline.toString().substr(0, 3)),

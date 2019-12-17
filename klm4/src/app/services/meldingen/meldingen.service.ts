@@ -171,6 +171,12 @@ export class MeldingenService implements OnInit {
   }
 
   public getMechanicMeldingen(): Melding[] {
+    this.mechanicMeldingen = [];
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id === this.authentication.getID()) {
+        this.mechanicMeldingen.push(this.meldingen[i]);
+      }
+    }
     return this.mechanicMeldingen;
   }
 
@@ -249,5 +255,7 @@ export class MeldingenService implements OnInit {
       }
     }
   }
+
+
 
 }

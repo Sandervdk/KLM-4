@@ -8,6 +8,7 @@ import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
 import {DomEvent} from "leaflet";
+import {PlaneTypes} from "../../../models/enums/planeTypes";
 
 @Component({
   selector: 'app-openstaand',
@@ -27,6 +28,7 @@ export class OpenstaandComponent implements OnInit {
   private equipmentIsBezorgd = false;
   private damageFormOpen = false;
   private equipmentlist = WagonTypes;
+  private planetypeenums = PlaneTypes;
   public runnerAnimation = false;
   private currentTime;
   private comparingTime;      //Current time plus 30 minutes
@@ -46,19 +48,9 @@ export class OpenstaandComponent implements OnInit {
   ngOnInit() {
     this.userRole = this.authentication.getUser().getRole();
     this.id = this.authentication.getID();
-    this.expandedInfo = [];
-    this.numberOfButtons = 1;
     this.meldingen = this.meldingService.getMeldingen();
-    this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
-    for (let i = 0; i < this.meldingen.length; i++) {
-      this.expandedInfo.push(false);
-    }
 
-    for (let i = 0; i < this.meldingen.length; i++) {
-      if (this.meldingen[i].id === this.authentication.getID()) {
-        this.mechanicMeldingein.push(this.meldingen[i]);
-      }
-    }
+    this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
     this.meldingService.checkPendingStatus();
     this.meldingService.checkCollectStatus();
     this.meldingService.checkDeliveredStatus();
