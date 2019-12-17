@@ -45,9 +45,12 @@
 }
 
 .box {
-  width: 750px;
-  max-height: 400px;
-  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 750px;
+  min-width: 500px;
+  height: 200px;
   overflow: hidden;
   background: white;
   box-shadow: 0 0 20px black;
@@ -65,7 +68,6 @@
   font-weight: 700;
   width: 100px;
   height: 30px;
-  margin: 10px;
   border-radius: 10px;
   border: none;
   color: white;
@@ -77,7 +79,6 @@
   font-weight: 700;
   width: 100px;
   height: 30px;
-  margin: 10px;
   border-radius: 10px;
   border: none;
   color: white;
@@ -92,4 +93,13 @@
 
 .closeBtn:hover {
   cursor: pointer;
+}
+
+.text {
+  text-align: center;
+  font-size: var(--application-font-size);
+}
+
+.contentContainer {
+
 }

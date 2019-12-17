@@ -172,6 +172,9 @@ li.breadcrumb-item {
 }
 
 .box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 750px;
   max-height: 400px;
   min-height: 200px;
@@ -250,6 +253,7 @@ li.breadcrumb-item {
 
 .text {
   text-align: center;
+  font-size: var(--application-font-size);
 }
 
 .textDiv {
