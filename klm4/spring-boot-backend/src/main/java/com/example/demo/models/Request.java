@@ -20,14 +20,14 @@ public class Request {
   private long id;
 
   private String position, selectedWagon, extraInfo;
-  private LocalTime deadline;
+  private LocalTime requestTime, deadline;
   private PlaneTypes planeType;
   private TailTypes tailTypes;
   private WagonTypes wagonTypes;
   private RequestStatus status;
 
   @CreatedDate
-  private LocalDateTime requestTime;
+  private LocalDateTime requestCreated;
   @LastModifiedDate
   private LocalDateTime requestUpdated;
 
@@ -39,7 +39,7 @@ public class Request {
 
   //Constructor with no id. This will be generated.
   public Request(String position, String selectedWagon, String extraInfo, PlaneTypes planeType, TailTypes tailTypes,
-                 WagonTypes wagonTypes, RequestStatus status, LocalTime deadline, LocalDateTime requestTime, LocalDateTime requestUpdated) {
+                 WagonTypes wagonTypes, RequestStatus status, LocalTime deadline, LocalTime requestTime, LocalDateTime requestCreated, LocalDateTime requestUpdated) {
   this.position = position;
   this.selectedWagon = selectedWagon;
   this.extraInfo = extraInfo;
@@ -49,6 +49,7 @@ public class Request {
   this.status = status;
   this.deadline = deadline;
   this.requestTime = requestTime;
+  this.requestCreated = requestCreated;
   this.requestUpdated = requestUpdated;
   }
 
@@ -145,7 +146,7 @@ public class Request {
     this.status = status;
   }
 
-  public LocalDateTime getRequestTime() {
+  public LocalTime getRequestTime() {
     return requestTime;
   }
 
