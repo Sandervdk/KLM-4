@@ -1,12 +1,14 @@
 package com.example.demo.models;
 
-import com.example.demo.enums.MeldingStatus;
+import com.example.demo.enums.RequestStatus;
 import com.example.demo.enums.PlaneTypes;
+import com.example.demo.enums.TailTypes;
 import com.example.demo.enums.WagonTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -17,35 +19,38 @@ public class Request {
   @GeneratedValue
   private long id;
 
-  private String locatie, positie;
-
-  private LocalTime tijd, deadline;
-  private PlaneTypes typeVliegtuig;
+  private String position, selectedWagon, extraInfo;
+  private LocalTime requestTime, deadline;
+  private PlaneTypes planeType;
+  private TailTypes tailTypes;
   private WagonTypes wagonTypes;
-  private MeldingStatus status;
+  private RequestStatus status;
 
-//  @CreatedDate
-//  private LocalTime requestCreated;
-//
-//  @LastModifiedDate
-//  private LocalTime requestUpdated;
-//
-//  private LocalTime deadline;
+  @CreatedDate
+  private LocalDateTime requestCreated;
+  @LastModifiedDate
+  private LocalDateTime requestUpdated;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne()
   private User user;
 
-  protected Request(){}
+  protected Request() {
+  }
 
   //Constructor with no id. This will be generated.
-  public Request(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, WagonTypes wagonTypes, String positie, LocalTime tijd, MeldingStatus status) {
-    this.locatie = locatie;
-    this.deadline = deadline;
-    this.typeVliegtuig = typeVliegtuig;
-    this.wagonTypes = wagonTypes;
-    this.positie = positie;
-    this.tijd = tijd;
-    this.status = status;
+  public Request(String position, String selectedWagon, String extraInfo, PlaneTypes planeType, TailTypes tailTypes,
+                 WagonTypes wagonTypes, RequestStatus status, LocalTime deadline, LocalTime requestTime, LocalDateTime requestCreated, LocalDateTime requestUpdated) {
+  this.position = position;
+  this.selectedWagon = selectedWagon;
+  this.extraInfo = extraInfo;
+  this.planeType = planeType;
+  this.tailTypes = tailTypes;
+  this.wagonTypes = wagonTypes;
+  this.status = status;
+  this.deadline = deadline;
+  this.requestTime = requestTime;
+  this.requestCreated = requestCreated;
+  this.requestUpdated = requestUpdated;
   }
 
   @Override
@@ -77,12 +82,28 @@ public class Request {
     this.id = id;
   }
 
-  public String getLocatie() {
-    return locatie;
+  public String getPosition() {
+    return position;
   }
 
-  public void setLocatie(String locatie) {
-    this.locatie = locatie;
+  public void setPosition(String position) {
+    this.position = position;
+  }
+
+  public String getSelectedWagon() {
+    return selectedWagon;
+  }
+
+  public void setSelectedWagon(String selectedWagon) {
+    this.selectedWagon = selectedWagon;
+  }
+
+  public String getExtraInfo() {
+    return extraInfo;
+  }
+
+  public void setExtraInfo(String extraInfo) {
+    this.extraInfo = extraInfo;
   }
 
   public LocalTime getDeadline() {
@@ -93,57 +114,61 @@ public class Request {
     this.deadline = deadline;
   }
 
-  public PlaneTypes getTypeVliegtuig() {
-    return typeVliegtuig;
+  public PlaneTypes getPlaneType() {
+    return planeType;
   }
 
-  public void setTypeVliegtuig(PlaneTypes typeVliegtuig) {
-    this.typeVliegtuig = typeVliegtuig;
+  public void setPlaneType(PlaneTypes planeType) {
+    this.planeType = planeType;
   }
 
-  public WagonTypes getEquipment() {
+  public TailTypes getTailTypes() {
+    return tailTypes;
+  }
+
+  public void setTailTypes(TailTypes tailTypes) {
+    this.tailTypes = tailTypes;
+  }
+
+  public WagonTypes getWagonTypes() {
     return wagonTypes;
   }
 
-  public void setEquipment(WagonTypes wagonTypes) {
+  public void setWagonTypes(WagonTypes wagonTypes) {
     this.wagonTypes = wagonTypes;
   }
 
-  public String getPositie() {
-    return positie;
-  }
-
-  public void setPositie(String positie) {
-    this.positie = positie;
-  }
-
-  public LocalTime getTijd() {
-    return tijd;
-  }
-
-  public void setTijd(LocalTime tijd) {
-    this.tijd = tijd;
-  }
-
-  public MeldingStatus getStatus() {
+  public RequestStatus getStatus() {
     return status;
   }
 
-  public void setStatus(MeldingStatus status) {
+  public void setStatus(RequestStatus status) {
     this.status = status;
+  }
+
+  public LocalTime getRequestTime() {
+    return requestTime;
+  }
+
+  public LocalDateTime getRequestUpdated() {
+    return requestUpdated;
   }
 
   @Override
   public String toString() {
-    return "Melding{" +
+    return "Request{" +
       "id=" + id +
-      ", locatie='" + locatie + '\'' +
+      ", position='" + position + '\'' +
+      ", selectedWagon='" + selectedWagon + '\'' +
+      ", extraInfo='" + extraInfo + '\'' +
       ", deadline=" + deadline +
-      ", typeVliegtuig=" + typeVliegtuig +
-      ", equipment=" + wagonTypes +
-      ", positie='" + positie + '\'' +
-      ", tijd=" + tijd +
-      ", meldingStatus=" + status +
+      ", planeType=" + planeType +
+      ", tailTypes=" + tailTypes +
+      ", wagonTypes=" + wagonTypes +
+      ", status=" + status +
+      ", requestTime=" + requestTime +
+      ", requestUpdated=" + requestUpdated +
+      ", user=" + user +
       '}';
   }
 }
