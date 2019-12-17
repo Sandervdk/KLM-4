@@ -1,6 +1,6 @@
 package com.example.demo.enums;
 
-public enum MeldingStatus {
+public enum RequestStatus {
   Afzetten,
   Geaccepteerd,
   Bezorgd,
