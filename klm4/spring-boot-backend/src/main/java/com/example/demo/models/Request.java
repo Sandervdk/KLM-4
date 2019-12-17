@@ -32,7 +32,7 @@ public class Request {
 //
 //  private LocalTime deadline;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne()
   private User user;
 
   protected Request(){}

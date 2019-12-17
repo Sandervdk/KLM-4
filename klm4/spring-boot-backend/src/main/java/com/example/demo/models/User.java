@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import com.example.demo.enums.Functions;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class User {
   private String email, firstname, lastname;
   private Functions role;
 
-  //TODO bewust 'mappedby' weggelaten. Dit zorgt ervoor dat inloggen niet meer lukt. Fix deze bug.
-  @OneToMany(fetch = FetchType.LAZY) // is LAZY by default but just te be sure.
+  @OneToMany(mappedBy = "user")
+  @JsonIgnore
   private List<Request> requestList = new ArrayList<>();
 
   protected User() {

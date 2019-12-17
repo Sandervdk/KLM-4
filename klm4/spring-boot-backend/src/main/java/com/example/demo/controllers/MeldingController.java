@@ -24,14 +24,12 @@ public class MeldingController {
   private UserRepositorie userRepositorie;
 
   //GET all requests
-  //TODO Fix the endless recursion JSON response
   @GetMapping("/open-requests")
   public List<Request> getAllMeldingen(){
     return meldingRepositorie.findAll();
   }
 
   //FIND a request
-  //TODO fix the endless recursion JSON response
   @GetMapping("/open-requests/{requestId}")
   public Request getRequest(@PathVariable long requestId) {
     Request requestByID = meldingRepositorie.findRequest(requestId);
