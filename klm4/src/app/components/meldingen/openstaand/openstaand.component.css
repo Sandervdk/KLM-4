@@ -186,7 +186,7 @@ li.breadcrumb-item {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9999;
+  z-index: 1;
   padding: 10px;
 }
 
@@ -257,6 +257,59 @@ li.breadcrumb-item {
 }
 
 .textDiv {
+  margin-top: 10px;
   text-align: center;
 }
 
+.damageBtn {
+  font-weight: 700;
+  width: 150px;
+  height: 30px;
+  margin: 10px;
+  margin-left: 140px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: #007bff;
+}
+
+.box2 {
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 20px black;
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 10px;
+}
+
+.towBtn {
+  float: right;
+  font-weight: 700;
+  width: auto;
+  height: 30px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: green;
+}
+
+.noTowBtn {
+  float: left;
+  font-weight: 700;
+  width: auto;
+  height: 30px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: red;
+}

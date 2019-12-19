@@ -88,7 +88,7 @@
           <ng-container
             *ngIf="melding.id == this.id && melding.status == requestStatus.Pending || melding.status == requestStatus.Accepted">
             <td>{{melding.location}}</td>
-            <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
+            <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
             <td>{{melding.planetype}}</td>
             <td>{{melding.tailtype}}</td>
             <td>{{melding.wagonType}}</td>
@@ -185,7 +185,7 @@
             [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
           <ng-container *ngIf="melding.id == this.id && melding.status == requestStatus.Delivered">
             <td>{{melding.location}}</td>
-            <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
+            <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
             <td>{{melding.planetype}}</td>
             <td>{{melding.tailtype}}</td>
             <td>{{melding.wagonType}}</td>
@@ -282,7 +282,7 @@
 
           <ng-container *ngIf="melding.status === requestStatus.Collect">
             <td>{{melding.location}}</td>
-            <td>{{melding.deadline.toLocaleTimeString().substr(0,5)}}</td>
+            <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
             <td>{{melding.planetype}}</td>
             <td>{{melding.tailtype}}</td>
             <td>{{melding.wagonType}}</td>
@@ -366,149 +366,175 @@
 
 <ng-template #runnerPopup [ngIf]="!runnerAnimation && click === true">
   <div class="box">
-<!--    <div class="closeBtndiv">-->
-<!--      <a class="closeBtn" (click)="closePopUp()">X</a>-->
-<!--    </div>-->
+    <!--    <div class="closeBtndiv">-->
+    <!--      <a class="closeBtn" (click)="closePopUp()">X</a>-->
+    <!--    </div>-->
     <div>
-    <div class="tabeldiv">
-      <table>
-        <thead>
-        <tr>
-          <th>Location</th>
-          <th>Deadline</th>
-          <th>Planetype</th>
-          <th>Tailtype</th>
-          <th>Equipmentype</th>
-          <th>Position</th>
-          <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>{{meldingen[number].location}}</td>
-        <td>{{meldingen[number].deadline.toLocaleTimeString().substr(0,5)}}</td>
-        <td>{{meldingen[number].planetype}}</td>
-        <td>{{meldingen[number].tailtype}}</td>
-        <td>{{meldingen[number].wagonType}}</td>
-        <td>{{meldingen[number].position}}</td>
-        <td>{{meldingen[number].status}}</td>
-        </tbody>
-      </table>
-    </div>
-    <br>
-    <div class="tireTable" *ngIf="meldingen[number].wagonType === equipmentlist.TIRECART">
-      <table *ngIf="!(meldingen[number].planetype === planetypeenums.BOEING747400F || meldingen[number].planetype === planetypeenums.BOEING747400); else MainTyres">
-        <thead>
-        <tr>
-          <th>Main Tires</th>
-          <th>Nose Tires</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>{{meldingen[number].extraInfo.substr(2,1)}}</td>
-        <td>{{meldingen[number].extraInfo.substr(7,1)}}</td>
-        </tbody>
-      </table>
-      <ng-template #MainTyres>
+      <div class="tabeldiv">
         <table>
           <thead>
           <tr>
-            <th>Main Tires</th>
+            <th>Location</th>
+            <th>Deadline</th>
+            <th>Planetype</th>
+            <th>Tailtype</th>
+            <th>Equipmentype</th>
+            <th>Position</th>
+            <th>Status</th>
           </tr>
           </thead>
           <tbody>
-          <td>{{meldingen[number].extraInfo.substr(7,1)}}</td>
+          <td>{{meldingen[number].location}}</td>
+          <td>{{meldingen[number].deadline.toLocaleTimeString().substr(0, 5)}}</td>
+          <td>{{meldingen[number].planetype}}</td>
+          <td>{{meldingen[number].tailtype}}</td>
+          <td>{{meldingen[number].wagonType}}</td>
+          <td>{{meldingen[number].position}}</td>
+          <td>{{meldingen[number].status}}</td>
           </tbody>
         </table>
-      </ng-template>
-    </div>
-    <div class="btndiv">
-      <button class="noBtn" (click)="closePopUp()">Cancel</button>
-      <button *ngIf="meldingen[number].status === requestStatus.Pending" class="yesBtn" (click)="acceptMelding(number)">
-        Accept
-      </button>
-      <button *ngIf="meldingen[number].status === requestStatus.Collect" class="yesBtn" (click)="afrondMelding(number)">
-        Finish
-      </button>
-    </div>
+      </div>
+      <br>
+      <div class="tireTable" *ngIf="meldingen[number].wagonType === equipmentlist.TIRECART">
+        <table
+          *ngIf="!(meldingen[number].planetype === planetypeenums.BOEING747400F ||
+           meldingen[number].planetype === planetypeenums.BOEING747400); else MainTyres">
+          <thead>
+          <tr>
+            <th>Main Tires</th>
+            <th>Nose Tires</th>
+          </tr>
+          </thead>
+          <tbody>
+          <td>{{meldingen[number].extraInfo.substr(2, 1)}}</td>
+          <td>{{meldingen[number].extraInfo.substr(7, 1)}}</td>
+          </tbody>
+        </table>
+        <ng-template #MainTyres>
+          <table>
+            <thead>
+            <tr>
+              <th>Main Tires</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{meldingen[number].extraInfo.substr(7, 1)}}</td>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+      <div class="btndiv">
+        <button class="noBtn" (click)="closePopUp()">Cancel</button>
+        <button *ngIf="meldingen[number].status === requestStatus.Pending" class="yesBtn"
+                (click)="acceptMelding(number)">
+          Accept
+        </button>
+        <button *ngIf="meldingen[number].status === requestStatus.Collect" class="yesBtn"
+                (click)="afrondMelding(number)">
+          Finish
+        </button>
+      </div>
     </div>
   </div>
 </ng-template>
 
 <ng-template [ngIf]="!runnerAnimation && check === true">
   <div class="box">
-<!--    <div class="closeBtndiv">-->
-<!--      <a class="closeBtn" (click)="closePopUp2()">X</a>-->
-<!--    </div>-->
+    <!--    <div class="closeBtndiv">-->
+    <!--      <a class="closeBtn" (click)="closePopUp2()">X</a>-->
+    <!--    </div>-->
     <div>
-    <div class="tabeldiv">
-      <table>
-        <thead>
-        <tr>
-          <th>Location</th>
-          <th>Deadline</th>
-          <th>Planetype</th>
-          <th>Tailtype</th>
-          <th>Equipmentype</th>
-          <th>Position</th>
-          <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>{{mechanicMeldingein[number].location}}</td>
-        <td>{{mechanicMeldingein[number].deadline.toLocaleTimeString().substr(0,5)}}</td>
-        <td>{{mechanicMeldingein[number].planetype}}</td>
-        <td>{{mechanicMeldingein[number].tailtype}}</td>
-        <td>{{mechanicMeldingein[number].wagonType}}</td>
-        <td>{{mechanicMeldingein[number].position}}</td>
-        <td>{{mechanicMeldingein[number].status}}</td>
-        </tbody>
-      </table>
-    </div>
-    <br>
-    <div class="tireTable" *ngIf="mechanicMeldingein[number].wagonType === equipmentlist.TIRECART">
-      <table *ngIf="!(mechanicMeldingein[number].planetype === planetypeenums.BOEING747400F || mechanicMeldingein[number].planetype === planetypeenums.BOEING747400); else MainTyres">
-        <thead>
-        <tr>
-          <th>Main Tires</th>
-          <th>Nose Tires</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>{{mechanicMeldingein[number].extraInfo.substr(2,1)}}</td>
-        <td>{{mechanicMeldingein[number].extraInfo.substr(7,1)}}</td>
-        </tbody>
-      </table>
-      <ng-template #MainTyres>
+      <div class="tabeldiv">
         <table>
           <thead>
           <tr>
-            <th>Main Tires</th>
+            <th>Location</th>
+            <th>Deadline</th>
+            <th>Planetype</th>
+            <th>Tailtype</th>
+            <th>Equipmentype</th>
+            <th>Position</th>
+            <th>Status</th>
           </tr>
           </thead>
           <tbody>
-          <td>{{mechanicMeldingein[number].extraInfo.substr(7,1)}}</td>
+          <td>{{mechanicMeldingein[number].location}}</td>
+          <td>{{mechanicMeldingein[number].deadline.toLocaleTimeString().substr(0, 5)}}</td>
+          <td>{{mechanicMeldingein[number].planetype}}</td>
+          <td>{{mechanicMeldingein[number].tailtype}}</td>
+          <td>{{mechanicMeldingein[number].wagonType}}</td>
+          <td>{{mechanicMeldingein[number].position}}</td>
+          <td>{{mechanicMeldingein[number].status}}</td>
           </tbody>
         </table>
-      </ng-template>
-    </div>
-    <div class="btndiv">
-      <button class="noBtn" (click)="closePopUp2()">Cancel</button>
-      <button *ngIf="mechanicMeldingein[number].status === requestStatus.Pending" class="delBtn"
-              (click)="deleteMelding(number)">Delete notification
-      </button>
-      <button *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered" class="yesBtn"
-              (click)="ophaalmelding(number)">Complete
-      </button>
-    </div>
+      </div>
+      <br>
+      <div class="tireTable" *ngIf="mechanicMeldingein[number].wagonType === equipmentlist.TIRECART">
+        <table
+          *ngIf="!(mechanicMeldingein[number].planetype === planetypeenums.BOEING747400F ||
+           mechanicMeldingein[number].planetype === planetypeenums.BOEING747400); else MainTyres">
+          <thead>
+          <tr>
+            <th>Main Tires</th>
+            <th>Nose Tires</th>
+          </tr>
+          </thead>
+          <tbody>
+          <td>{{mechanicMeldingein[number].extraInfo.substr(2, 1)}}</td>
+          <td>{{mechanicMeldingein[number].extraInfo.substr(7, 1)}}</td>
+          </tbody>
+        </table>
+        <ng-template #MainTyres>
+          <table>
+            <thead>
+            <tr>
+              <th>Main Tires</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{mechanicMeldingein[number].extraInfo.substr(7, 1)}}</td>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+      <div class="btndiv">
+        <button class="noBtn" (click)="closePopUp2()">Cancel</button>
+        <button class="damageBtn" data-target="#ModalSchadeformulier" data-toggle="modal" type="button"
+                (click)="openDamageForm()"
+                *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered">Report damage</button>
+        <button *ngIf="mechanicMeldingein[number].status === requestStatus.Pending" class="delBtn"
+                (click)="deleteMelding(number)">Delete notification
+        </button>
+        <button *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered" class="yesBtn"
+                (click)="openDeliverPopup()">Complete
+        </button>
+      </div>
     </div>
   </div>
 </ng-template>
+
+<ng-container *ngIf="!runnerAnimation && deliverChecker == true">
+  <div class="box2">
+    <div class="textDiv">
+      <p class="text"><strong>Does the equipment need to be towed away?</strong></p>
+    </div>
+    <br>
+    <div class="btndiv">
+      <button class="noTowBtn" (click)="noTow(number)">No, thank you ;)</button>
+      <button class="towBtn" (click)="tow(number)">Yes please ;)</button>
+    </div>
+  </div>
+</ng-container>
 
 <ng-template #text>
   <div class="textDiv">
     <p class="text"><strong>There aren't any notifications as of this moment!</strong></p>
   </div>
 </ng-template>
+
+<ng-container #damageForm *ngIf="!runnerAnimation && damageFormOpen == true">
+  <app-damaged-form></app-damaged-form>
+</ng-container>
 
 <ng-template [ngIf]="runnerAnimation">
   <app-runner-animation></app-runner-animation>

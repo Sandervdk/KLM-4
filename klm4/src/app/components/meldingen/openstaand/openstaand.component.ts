@@ -35,6 +35,7 @@ export class OpenstaandComponent implements OnInit {
   public click = false;
   public check = false;
   public number;
+  public deliverChecker = false;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
@@ -198,6 +199,26 @@ export class OpenstaandComponent implements OnInit {
     this.click = false;
     this.meldingen[index].status = RequestStatus.Finished;
     this.meldingService.checkCollectStatus();
+  }
+
+  openDeliverPopup() {
+    this.deliverChecker = true;
+  }
+
+  noTow(index: number) {
+    this.meldingen[index].status = RequestStatus.Finished;
+    this.check = false;
+    this.deliverChecker = false;
+    this.meldingService.checkCollectStatus();
+    this.meldingService.checkDeliveredStatus();
+  }
+
+  tow(index: number) {
+    this.meldingen[index].status = RequestStatus.Collect;
+    this.check = false;
+    this.deliverChecker = false;
+    this.meldingService.checkCollectStatus();
+    this.meldingService.checkDeliveredStatus();
   }
 }
 

@@ -87,14 +87,13 @@ li.breadcrumb-item {
 }
 
 .buttonShape {
-  width: calc(100% / 3);
-  padding: 10px;
-  border: 0;
+  font-weight: 700;
+  width: 150px;
+  height: 30px;
+  margin: 10px;
+  margin-left: 140px;
+  border-radius: 10px;
+  border: none;
   color: white;
   background-color: #007bff;
-}
-
-.buttonShape:hover {
-  color: white;
-  background-color: darkgray;
 }
