@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.enums.CartTypes;
 import com.example.demo.models.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,16 @@ public class CartRepository {
   EntityManager entityManager;
 
   public List<Cart> findAll() {
-    TypedQuery<Cart> query = this.entityManager.createQuery("SELECT c FROM Cart c", Cart.class);
+    return this.findByQuery("All_carts", null);
+  }
+
+  public List<Cart> findByQuery(String jpqlName, Object param) {
+    TypedQuery<Cart> query = this.entityManager.createNamedQuery(jpqlName, Cart.class);
+
+    if (param != null) {
+      query.setParameter("carttype", param);
+    }
+
     return query.getResultList();
   }
 }

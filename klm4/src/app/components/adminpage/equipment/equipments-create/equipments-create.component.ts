@@ -31,7 +31,7 @@ export class EquipmentsCreateComponent implements OnInit {
     const title = form.value.title;
     const type = form.value.type;
 
-    this.wagonsService.createNewWagon({title, type});
+    // this.wagonsService.createNewWagon({title, type});
 
     setTimeout(() => {
       this.showMessage = false;

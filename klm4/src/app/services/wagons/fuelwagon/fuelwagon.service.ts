@@ -4,6 +4,7 @@ import {FuelWagon} from '../../../models/wagons/FuelWagon.modal';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {Wagon} from '../../../models/wagons/Wagon.modal';
 import {WagonsService} from '../wagons.service';
+import {HttpClient} from '@angular/common/http';
 
 declare let L; // used for Leaflet.js
 
@@ -17,11 +18,14 @@ declare let L; // used for Leaflet.js
  * @author Acdaling Edusei
  */
 export class FuelwagonService {
+  private readonly URL = 'http://localhost:8080/carts';
   public long = 4.767863;
   public lat = 52.311720;
-  private teehee: LatLng;
   private fuelWagonMarkers: Marker[] = []; // marker points on the map
   private fuelWagonslayer: LayerGroup; // all the markers of this Cart type
+
+
+  private wagonsArray = [];
 
   private fuelWagons: any[] = [
     {
@@ -56,8 +60,9 @@ export class FuelwagonService {
     }
   ];
 
-  constructor() {
-    this.createFuelWagons();
+  constructor(private http: HttpClient) {
+    // this.createFuelWagons();
+    // this.test();
   }
 
   /**
@@ -72,10 +77,12 @@ export class FuelwagonService {
       const fuelWagon = new FuelWagon(
         this.fuelWagons[i].id,
         this.fuelWagons[i].title,
-        this.fuelWagons[i].lastSeen);
+        this.fuelWagons[i].lastSeen.lat,
+        this.fuelWagons[i].lastSeen.long
+      );
 
       this.fuelWagonMarkers.push(// make marker for each of the FuelWagons
-        marker([fuelWagon.getLastSeen()['lat'], fuelWagon.getLastSeen()['long']], {
+        marker([fuelWagon.getLat(), fuelWagon.getLng()], {
           icon: icon({
             iconSize: [30, 30],
             iconAnchor: [13, 5],
@@ -87,6 +94,38 @@ export class FuelwagonService {
 
     this.fuelWagonslayer = L.layerGroup(this.fuelWagonMarkers); // hold all the layers into one layerGroup
   }
+
+
+  // private test() {
+  //   this.http.get<Wagon[]>(this.URL).subscribe(wagons => {
+  //     const fuelWagons = wagons;
+  //     for (let i = 0; i < fuelWagons.length; i++) {
+  //       const createdWagon = new Wagon(
+  //         fuelWagons[i].id,
+  //         fuelWagons[i].title,
+  //         fuelWagons[i].lat,
+  //         fuelWagons[i].lng,
+  //         fuelWagons[i].carttype,
+  //         fuelWagons[i].equipmentStatus
+  //       );
+  //
+  //       this.fuelWagonMarkers.push(// make marker for each of the FuelWagons
+  //         marker([createdWagon.getLat(), createdWagon.getLng()], {
+  //           icon: icon({
+  //             iconSize: [30, 30],
+  //             iconAnchor: [13, 5],
+  //             iconUrl: Wagon.WAGON_ICONS.MAINTENANCE
+  //           })
+  //         }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
+  //       );
+  //     }
+  //     this.fuelWagonslayer = L.layerGroup(this.fuelWagonMarkers);
+  //   });
+  //
+  //   // setTimeout(() => {
+  //
+  //   // }, 2000);
+  // }
 
   /**
    * @returns array of fuelWagons

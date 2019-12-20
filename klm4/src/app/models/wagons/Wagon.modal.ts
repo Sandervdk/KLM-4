@@ -1,5 +1,4 @@
 import {WagonTypes} from '../enums/wagonTypes';
-import {LatLng} from 'leaflet';
 import {EquipmentStatus} from '../enums/equipmentStatus';
 
 /**
@@ -13,15 +12,17 @@ export class Wagon {
   };
   private id: number;
   private title: string;
-  private lastSeen: LatLng;
-  private wagonType: WagonTypes;
+  private lat: number;
+  private lng: number;
+  private carttype: WagonTypes;
   private equipmentStatus: EquipmentStatus;
 
-  constructor(id: number, title: string, lastSeen: LatLng, wagonType: WagonTypes, equipmentStatus: EquipmentStatus) {
+  constructor(id: number, title: string, lat: number, lng: number, carttype: WagonTypes, equipmentStatus: EquipmentStatus) {
     this.id = id;
     this.title = title;
-    this.lastSeen = lastSeen;
-    this.wagonType = wagonType;
+    this.lat = lat;
+    this.lng = lng;
+    this.carttype = carttype;
     this.equipmentStatus = equipmentStatus;
   }
 
@@ -33,12 +34,16 @@ export class Wagon {
     return this.title;
   }
 
-  getLastSeen() {
-    return this.lastSeen;
+  getLat() {
+    return this.lat;
   }
 
-  getWagonType() {
-    return this.wagonType;
+  getLng() {
+    return this.lng;
+  }
+
+  getCartType() {
+    return this.carttype;
   }
 
   getEquipmentStatus() {

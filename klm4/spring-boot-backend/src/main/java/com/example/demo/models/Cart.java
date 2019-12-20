@@ -7,6 +7,10 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+  @NamedQuery(name = "All_carts", query = "SELECT c FROM Cart c"),
+  @NamedQuery(name="Find_by_type", query = "SELECT c FROM Cart c WHERE c.carttype = :carttype")
+})
 public class Cart {
   @Id
   @GeneratedValue
