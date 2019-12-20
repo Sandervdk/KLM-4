@@ -38,10 +38,10 @@ export class TireWagon implements OnInit {
       case PlaneTypes.BOEING7879: this.differentTireTypes = true; break;
       case PlaneTypes.BOEING777200: this.differentTireTypes = true; break;
       case PlaneTypes.BOEING737900: this.differentTireTypes = true; break;
-      case PlaneTypes.BOEING747400: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING747400: this.differentTireTypes = false; break;
       case PlaneTypes.AIRBUSA330200: this.differentTireTypes = true; break;
       case PlaneTypes.AIRBUSA330300: this.differentTireTypes = true; break;
-      case PlaneTypes.BOEING747400F: this.differentTireTypes = true; break;
+      case PlaneTypes.BOEING747400F: this.differentTireTypes = false; break;
     }
     this.cd.detectChanges();
   }

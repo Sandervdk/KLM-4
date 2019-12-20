@@ -1,7 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.models.User;
-import com.example.demo.repositories.MeldingRepositorie;
+import com.example.demo.repositories.RequestRepositorie;
 import com.example.demo.repositories.UserRepositorie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ public class KlmSpringBootApplication implements CommandLineRunner {
   private UserRepositorie userRepositorie;
 
   @Autowired
-  private MeldingRepositorie meldingRepositorie;
+  private RequestRepositorie requestRepositorie;
 
   private Logger logger = LoggerFactory.getLogger(this.getClass());
 

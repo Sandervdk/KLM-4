@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @Repository
 @Transactional
-public class MeldingRepositorie {
+public class RequestRepositorie {
 
   @Autowired
   protected EntityManager entityManager;

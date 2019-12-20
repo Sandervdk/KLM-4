@@ -149,7 +149,7 @@ li.breadcrumb-item {
   background: #00AAE7;
 }
 #timepicker:before {
-  content:'Time:';
+  content:'Deadline:';
   margin-right:.6em;
 }
 

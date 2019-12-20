@@ -1,8 +1,8 @@
 package com.example.demo.models;
 
-import com.example.demo.enums.MeldingStatus;
 import com.example.demo.enums.PlaneTypes;
 import com.example.demo.enums.CartTypes;
+import com.example.demo.enums.RequestStatus;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -20,7 +20,7 @@ public class Request {
   private LocalTime tijd, deadline;
   private PlaneTypes typeVliegtuig;
   private CartTypes cartTypes;
-  private MeldingStatus status;
+  private RequestStatus status;
 
 //  @CreatedDate
 //  private LocalTime requestCreated;
@@ -36,7 +36,7 @@ public class Request {
   protected Request(){}
 
   //Constructor with no id. This will be generated.
-  public Request(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, CartTypes cartTypes, String positie, LocalTime tijd, MeldingStatus status) {
+  public Request(String locatie, LocalTime deadline, PlaneTypes typeVliegtuig, CartTypes cartTypes, String positie, LocalTime tijd, RequestStatus status) {
     this.locatie = locatie;
     this.deadline = deadline;
     this.typeVliegtuig = typeVliegtuig;
@@ -123,11 +123,11 @@ public class Request {
     this.tijd = tijd;
   }
 
-  public MeldingStatus getStatus() {
+  public RequestStatus getStatus() {
     return status;
   }
 
-  public void setStatus(MeldingStatus status) {
+  public void setStatus(RequestStatus status) {
     this.status = status;
   }
 

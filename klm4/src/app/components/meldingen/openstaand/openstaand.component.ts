@@ -8,6 +8,7 @@ import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
 import {DomEvent} from "leaflet";
+import {PlaneTypes} from "../../../models/enums/planeTypes";
 
 @Component({
   selector: 'app-openstaand',
@@ -27,12 +28,14 @@ export class OpenstaandComponent implements OnInit {
   private equipmentIsBezorgd = false;
   private damageFormOpen = false;
   private equipmentlist = WagonTypes;
+  private planetypeenums = PlaneTypes;
   public runnerAnimation = false;
   private currentTime;
   private comparingTime;      //Current time plus 30 minutes
   public click = false;
   public check = false;
   public number;
+  public deliverChecker = false;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
@@ -46,13 +49,9 @@ export class OpenstaandComponent implements OnInit {
   ngOnInit() {
     this.userRole = this.authentication.getUser().getRole();
     this.id = this.authentication.getID();
-    this.expandedInfo = [];
-    this.numberOfButtons = 1;
     this.meldingen = this.meldingService.getMeldingen();
+
     this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
-    for (let i = 0; i < this.meldingen.length; i++) {
-      this.expandedInfo.push(false);
-    }
     this.meldingService.checkPendingStatus();
     this.meldingService.checkCollectStatus();
     this.meldingService.checkDeliveredStatus();
@@ -163,7 +162,6 @@ export class OpenstaandComponent implements OnInit {
     this.click = false;
     this.meldingService.checkPendingStatus();
     this.meldingService.checkCollectStatus();
-    console.log(this.meldingService.pendingTextCheck);
     this.nextScreen();
   }
 
@@ -177,6 +175,14 @@ export class OpenstaandComponent implements OnInit {
   }
 
   deleteMelding(index: number) {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].deadline === this.mechanicMeldingein[index].deadline &&
+            this.meldingen[i].wagonType === this.mechanicMeldingein[index].wagonType &&
+            this.meldingen[i].location === this.mechanicMeldingein[index].location) {
+        this.meldingen.splice(i, 1);
+        break;
+      }
+    }
     this.mechanicMeldingein.splice(index, 1);
     this.check = false;
     this.meldingService.checkPendingStatus();
@@ -193,6 +199,26 @@ export class OpenstaandComponent implements OnInit {
     this.click = false;
     this.meldingen[index].status = RequestStatus.Finished;
     this.meldingService.checkCollectStatus();
+  }
+
+  openDeliverPopup() {
+    this.deliverChecker = true;
+  }
+
+  noTow(index: number) {
+    this.meldingen[index].status = RequestStatus.Finished;
+    this.check = false;
+    this.deliverChecker = false;
+    this.meldingService.checkCollectStatus();
+    this.meldingService.checkDeliveredStatus();
+  }
+
+  tow(index: number) {
+    this.meldingen[index].status = RequestStatus.Collect;
+    this.check = false;
+    this.deliverChecker = false;
+    this.meldingService.checkCollectStatus();
+    this.meldingService.checkDeliveredStatus();
   }
 }
 
