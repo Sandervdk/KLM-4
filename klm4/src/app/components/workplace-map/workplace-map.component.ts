@@ -26,7 +26,7 @@ export class WorkplaceMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wagonServices.getCartsByType(this.equipment.wagonType).subscribe(wagons => {
+    this.wagonServices.getAllCarts().subscribe(wagons => {
       wagons.forEach(wagon => {
         this.wagonServices.createLayer(wagon);
       });
@@ -49,14 +49,7 @@ export class WorkplaceMapComponent implements OnInit {
   }
 
   private setUpLayers() {
-    let layers;
-
-    layers = {
-      [WagonTypes.NITROGENCART]: L.layerGroup(this.wagonServices.getMarkers().NITROGENCART)
-    };
-    /* this.equipment.wagonType TODO: check which type of wagon is ask, and then show layer
-    *                            and switch to show correct checkbox for the given marker*/
-    // console.log('layer map: ', layers); this is just for testing
+    const layers = this.wagonServices.getLayer(this.equipment.wagonType);
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
     checkBoxes.getContainer().setAttribute('class', '');
     document.querySelector('#jpt .wagons-container .card-body').appendChild(checkBoxes.getContainer());

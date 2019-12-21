@@ -52,10 +52,13 @@ export class WagonsService {
   // TODO: use http call to create new wagon
 
   /**
-   * Returns the object with all the markers
+   * This method will return a layer of markers of the carts
+   *
+   * @param cartAppName string value of frontend enum
    */
-  public getMarkers() {
-    return this.wagonMarkers;
+  public getLayer(cartAppName) {
+    const cartName = this.translateAppEnumToSpring(cartAppName); // translate the app enum to spring
+    return {[cartAppName]: L.layerGroup(this.wagonMarkers[cartName])}; // return object with name and value of the layers
   }
 
   /**
@@ -103,7 +106,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.MAINTENANCE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -398,7 +401,7 @@ export class WagonsService {
   }
 
   /**
-   * This method will translate and return the SpringBoot version of the given enum
+   * This method will translate the Angular enum and return the SpringBoot enum
    *
    * @param type used type enum in the application
    */
