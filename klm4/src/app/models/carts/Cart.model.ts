@@ -4,7 +4,7 @@ import {EquipmentStatus} from '../enums/equipmentStatus';
 /**
  * General attributes for CARTS
  */
-export class Wagon {
+export class Cart {
   public static readonly WAGON_ICONS = {
     NOT_AVAILABLE: '../../../assets/images/icons/redPointer.png',
     AVAILABLE: '../../../assets/images/icons/greenPointer.png',

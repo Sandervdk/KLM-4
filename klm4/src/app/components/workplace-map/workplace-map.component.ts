@@ -26,8 +26,10 @@ export class WorkplaceMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wagonServices.getWagonsByType(this.equipment.wagonType).subscribe(wagons => {
-      console.log(wagons);
+    this.wagonServices.getCartsByType(this.equipment.wagonType).subscribe(wagons => {
+      wagons.forEach(wagon => {
+        this.wagonServices.createLayer(wagon);
+      });
       this.createMap();
     });
   }

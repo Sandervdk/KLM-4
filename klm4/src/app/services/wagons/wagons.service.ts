@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Wagon} from '../../models/wagons/Wagon.modal';
+import {Cart} from '../../models/carts/Cart.model';
 import {Observable} from 'rxjs';
-import {icon, LayerGroup, Marker, marker} from 'leaflet';
+import {icon, marker} from 'leaflet';
 
 declare let L; // used for Leaflet.js
 @Injectable({
@@ -12,7 +12,7 @@ export class WagonsService {
   private readonly URL = 'http://localhost:8080/carts'; // springboot url for the carts
 
   /**
-   * all the markers for a specific cart
+   * Will hold all the markers for a specific cart
    */
   private wagonMarkers = {
     EQUIPMENT: [] = [],
@@ -46,25 +46,7 @@ export class WagonsService {
     SPILL_KIT_CART: [] = []
   };
 
-  /**
-   * This constructor is responsible for making the layers for all the wagons used
-   * to be shown on the map
-   *
-   * @param http used to make http calls
-   */
   constructor(private http: HttpClient) {
-  }
-
-  initLayers() {
-    this.getAllWagons().subscribe(wagons => {
-      for (let i = 0; wagons.length; i++) {
-        if (wagons[i] != null) {
-          this.createLayer(wagons[i]);
-        }
-      }
-
-      return true;
-    });
   }
 
   // TODO: use http call to create new wagon
@@ -77,39 +59,40 @@ export class WagonsService {
   }
 
   /**
-   * This method will
-   * @param wagonType
+   * This method will find a specific type of cart out of all the carts
+   *
+   * @param cartType the type of wagon, based on Cart
    */
-  public getWagonsByType(wagonType: string) {
-    const springBootEnum = this.translateAppEnumToSpring(wagonType);
-    return this.http.get<Wagon[]>(`${this.URL}/?type=${springBootEnum}`);
+  public getCartsByType(cartType: string) {
+    const springBootEnum = this.translateAppEnumToSpring(cartType);
+    return this.http.get<Cart[]>(`${this.URL}/?type=${springBootEnum}`);
   }
 
   /**
-   * This method will return observable with all the wagons from the database
+   * This method will return observable with all the carts from the database
    */
-  public getAllWagons(): Observable<Wagon[]> {
-    return this.http.get<Wagon[]>(this.URL);
+  public getAllCarts(): Observable<Cart[]> {
+    return this.http.get<Cart[]>(this.URL);
   }
 
-  private createLayer(wagon) {
-    const createdWagon = new Wagon(
-      wagon.id,
-      wagon.title,
-      wagon.lat,
-      wagon.lng,
-      wagon.carttype,
-      wagon.equipmentStatus
+  public createLayer(cart) {
+    const createdWagon = new Cart(
+      cart.id,
+      cart.title,
+      cart.lat,
+      cart.lng,
+      cart.carttype,
+      cart.equipmentStatus
     );
 
-    switch (wagon.carttype) {
+    switch (cart.carttype) {
       case 'FUEL_CART':
         this.wagonMarkers.FUEL_CART.push(
           marker([createdWagon.getLat(), createdWagon.getLng()], {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -120,7 +103,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.MAINTENANCE
+              iconUrl: Cart.WAGON_ICONS.MAINTENANCE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -131,7 +114,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -142,7 +125,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -153,7 +136,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -164,7 +147,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -175,7 +158,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -186,7 +169,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -197,7 +180,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -208,7 +191,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -219,7 +202,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -230,7 +213,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -241,7 +224,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -252,7 +235,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -263,7 +246,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -274,7 +257,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -285,7 +268,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -296,7 +279,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -307,7 +290,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -318,7 +301,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -329,7 +312,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -340,7 +323,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -351,7 +334,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -362,7 +345,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -373,7 +356,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -384,7 +367,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -395,7 +378,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );
@@ -406,7 +389,7 @@ export class WagonsService {
             icon: icon({
               iconSize: [30, 30],
               iconAnchor: [13, 5],
-              iconUrl: Wagon.WAGON_ICONS.AVAILABLE
+              iconUrl: Cart.WAGON_ICONS.AVAILABLE
             })
           }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
         );

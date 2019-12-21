@@ -16,7 +16,7 @@ export class EquipmentsoverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wagonsService.getAllWagons().subscribe(data => {
+    this.wagonsService.getAllCarts().subscribe(data => {
       this.carts = data;
     });
   }
