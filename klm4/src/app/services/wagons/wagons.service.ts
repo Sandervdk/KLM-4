@@ -14,7 +14,7 @@ export class WagonsService {
   /**
    * Will hold all the markers for a specific cart
    */
-  private wagonMarkers = {
+  private cartMarkers = {
     EQUIPMENT: [] = [],
     TIRECART: [] = [],
     NITROGENCART: [] = [],
@@ -58,7 +58,7 @@ export class WagonsService {
    */
   public getLayer(cartAppName) {
     const cartName = this.translateAppEnumToSpring(cartAppName); // translate the app enum to spring
-    return {[cartAppName]: L.layerGroup(this.wagonMarkers[cartName])}; // return object with name and value of the layers
+    return {[cartAppName]: L.layerGroup(this.cartMarkers[cartName])}; // return object with name and value of the layers
   }
 
   /**
@@ -72,14 +72,40 @@ export class WagonsService {
   }
 
   /**
+   * This method returns a cart by the given id
+   *
+   * @param id - the id of a Cart
+   */
+  public getCartByID(id: number) {
+    return this.http.get<Cart>(`${this.URL}/?id=${id}`);
+  }
+
+  /**
    * This method will return observable with all the carts from the database
    */
   public getAllCarts(): Observable<Cart[]> {
     return this.http.get<Cart[]>(this.URL);
   }
 
-  public createLayer(cart) {
-    const createdWagon = new Cart(
+  /**
+   * This method will make a cartModel from SpringBoot cart
+   *
+   * @param cart springBoot httpCart
+   */
+  public createMarker(cart) {
+    const createdCart = this.createCart(cart);
+    this.cartMarkers[cart.carttype].push(
+      this.newMarker(createdCart)
+    );
+  }
+
+  /**
+   * This method will create a new TypeScript object of a Cart
+   *
+   * @param cart - the data of a Cart provided from springBoot
+   */
+  public createCart(cart) {
+    return new Cart(
       cart.id,
       cart.title,
       cart.lat,
@@ -87,317 +113,46 @@ export class WagonsService {
       cart.carttype,
       cart.equipmentStatus
     );
+  }
 
-    switch (cart.carttype) {
-      case 'FUEL_CART':
-        this.wagonMarkers.FUEL_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
+  /**
+   * This method will return a Marker with value of the given Cart
+   *
+   * @param cart - Cart that a marker should be made for
+   */
+  private newMarker(cart: Cart) {
+    // console.log(this.getCartUrl(cart));
+    const iconURL = this.getCartUrl(cart.getEquipmentStatus());
+    const createdMarker = marker([cart.getLat(), cart.getLng()], {
+      icon: icon({
+        iconSize: [35, 35],
+        iconAnchor: [13, 5],
+        iconUrl: iconURL
+      })
+    }).bindPopup(`${cart.getTitle()} (${cart.getID()}) <br>
+        <button class="btn btn-primary btn-test" data-cart-id=${cart.getID()}>Pick this Cart</button>`);
+    return createdMarker;
+  }
+
+  /**
+   * This method will check the status of a Cart and returns the correct Icon for the map
+   *
+   * @param cartStatus status of the cart
+   */
+  private getCartUrl(cartStatus: string): string {
+    let iconURL;
+    switch (cartStatus) { // find correct icon for status
+      case 'AVAILABLE':
+        iconURL = Cart.WAGON_ICONS.AVAILABLE;
         break;
-      case 'NITROGENCART':
-        this.wagonMarkers.NITROGENCART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
+      case 'IN_USE':
+        iconURL = Cart.WAGON_ICONS.NOT_AVAILABLE;
         break;
-      case 'TIRECART':
-        this.wagonMarkers.TIRECART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'SKYDROLWAGEN':
-        this.wagonMarkers.SKYDROLWAGEN.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'BRAKES_CART':
-        this.wagonMarkers.BRAKES_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'IDG_CART':
-        this.wagonMarkers.IDG_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'SKYDROL_CART':
-        this.wagonMarkers.SKYDROL_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'HYJET5':
-        this.wagonMarkers.HYJET5.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'WORKING_LIFT_PLATFORM':
-        this.wagonMarkers.WORKING_LIFT_PLATFORM.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'TECHNICAL_STAIRS':
-        this.wagonMarkers.TECHNICAL_STAIRS.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'DRAIN_CART_FUEL':
-        this.wagonMarkers.DRAIN_CART_FUEL.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'DRAIN_CART_SKYDROL':
-        this.wagonMarkers.DRAIN_CART_SKYDROL.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'WORK_LIFT':
-        this.wagonMarkers.WORK_LIFT.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'SKYDROL_HYDRAULIC_FUEL_CART':
-        this.wagonMarkers.SKYDROL_HYDRAULIC_FUEL_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'HYJET5_HYDRAULIC_FLUID_CART':
-        this.wagonMarkers.HYJET5_HYDRAULIC_FLUID_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'PUMP_STAIRS':
-        this.wagonMarkers.PUMP_STAIRS.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'PYLON_STAIRS':
-        this.wagonMarkers.PYLON_STAIRS.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'BRAKES_COOLER':
-        this.wagonMarkers.BRAKES_COOLER.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'COOLING_CART':
-        this.wagonMarkers.COOLING_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'POLAR_HEATER':
-        this.wagonMarkers.POLAR_HEATER.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'HEATER':
-        this.wagonMarkers.HEATER.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'AIR_DATA_CART':
-        this.wagonMarkers.AIR_DATA_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'SPILL_CART':
-        this.wagonMarkers.SPILL_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'HOIST_CART':
-        this.wagonMarkers.HOIST_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'GREASE_CART':
-        this.wagonMarkers.GREASE_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'CLEANING_CART':
-        this.wagonMarkers.CLEANING_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'HEATER_POLAR_CART':
-        this.wagonMarkers.HEATER_POLAR_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
-        break;
-      case 'SPILL_KIT_CART':
-        this.wagonMarkers.SPILL_KIT_CART.push(
-          marker([createdWagon.getLat(), createdWagon.getLng()], {
-            icon: icon({
-              iconSize: [30, 30],
-              iconAnchor: [13, 5],
-              iconUrl: Cart.WAGON_ICONS.AVAILABLE
-            })
-          }).bindPopup(`${createdWagon.getTitle()} (${createdWagon.getID()})`)
-        );
+      case 'UNAVAILABLE':
+        iconURL = Cart.WAGON_ICONS.MAINTENANCE;
         break;
     }
+    return iconURL;
   }
 
   /**

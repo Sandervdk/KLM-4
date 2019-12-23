@@ -6,9 +6,9 @@ import {EquipmentStatus} from '../enums/equipmentStatus';
  */
 export class Cart {
   public static readonly WAGON_ICONS = {
-    NOT_AVAILABLE: '../../../assets/images/icons/redPointer.png',
+    MAINTENANCE: '../../../assets/images/icons/redPointer.png',
     AVAILABLE: '../../../assets/images/icons/greenPointer.png',
-    MAINTENANCE: '../../../assets/images/icons/orangePointer.png'
+    NOT_AVAILABLE: '../../../assets/images/icons/orangePointer.png'
   };
   private id: number;
   private title: string;

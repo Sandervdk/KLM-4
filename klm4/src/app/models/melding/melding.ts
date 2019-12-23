@@ -1,7 +1,8 @@
 import {PlaneTypes} from '../enums/planeTypes';
 import {WagonTypes} from '../enums/wagonTypes';
-import {RequestStatus} from "../enums/requestStatus";
-import {TailType} from "../enums/tailTypeEnums/TailTypes";
+import {RequestStatus} from '../enums/requestStatus';
+import {TailType} from '../enums/tailTypeEnums/TailTypes';
+import {Cart} from '../carts/Cart.model';
 
 export class Melding {
   id: number;
@@ -11,7 +12,7 @@ export class Melding {
   planetype: PlaneTypes;
   tailtype: TailType;
   wagonType: WagonTypes;
-  selectedWagon: string;
+  selectedCart: Cart;
   position: string;
   status: RequestStatus;
   extraInfo: string;
@@ -30,7 +31,7 @@ export class Melding {
 
 
   constructor(id: number, location: string, requestTime: Date, deadline: Date, planetype: PlaneTypes,
-              tailtype: TailType, wagonType: WagonTypes, selectedWagon: string, position: string,
+              tailtype: TailType, wagonType: WagonTypes, selectedCart: Cart, position: string,
               status: RequestStatus, extraInfo: string) {
     this.id = id;
     this.location = location;
@@ -39,10 +40,19 @@ export class Melding {
     this.planetype = planetype;
     this.tailtype = tailtype;
     this.wagonType = wagonType;
-    this.selectedWagon = selectedWagon;
+    this.selectedCart = selectedCart;
     this.position = position;
     this.status = status;
     this.extraInfo = extraInfo;
+  }
+
+  /**
+   * This method is used on the MapComponent for letting the runner pick a Cart that he or she's using
+   *
+   * @param cart the selected cart on the map
+   */
+  public pickCart(cart: Cart) {
+    this.selectedCart = cart;
   }
 }
 

@@ -9,7 +9,9 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
   @NamedQuery(name = "All_carts", query = "SELECT c FROM Cart c"),
-  @NamedQuery(name="Find_by_type", query = "SELECT c FROM Cart c WHERE c.carttype = :carttype")
+  @NamedQuery(name="Find_by_type", query = "SELECT c FROM Cart c WHERE c.carttype = :carttype"),
+  @NamedQuery(name="Find_by_id", query="SELECT c FROM Cart c WHERE c.ID = :id"),
+  @NamedQuery(name="Change_status", query = "UPDATE Cart c SET c.equipmentStatus = :status WHERE c.ID = :id")
 })
 public class Cart {
   @Id
