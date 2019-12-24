@@ -68,7 +68,7 @@ export class WorkplaceMapComponent implements OnInit {
       setTimeout(() => { // wait for the button to appear and set an eventListener
         // @ts-ignore
         const chooseCartBtn = popup.target.offsetParent.nextSibling.nextElementSibling
-          .querySelector('.leaflet-zoom-animated button.btn-test'); // find the choose cart button
+          .querySelector('.leaflet-zoom-animated button.btn-pick-cart'); // find the choose cart button
         try { // try catch for hiding errors in the frontend console
           chooseCartBtn.addEventListener('click', (data) => {
             const cartId = data.target.dataset.cartId; // get value of the id from the cartID attribute in HTML

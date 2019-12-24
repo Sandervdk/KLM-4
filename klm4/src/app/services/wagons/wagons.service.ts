@@ -145,8 +145,8 @@ export class WagonsService {
         iconAnchor: [13, 5],
         iconUrl: iconURL
       })
-    }).bindPopup(`<h5 style="font-weight: bold; text-align: center">${cart.getTitle()} (${cart.getID()})</h5> <br>
-        <button class="btn btn-primary btn-block" data-cart-id=${cart.getID()}>Pick this Cart</button>`);
+    }).bindPopup(`<h5 style="font-weight: bold; text-align: center">${cart.getTitle()} (${cart.getID()})</h5>
+        <button class="btn btn-primary btn-block btn-pick-cart" data-cart-id=${cart.getID()}>Pick this Cart</button>`);
     return createdMarker;
   }
 
