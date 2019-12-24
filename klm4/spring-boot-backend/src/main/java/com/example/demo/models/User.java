@@ -15,9 +15,7 @@ public class User {
   @GeneratedValue
   private long id;
 
-  @JsonIgnore
   private String password;
-
   private String email, firstname, lastname;
   private Functions role;
 
@@ -48,10 +46,6 @@ public class User {
   @Override
   public int hashCode() {
     return Objects.hash(id);
-  }
-
-  public boolean validateEncodedPassword(String password) {
-    return password.equals(password);
   }
 
   public long getId() {

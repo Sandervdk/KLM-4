@@ -17,7 +17,7 @@ import java.util.List;
 public class UserController {
 
   @Autowired
-  private UserRepositorie userRepositorie;
+  private UserRepositorie userRepositorie; // creates an instance of the userDaoService
 
   //GET all users
   @GetMapping("/users")
@@ -26,16 +26,15 @@ public class UserController {
   }
 
   //FIND a specific user
-  @GetMapping("/users/{email}")
-  public User getUser(@PathVariable String email) {
-    User user = userRepositorie.findUserByEmail(email);
+  @GetMapping("/users/{id}")
+  public User getUser(@PathVariable long id) {
+    User user = userRepositorie.findUser(id);
     if (user == null) {
-      throw new UserNotFoundException("User met de email: " + email + " is niet gevonden.");
+      throw new UserNotFoundException("User met de id: " + id + " is niet gevonden.");
     }
     return user;
   }
 
-  //TODO add password hashing when a new user is created.
   //CREATE a new user
   @PostMapping("/users")
   public ResponseEntity<Object> createUser(@RequestBody User user) {
@@ -45,13 +44,12 @@ public class UserController {
     return ResponseEntity.created(uri).build();
   }
 
-  //TODO add that only admins can delete users.
   //DELETE a event
-  @DeleteMapping("/users/{email}")
-  public void deleteUsertById(@PathVariable String email) {
-    User event = userRepositorie.deleteUserByEmail(email);
+  @DeleteMapping("/users/{id}")
+  public void deleteEventById(@PathVariable long id) {
+    User event = userRepositorie.deleteUserById(id);
     if (event == null) {
-      throw new UserNotFoundException("User met email: " + email + " kan niet worden verwijderd, omdat deze niet is gevonden");
+      throw new UserNotFoundException("User met id: " + id + " kan niet worden verwijderd, omdat deze niet is gevonden");
     }
   }
 

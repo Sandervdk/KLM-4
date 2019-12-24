@@ -25,8 +25,8 @@ public class UserRepositorie {
   }
 
   //find a user
-  public User findUserByEmail(String email) {
-    return entityManager.find(User.class, email);
+  public User findUser(long id) {
+    return entityManager.find(User.class, id);
   }
 
   //insert or update a user
@@ -40,8 +40,8 @@ public class UserRepositorie {
   }
 
   //delete a user
-  public User deleteUserByEmail(String email){
-    User deleteUser = this.findUserByEmail(email);
+  public User deleteUserById(long id){
+    User deleteUser = this.findUser(id);
     entityManager.remove(deleteUser);
     return deleteUser;
   }
