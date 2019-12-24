@@ -48,6 +48,10 @@ public class User {
     return Objects.hash(id);
   }
 
+  public boolean validateEncodedPassword(String password) {
+    return password.equals(password);
+  }
+
   public long getId() {
     return id;
   }
