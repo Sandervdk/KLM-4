@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h1 class="pagetitle">{{equipment.deadline.toLocaleString()}} | {{equipment.location}}</h1>
+      <h1 class="pagetitle">{{equipment.deadline.toLocaleTimeString().substr(0, 5)}} | {{equipment.location}}</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-md-10">
+    <div class="col-12 col-md-8 col-xl-9">
       <div id="map-container"></div>
     </div>
-    <div class="col-md-2">
+    <div class="col-12 col-md-4 col-xl-3">
       <h2>Equipment</h2>
       <div id="jpt" class="mb-2">
         <div class="wagons-container">
@@ -31,29 +31,26 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <h2>Request details</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p>
+            Welcome, {{this.authService.getUser().getRole()}} <br>
+            Here is some information about your accepted request.
+          </p>
+          <p>
+            <strong>Id:</strong> {{this.equipment.id}} <br>
+            <strong>Planetype:</strong> {{this.equipment.planetype}}<br>
+            <strong>Position:</strong> {{this.equipment.position}}<br>
+            <strong>Tailtype:</strong> {{this.equipment.tailtype}}<br>
+          </p>
+        </div>
+      </div>
       <button class="btn bezorgdbtn" (click)="openPopUp()">Delivered</button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h2>Request details</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <p>
-        Welcome, {{this.authService.getUser().getRole()}} <br>
-        Here is some information about your accepted request.
-      </p>
-      <p>
-        <strong>Id:</strong> {{this.equipment.id}} <br>
-        <strong>Location:</strong> {{this.equipment.location}}<br>
-        <strong>Planetype:</strong> {{this.equipment.planetype}}<br>
-        <strong>Position:</strong> {{this.equipment.position}}<br>
-        <strong>Status:</strong> {{this.equipment.status}}<br>
-        <strong>Tailtype:</strong> {{this.equipment.tailtype}}<br>
-        <strong>Deadline:</strong> {{this.equipment.deadline.toLocaleString()}}<br>
-      </p>
     </div>
   </div>
 </div>

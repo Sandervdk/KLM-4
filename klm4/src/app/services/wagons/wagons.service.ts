@@ -115,14 +115,30 @@ export class WagonsService {
     );
   }
 
+  public changeCartStatus(cart: Cart, status: string) {
+    this.http.post(`${this.URL}/change-status/?id=${cart.getID()}&status=${status}`, {}).subscribe();
+  }
+
+  /**
+   * This method will empty the markers
+   */
+  public resetMarkers() {
+    for (let prop in this.cartMarkers) {
+      if (Object.prototype.hasOwnProperty.call(this.cartMarkers, prop)) {
+        if (this.cartMarkers[prop] != null) {
+          this.cartMarkers[prop] = [];
+        }
+      }
+    }
+  }
+
   /**
    * This method will return a Marker with value of the given Cart
    *
    * @param cart - Cart that a marker should be made for
    */
   private newMarker(cart: Cart) {
-    // console.log(this.getCartUrl(cart));
-    const iconURL = this.getCartUrl(cart.getEquipmentStatus());
+    const iconURL = this.getCartIconUrl(cart.getEquipmentStatus());
     const createdMarker = marker([cart.getLat(), cart.getLng()], {
       icon: icon({
         iconSize: [35, 35],
@@ -139,7 +155,7 @@ export class WagonsService {
    *
    * @param cartStatus status of the cart
    */
-  private getCartUrl(cartStatus: string): string {
+  private getCartIconUrl(cartStatus: string): string {
     let iconURL;
     switch (cartStatus) { // find correct icon for status
       case 'AVAILABLE':

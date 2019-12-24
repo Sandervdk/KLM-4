@@ -25,7 +25,7 @@ export class WorkplaceMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wagonServices.getAllCarts().subscribe(wagons => {
+    this.wagonServices.getCartsByType(this.equipment.wagonType).subscribe(wagons => {
       wagons.forEach(wagon => {
         this.wagonServices.createMarker(wagon);
       });
@@ -47,6 +47,9 @@ export class WorkplaceMapComponent implements OnInit {
     this.setUpLayers();
   }
 
+  /**
+   * This method will create the layer of Cartmarkers and also show the checkbox of that layer
+   */
   private setUpLayers() {
     const layers = this.wagonServices.getLayer(this.equipment.wagonType);
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
@@ -56,7 +59,9 @@ export class WorkplaceMapComponent implements OnInit {
     this.initChooseCartBtn();
   }
 
-
+  /**
+   * This method will find the button to pick a Cart and set the status of that Cart
+   */
   private initChooseCartBtn() {
     const chooseCartDiv = document.querySelector('.leaflet-pane.leaflet-marker-pane'); // div where the popup-text is hold
     chooseCartDiv.addEventListener('click', (popup) => { // after the marker is clicked the button will appear
@@ -68,13 +73,25 @@ export class WorkplaceMapComponent implements OnInit {
           chooseCartBtn.addEventListener('click', (data) => {
             const cartId = data.target.dataset.cartId; // get value of the id from the cartID attribute in HTML
             this.wagonServices.getCartByID(cartId).subscribe((springBootCart) => {
-              this.equipment.pickCart(this.wagonServices.createCart(springBootCart[0])); // will add a cart to the Request
+              const cart = this.wagonServices.createCart(springBootCart[0]); // create wagon of springBoot data
+              this.wagonServices.changeCartStatus(cart, 'IN_USE'); // change the status of the wagon
+              this.equipment.pickCart(cart); // will bind a cart to the Request
+              this.resetMap();
             });
           });
         } catch (e) {
         }
       }, 500);
     });
+  }
+
+  private resetMap() {
+    this.wagonServices.resetMarkers();
+    this.map.remove();
+    this.map = null;
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 500);
   }
 
   openPopUp() {
