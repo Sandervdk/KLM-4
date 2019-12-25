@@ -27,6 +27,7 @@ export class OpenstaandComponent implements OnInit {
   private oldIndex: number;
   private equipmentIsBezorgd = false;
   private damageFormOpen = false;
+  private towpopup = false;
   private equipmentlist = WagonTypes;
   private planetypeenums = PlaneTypes;
   public runnerAnimation = false;
@@ -36,6 +37,8 @@ export class OpenstaandComponent implements OnInit {
   public check = false;
   public number;
   public deliverChecker = false;
+  private showform: boolean = false;
+  private popupOpen: boolean = false;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
@@ -201,8 +204,12 @@ export class OpenstaandComponent implements OnInit {
     this.meldingService.checkCollectStatus();
   }
 
+  // openDeliverPopup() {
+  //   this.deliverChecker = true;
+  // }
+
   openDeliverPopup() {
-    this.deliverChecker = true;
+    this.towpopup = true;
   }
 
   noTow(index: number) {
@@ -219,6 +226,15 @@ export class OpenstaandComponent implements OnInit {
     this.deliverChecker = false;
     this.meldingService.checkCollectStatus();
     this.meldingService.checkDeliveredStatus();
+    this.bevestigd();
+  }
+
+  bevestigd() {
+    this.showform = false;
+    this.popupOpen = true;
+    setTimeout(() => {
+      this.popupOpen = false;
+    }, 1000);
   }
 }
 

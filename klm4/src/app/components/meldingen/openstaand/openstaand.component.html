@@ -505,7 +505,8 @@
         <button *ngIf="mechanicMeldingein[number].status === requestStatus.Pending" class="delBtn"
                 (click)="deleteMelding(number)">Delete notification
         </button>
-        <button *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered" class="yesBtn"
+        <button class="yesBtn" data-target="#towpopup" data-toggle="modal" type="button"
+          *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered"
                 (click)="openDeliverPopup()">Complete
         </button>
       </div>
@@ -513,26 +514,55 @@
   </div>
 </ng-template>
 
-<ng-container *ngIf="!runnerAnimation && deliverChecker == true">
-  <div class="box2">
-    <div class="textDiv">
-      <p class="text"><strong>Does the equipment need to be towed away?</strong></p>
-    </div>
-    <br>
-    <div class="btndiv">
-      <button class="noTowBtn" (click)="noTow(number)">No, thank you ;)</button>
-      <button class="towBtn" (click)="tow(number)">Yes please ;)</button>
-    </div>
-  </div>
-</ng-container>
+<!--<ng-container *ngIf="!runnerAnimation && deliverChecker == true">-->
+<!--  <div class="box2">-->
+<!--    <div class="textDiv">-->
+<!--      <p class="text"><strong>Does the equipment need to be towed away?</strong></p>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="btndiv">-->
+<!--      <button class="noTowBtn" (click)="noTow(number)">No, thank you ;)</button>-->
+<!--      <button class="towBtn" (click)="tow(number)">Yes please ;)</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-container>-->
 
 <ng-template #text>
   <div class="textDiv">
-    <p class="text"><strong>There aren't any notifications as of this moment!</strong></p>
+    <p class="text"><strong>No notifications!</strong></p>
   </div>
 </ng-template>
 
-<ng-container #damageForm *ngIf="!runnerAnimation && damageFormOpen == true">
+<!-- Modal -->
+<div class="modal fade" id="towpopup"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Tow confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <p class="text"><strong>Does the equipment need to be towed away?</strong></p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="noTow(number)">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="tow(number)">Yes</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="popupOpen && !runnerAnimation" class="popup">
+  <span>The collection service has been requested!</span>
+</div>
+
+<ng-container #damageForm *ngIf="!runnerAnimation && damageFormOpen">
   <app-damaged-form></app-damaged-form>
 </ng-container>
 

@@ -40,7 +40,7 @@ export class DamagedFormComponent implements OnInit {
     this.popupOpen = true;
     setTimeout(() => {
       this.popupOpen = false;
-    }, 3000);
+    }, 1500);
   }
 
   onSumbitDamageForm(damageForm: NgForm) {
