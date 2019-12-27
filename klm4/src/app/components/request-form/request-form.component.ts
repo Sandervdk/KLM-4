@@ -169,12 +169,18 @@ export class RequestFormComponent implements OnInit {
    * Checks every possible option in the
    */
   private checkValidity(): boolean {
+    let regExp = new RegExp("^[A-Za-z][0-9]+");
     if (this.location === undefined || this.location.trim() === "") {
       //removes the space from the location
       if (this.location !== undefined) {
         this.location = this.location.trim();
       }
       this.openPopup('There\'s no location selected');
+      return false;
+    }
+
+    if (!regExp.test(this.location)) {
+      this.openPopup('Please fill in a valid location')
       return false;
     }
 
