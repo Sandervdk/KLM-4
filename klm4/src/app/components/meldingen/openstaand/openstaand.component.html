@@ -1,4 +1,4 @@
-<ng-template [ngIf]="!runnerAnimation">
+<ng-template [ngIf]="!runnerAnimation && isLoaded">
   <h1>{{requestStatus.Pending}}</h1>
   <div class="tabeldiv">
     <table class="table table-hover">
@@ -21,8 +21,8 @@
         <ng-container *ngIf="melding.status === requestStatus.Pending">
           <td>{{melding.location}}</td>
           <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
-          <td>{{melding.planetype}}</td>
-          <td>{{melding.tailtype}}</td>
+          <td>{{melding.planeType}}</td>
+          <td>{{melding.tailType}}</td>
           <td>{{melding.wagonType}}</td>
           <td>{{melding.position}}</td>
           <td>{{melding.status}}</td>
@@ -38,8 +38,8 @@
           <!--                <tr>-->
           <!--                  <td>{{melding.location}}</td>-->
           <!--                  <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>-->
-          <!--                  <td>{{melding.planetype}}</td>-->
-          <!--                  <td>{{melding.tailtype}}</td>-->
+          <!--                  <td>{{melding.planeType}}</td>-->
+          <!--                  <td>{{melding.tailType}}</td>-->
           <!--                  <td>{{melding.wagonType}}</td>-->
           <!--                  <td>{{melding.position}}</td>-->
           <!--                  <td>{{melding.status}}</td>-->
@@ -86,11 +86,11 @@
             [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
 
           <ng-container
-            *ngIf="melding.id == this.id && melding.status == requestStatus.Pending || melding.status == requestStatus.Accepted">
+            *ngIf="melding.mechanicId == this.id && (melding.status == requestStatus.Pending || melding.status == requestStatus.Accepted)">
             <td>{{melding.location}}</td>
             <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
-            <td>{{melding.planetype}}</td>
-            <td>{{melding.tailtype}}</td>
+            <td>{{melding.planeType}}</td>
+            <td>{{melding.tailType}}</td>
             <td>{{melding.wagonType}}</td>
             <td>{{melding.position}}</td>
             <td>{{melding.status}}</td>
@@ -110,7 +110,7 @@
             <!--                  </tr>-->
             <!--                  <tr>-->
             <!--                    <th>Planetype</th>-->
-            <!--                    <td>{{melding.planetype}}</td>-->
+            <!--                    <td>{{melding.planeType}}</td>-->
             <!--                    <th>Position</th>-->
             <!--                    <td>{{melding.position}}</td>-->
             <!--                  </tr>-->
@@ -183,11 +183,11 @@
             *ngFor="let melding of mechanicMeldingein; let i = index"
             (click)="openPopUp2(i)"
             [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
-          <ng-container *ngIf="melding.id == this.id && melding.status == requestStatus.Delivered">
+          <ng-container *ngIf="melding.mechanicId == this.id && melding.status == requestStatus.Delivered">
             <td>{{melding.location}}</td>
             <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
-            <td>{{melding.planetype}}</td>
-            <td>{{melding.tailtype}}</td>
+            <td>{{melding.planeType}}</td>
+            <td>{{melding.tailType}}</td>
             <td>{{melding.wagonType}}</td>
             <td>{{melding.position}}</td>
             <td>{{melding.status}}</td>
@@ -207,7 +207,7 @@
             <!--                      </tr>-->
             <!--                      <tr>-->
             <!--                        <th>Planetype</th>-->
-            <!--                        <td>{{melding.planetype}}</td>-->
+            <!--                        <td>{{melding.planeType}}</td>-->
             <!--                        <th>Position</th>-->
             <!--                        <td>{{melding.position}}</td>-->
             <!--                      </tr>-->
@@ -258,7 +258,7 @@
 
 </ng-template>
 
-<ng-template [ngIf]="!runnerAnimation">
+<ng-template [ngIf]="!runnerAnimation && isLoaded">
   <div *ngIf="'MECHANIC' !== userRole">
     <h1>{{requestStatus.Collect}}</h1>
     <div class="tabeldiv">
@@ -283,8 +283,8 @@
           <ng-container *ngIf="melding.status === requestStatus.Collect">
             <td>{{melding.location}}</td>
             <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
-            <td>{{melding.planetype}}</td>
-            <td>{{melding.tailtype}}</td>
+            <td>{{melding.planeType}}</td>
+            <td>{{melding.tailType}}</td>
             <td>{{melding.wagonType}}</td>
             <td>{{melding.position}}</td>
             <td>{{melding.status}}</td>
@@ -305,7 +305,7 @@
             <!--                  </tr>-->
             <!--                  <tr>-->
             <!--                    <th>Planetype</th>-->
-            <!--                    <td>{{melding.planetype}}</td>-->
+            <!--                    <td>{{melding.planeType}}</td>-->
             <!--                    <th>Position</th>-->
             <!--                    <td>{{melding.position}}</td>-->
             <!--                  </tr>-->
@@ -386,8 +386,8 @@
           <tbody>
           <td>{{meldingen[number].location}}</td>
           <td>{{meldingen[number].deadline.toLocaleTimeString().substr(0, 5)}}</td>
-          <td>{{meldingen[number].planetype}}</td>
-          <td>{{meldingen[number].tailtype}}</td>
+          <td>{{meldingen[number].planeType}}</td>
+          <td>{{meldingen[number].tailType}}</td>
           <td>{{meldingen[number].wagonType}}</td>
           <td>{{meldingen[number].position}}</td>
           <td>{{meldingen[number].status}}</td>
@@ -397,8 +397,8 @@
       <br>
       <div class="tireTable" *ngIf="meldingen[number].wagonType === equipmentlist.TIRECART">
         <table
-          *ngIf="!(meldingen[number].planetype === planetypeenums.BOEING747400F ||
-           meldingen[number].planetype === planetypeenums.BOEING747400); else MainTyres">
+          *ngIf="!(meldingen[number].planeType === planetypeenums.BOEING747400F ||
+           meldingen[number].planeType === planetypeenums.BOEING747400); else MainTyres">
           <thead>
           <tr>
             <th>Main Tires</th>
@@ -460,8 +460,8 @@
           <tbody>
           <td>{{mechanicMeldingein[number].location}}</td>
           <td>{{mechanicMeldingein[number].deadline.toLocaleTimeString().substr(0, 5)}}</td>
-          <td>{{mechanicMeldingein[number].planetype}}</td>
-          <td>{{mechanicMeldingein[number].tailtype}}</td>
+          <td>{{mechanicMeldingein[number].planeType}}</td>
+          <td>{{mechanicMeldingein[number].tailType}}</td>
           <td>{{mechanicMeldingein[number].wagonType}}</td>
           <td>{{mechanicMeldingein[number].position}}</td>
           <td>{{mechanicMeldingein[number].status}}</td>
@@ -471,8 +471,8 @@
       <br>
       <div class="tireTable" *ngIf="mechanicMeldingein[number].wagonType === equipmentlist.TIRECART">
         <table
-          *ngIf="!(mechanicMeldingein[number].planetype === planetypeenums.BOEING747400F ||
-           mechanicMeldingein[number].planetype === planetypeenums.BOEING747400); else MainTyres">
+          *ngIf="!(mechanicMeldingein[number].planeType === planetypeenums.BOEING747400F ||
+           mechanicMeldingein[number].planeType === planetypeenums.BOEING747400); else MainTyres">
           <thead>
           <tr>
             <th>Main Tires</th>

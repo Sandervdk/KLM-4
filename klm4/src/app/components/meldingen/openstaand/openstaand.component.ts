@@ -16,6 +16,7 @@ import {PlaneTypes} from "../../../models/enums/planeTypes";
   styleUrls: ['./openstaand.component.css']
 })
 export class OpenstaandComponent implements OnInit {
+  private isLoaded = false;
   private meldingen: Melding[];
   private mechanicMeldingein: Melding[];
   private userRole: Functions;
@@ -52,12 +53,20 @@ export class OpenstaandComponent implements OnInit {
   ngOnInit() {
     this.userRole = this.authentication.getUser().getRole();
     this.id = this.authentication.getID();
-    this.meldingen = this.meldingService.getMeldingen();
+    this.checkIfLoaded();
+  }
 
-    this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
-    this.meldingService.checkPendingStatus();
-    this.meldingService.checkCollectStatus();
-    this.meldingService.checkDeliveredStatus();
+  private checkIfLoaded() {
+    if (this.meldingService.isLoaded == true) {
+      this.meldingen = this.meldingService.getMeldingen();
+      this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
+      this.isLoaded = true;
+      this.meldingService.checkPendingStatus();
+      this.meldingService.checkCollectStatus();
+      this.meldingService.checkDeliveredStatus();
+    } else {
+      setTimeout(() => this.checkIfLoaded(), 500);
+    }
   }
 
   /**
@@ -106,41 +115,41 @@ export class OpenstaandComponent implements OnInit {
   //   this.expandedInfo[index] = false;
   // }
 
-  unfoldRow(index: number, subTable: Element) {
-    // Disables the detailed dropdown list when the is a click on the close buttons in the sub table
-    if (subTable === null || !subTable.classList.contains('clickableRow') && !subTable.classList.contains('extraInfoHeader')) {
-      return;
-    }
-
-    if (this.damageFormOpen) {
-      this.damageFormOpen = this.damageForm.getShowForm();
-    }
-
-    if (index === this.oldIndex) {
-      this.expandedInfo[index] = !this.expandedInfo[index];
-      this.oldIndex = undefined;
-      return;
-    }
-
-    this.numberOfButtons = 1;
-    this.expandedInfo[index] = true;
-    if (this.userRole === 'MECHANIC') {
-      this.selectedRequest = this.mechanicMeldingein[index];
-    } else {
-      this.selectedRequest = this.meldingen[index];
-    }
-
-    if (this.selectedRequest.status === RequestStatus.Delivered && this.userRole === 'MECHANIC') {
-      this.numberOfButtons += 2;
-      this.equipmentIsBezorgd = true;
-    } else if (this.selectedRequest.status === RequestStatus.Accepted && this.userRole === 'RUNNER') {
-      this.numberOfButtons += 2;
-      this.equipmentIsBezorgd = true;
-    }
-
-    this.expandedInfo[this.oldIndex] = false;
-    this.oldIndex = index;
-  }
+  // unfoldRow(index: number, subTable: Element) {
+  //   // Disables the detailed dropdown list when the is a click on the close buttons in the sub table
+  //   if (subTable === null || !subTable.classList.contains('clickableRow') && !subTable.classList.contains('extraInfoHeader')) {
+  //     return;
+  //   }
+  //
+  //   if (this.damageFormOpen) {
+  //     this.damageFormOpen = this.damageForm.getShowForm();
+  //   }
+  //
+  //   if (index === this.oldIndex) {
+  //     this.expandedInfo[index] = !this.expandedInfo[index];
+  //     this.oldIndex = undefined;
+  //     return;
+  //   }
+  //
+  //   this.numberOfButtons = 1;
+  //   this.expandedInfo[index] = true;
+  //   if (this.userRole === 'MECHANIC') {
+  //     this.selectedRequest = this.mechanicMeldingein[index];
+  //   } else {
+  //     this.selectedRequest = this.meldingen[index];
+  //   }
+  //
+  //   if (this.selectedRequest.status === RequestStatus.Delivered && this.userRole === 'MECHANIC') {
+  //     this.numberOfButtons += 2;
+  //     this.equipmentIsBezorgd = true;
+  //   } else if (this.selectedRequest.status === RequestStatus.Accepted && this.userRole === 'RUNNER') {
+  //     this.numberOfButtons += 2;
+  //     this.equipmentIsBezorgd = true;
+  //   }
+  //
+  //   this.expandedInfo[this.oldIndex] = false;
+  //   this.oldIndex = index;
+  // }
 
   openDamageForm() {
     this.damageFormOpen = true;
@@ -160,6 +169,8 @@ export class OpenstaandComponent implements OnInit {
   }
 
   acceptMelding(index: number) {
+    console.log(this.meldingen);
+    console.log(index);
     this.meldingen[index].status = RequestStatus.Accepted;
     this.meldingService.index = index;
     this.click = false;
@@ -179,9 +190,7 @@ export class OpenstaandComponent implements OnInit {
 
   deleteMelding(index: number) {
     for (let i = 0; i < this.meldingen.length; i++) {
-      if (this.meldingen[i].deadline === this.mechanicMeldingein[index].deadline &&
-            this.meldingen[i].wagonType === this.mechanicMeldingein[index].wagonType &&
-            this.meldingen[i].location === this.mechanicMeldingein[index].location) {
+      if (this.meldingen[i].id === this.mechanicMeldingein[index].id) {
         this.meldingen.splice(i, 1);
         break;
       }
@@ -208,7 +217,7 @@ export class OpenstaandComponent implements OnInit {
   //   this.deliverChecker = true;
   // }
 
-  openDeliverPopup() {
+  sopenDeliverPopup() {
     this.towpopup = true;
   }
 

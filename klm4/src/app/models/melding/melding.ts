@@ -7,43 +7,32 @@ import {Cart} from '../carts/Cart.model';
 export class Melding {
   id: number;
   location: string;
-  requestTime: Date;
+  completionTime: Date;
   deadline: Date;
-  planetype: PlaneTypes;
-  tailtype: TailType;
+  planeType: PlaneTypes;
+  tailType: TailType;
   wagonType: WagonTypes;
   selectedCart: Cart;
   position: string;
   status: RequestStatus;
   extraInfo: string;
+  mechanicId: number;
 
-  // constructor(id: number, location: string, deadline: Date, planetype: PlaneTypes, wagonType: WagonTypes, position: string, status: RequestStatus) {
-  //   this.id = id;
-  //   this.location = location;
-  //   this.deadline = deadline;
-  //   this.planetype = planetype;
-  //   this.wagonType = wagonType;
-  //   this.position = position;
-  //   this.deadline = deadline;
-  //   this.requestTime = new Date();
-  //   this.status = status;
-  // }
-
-
-  constructor(id: number, location: string, requestTime: Date, deadline: Date, planetype: PlaneTypes,
+  constructor(id: number, location: string, completionTime: Date, deadline: Date, planetype: PlaneTypes,
               tailtype: TailType, wagonType: WagonTypes, selectedCart: Cart, position: string,
-              status: RequestStatus, extraInfo: string) {
+              status: RequestStatus, extraInfo: string, mechanicId: number) {
     this.id = id;
     this.location = location;
-    this.requestTime = requestTime;
+    this.completionTime = completionTime;
     this.deadline = deadline;
-    this.planetype = planetype;
-    this.tailtype = tailtype;
+    this.planeType = planetype;
+    this.tailType = tailtype;
     this.wagonType = wagonType;
     this.selectedCart = selectedCart;
     this.position = position;
     this.status = status;
     this.extraInfo = extraInfo;
+    this.mechanicId = mechanicId;
   }
 
   /**

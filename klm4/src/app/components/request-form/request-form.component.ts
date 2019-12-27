@@ -53,12 +53,20 @@ export class RequestFormComponent implements OnInit {
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
-    this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes.EQUIPMENT);
-    this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes.VLIEGTUIGTYPE);
     this.deadline = new Date().toLocaleTimeString().substr(0, 5);
   }
 
   ngOnInit() {
+    this.checkIfLoaded();
+  }
+
+  private checkIfLoaded() {
+    if (this.meldingService.isLoaded == true) {
+      this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes.EQUIPMENT);
+      this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes.VLIEGTUIGTYPE);
+    } else {
+      setTimeout(() => this.checkIfLoaded(), 500);
+    }
   }
 
   /**f
@@ -180,7 +188,7 @@ export class RequestFormComponent implements OnInit {
     }
 
     if (!regExp.test(this.location)) {
-      this.openPopup('Please fill in a valid location')
+      this.openPopup('Please fill in a valid location');
       return false;
     }
 
@@ -238,7 +246,7 @@ export class RequestFormComponent implements OnInit {
           parseInt(this.deadline.toString().substr(0, 3)),
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
         this.planeType, this.tailType, this.selectedEquipment[i], null, this.locationArray[i],
-        RequestStatus.Pending, extraInfo);
+        RequestStatus.Pending, extraInfo, this.authentication.getID());
       this.meldingService.getMeldingen().push(request);
       this.meldingService.getMechanicMeldingen().push(request);
     }
@@ -269,4 +277,6 @@ export class RequestFormComponent implements OnInit {
     this.locationArray.push('');
     this.meldingService.checkPendingStatus();
   }
+
+
 }

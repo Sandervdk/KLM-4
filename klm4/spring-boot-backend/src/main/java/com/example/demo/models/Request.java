@@ -4,10 +4,12 @@ import com.example.demo.enums.PlaneTypes;
 import com.example.demo.enums.CartTypes;
 import com.example.demo.enums.RequestStatus;
 import com.example.demo.enums.TailTypes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -18,41 +20,49 @@ public class Request {
   @Id
   @GeneratedValue
   private long id;
+  private String location;
+  private LocalDateTime completionTime;
+  private LocalDateTime deadline;
 
-  private String position, selectedWagon, extraInfo;
-  private LocalTime requestTime, deadline;
+  @Enumerated(EnumType.STRING)
   private PlaneTypes planeType;
-  private TailTypes tailTypes;
-  private CartTypes wagonTypes;
-  private RequestStatus status;
 
+  private String tailType;
+  private String wagonType;
+  private String selectedWagon;
+  private String position;
+  private String status;
+  private String extraInfo;
+
+  @JsonIgnore
   @CreatedDate
   private LocalDateTime requestCreated;
+
+  @JsonIgnore
   @LastModifiedDate
   private LocalDateTime requestUpdated;
 
-
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   private User user;
 
   protected Request() {
   }
 
-  //Constructor with no id. This will be generated.
-  public Request(String position, String selectedWagon, String extraInfo, PlaneTypes planeType, TailTypes tailTypes,
-                 CartTypes wagonTypes, RequestStatus status, LocalTime deadline, LocalTime requestTime, LocalDateTime requestCreated, LocalDateTime requestUpdated) {
-    this.position = position;
-    this.selectedWagon = selectedWagon;
-    this.extraInfo = extraInfo;
-    this.planeType = planeType;
-    this.tailTypes = tailTypes;
-    this.wagonTypes = wagonTypes;
-    this.status = status;
+  public Request(String location, LocalDateTime completionTime, LocalDateTime deadline, PlaneTypes planeType, String tailType,
+                 String wagonType, String selectedWagon, String position, String status, String extraInfo) {
+    this.location = location;
+    this.completionTime = completionTime;
     this.deadline = deadline;
-    this.requestTime = requestTime;
-    this.requestCreated = requestCreated;
-    this.requestUpdated = requestUpdated;
+    this.planeType = planeType;
+    this.tailType = tailType;
+    this.wagonType = wagonType;
+    this.selectedWagon = selectedWagon;
+    this.position = position;
+    this.status = status;
+    this.extraInfo = extraInfo;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -75,43 +85,27 @@ public class Request {
     this.id = id;
   }
 
-  public String getPosition() {
-    return position;
+  public String getLocation() {
+    return location;
   }
 
-  public void setPosition(String position) {
-    this.position = position;
+  public void setLocation(String location) {
+    this.location = location;
   }
 
-  public String getSelectedWagon() {
-    return selectedWagon;
+  public LocalDateTime getCompletionTime() {
+    return completionTime;
   }
 
-  public void setSelectedWagon(String selectedWagon) {
-    this.selectedWagon = selectedWagon;
+  public void setCompletionTime(LocalDateTime requestTime) {
+    this.completionTime = requestTime;
   }
 
-  public String getExtraInfo() {
-    return extraInfo;
-  }
-
-  public void setExtraInfo(String extraInfo) {
-    this.extraInfo = extraInfo;
-  }
-
-  public LocalTime getRequestTime() {
-    return requestTime;
-  }
-
-  public void setRequestTime(LocalTime requestTime) {
-    this.requestTime = requestTime;
-  }
-
-  public LocalTime getDeadline() {
+  public LocalDateTime getDeadline() {
     return deadline;
   }
 
-  public void setDeadline(LocalTime deadline) {
+  public void setDeadline(LocalDateTime deadline) {
     this.deadline = deadline;
   }
 
@@ -123,28 +117,56 @@ public class Request {
     this.planeType = planeType;
   }
 
-  public TailTypes getTailTypes() {
-    return tailTypes;
+  public String getTailType() {
+    return tailType;
   }
 
-  public void setTailTypes(TailTypes tailTypes) {
-    this.tailTypes = tailTypes;
+  public void setTailType(String tailType) {
+    this.tailType = tailType;
   }
 
-  public CartTypes getWagonTypes() {
-    return wagonTypes;
+  public String getWagonType() {
+    return wagonType;
   }
 
-  public void setWagonTypes(CartTypes wagonTypes) {
-    this.wagonTypes = wagonTypes;
+  public void setWagonType(String wagonType) {
+    this.wagonType = wagonType;
   }
 
-  public RequestStatus getStatus() {
+  public String getSelectedWagon() {
+    return selectedWagon;
+  }
+
+  public void setSelectedWagon(String selectedWagon) {
+    this.selectedWagon = selectedWagon;
+  }
+
+  public String getPosition() {
+    return position;
+  }
+
+  public void setPosition(String position) {
+    this.position = position;
+  }
+
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(RequestStatus status) {
+  public void setStatus(String status) {
     this.status = status;
+  }
+
+  public String getExtraInfo() {
+    return extraInfo;
+  }
+
+  public void setExtraInfo(String extraInfo) {
+    this.extraInfo = extraInfo;
+  }
+
+  public long getMechanicId() {
+    return this.user.getId();
   }
 
   public LocalDateTime getRequestCreated() {
@@ -170,5 +192,6 @@ public class Request {
   public void setUser(User user) {
     this.user = user;
   }
+
 }
 
