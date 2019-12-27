@@ -7,23 +7,21 @@
       </div>
     </div>
     <div class="form-group">
-      <table class="table table-responsive">
-        <thead>
+      <table class="table">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Title</th>
           <th scope="col">Type of wagon</th>
-          <th scope="col">Last seen location</th>
+          <th scope="col">Status</th>
+          <th scope="col">Location</th>
         </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let wagon of this.carts | wagonsFilter: equipmentSearch">
-          <th scope="row">{{wagon.id}}</th>
-          <td>{{wagon.title}}</td>
-          <td>{{wagon.type}}</td>
-          <td>({{wagon.lastSeen.lat}} - {{wagon.lastSeen.long}})</td>
+        <tr *ngFor="let cart of this.carts | wagonsFilter: equipmentSearch">
+          <th scope="row">{{cart.id}}</th>
+          <td>{{cart.title}}</td>
+          <td>{{cart.carttype}}</td>
+          <td>{{cart.equipmentStatus}}</td>
+          <td>({{cart.lat}} - {{cart.lng}})</td>
         </tr>
-        </tbody>
       </table>
     </div>
   </div>

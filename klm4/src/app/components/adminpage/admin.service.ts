@@ -15,7 +15,7 @@ export class AdminService {
    * The constructor initializes the important functions for the admin, such like the subscribing to the
    * router so that the view loads the correct component
    *
-   * @param router - Aservices that will route the user to the correct view
+   * @param router -
    * @param authService - A services that have the signOut method and set the loaded User Model to null
    */
   constructor(private router: Router, private authService: AuthenticationService) {

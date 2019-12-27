@@ -10,7 +10,7 @@ declare let L; // used for Leaflet.js
 })
 export class WagonsService {
   private readonly URL = 'http://localhost:8080/carts'; // springboot url for the carts
-
+  public pickedWagon = false;
   /**
    * Will hold all the markers for a specific cart
    */
@@ -57,7 +57,7 @@ export class WagonsService {
    * @param cartAppName string value of frontend enum
    */
   public getLayer(cartAppName) {
-    const cartName = this.translateAppEnumToSpring(cartAppName); // translate the app enum to spring
+    const cartName = this.translateAppEquipmentEnumToSpring(cartAppName); // translate the app enum to spring
     return {[cartAppName]: L.layerGroup(this.cartMarkers[cartName])}; // return object with name and value of the layers
   }
 
@@ -67,7 +67,7 @@ export class WagonsService {
    * @param cartType the type of wagon, based on Cart
    */
   public getCartsByType(cartType: string) {
-    const springBootEnum = this.translateAppEnumToSpring(cartType);
+    const springBootEnum = this.translateAppEquipmentEnumToSpring(cartType);
     return this.http.get<Cart[]>(`${this.URL}/?type=${springBootEnum}`);
   }
 
@@ -120,7 +120,7 @@ export class WagonsService {
   }
 
   /**
-   * This method will empty the markers
+   * This method will empty the markers arrays
    */
   public resetMarkers() {
     for (let prop in this.cartMarkers) {
@@ -133,20 +133,42 @@ export class WagonsService {
   }
 
   /**
-   * This method will return a Marker with value of the given Cart
+   * This method will return a Marker with value of the given Cart,
+   * if the status is not equal to AVAILABLE then that marker don't get a popup
    *
    * @param cart - Cart that a marker should be made for
    */
   private newMarker(cart: Cart) {
     const iconURL = this.getCartIconUrl(cart.getEquipmentStatus());
-    const createdMarker = marker([cart.getLat(), cart.getLng()], {
-      icon: icon({
-        iconSize: [35, 35],
-        iconAnchor: [13, 5],
-        iconUrl: iconURL
-      })
-    }).bindPopup(`<h5 style="font-weight: bold; text-align: center">${cart.getTitle()} (${cart.getID()})</h5>
+    let createdMarker;
+    // @ts-ignore
+    if (this.pickedWagon === false && cart.getEquipmentStatus() === 'AVAILABLE') { // only markers with AVAILABLE status gets popup
+      createdMarker = marker([cart.getLat(), cart.getLng()], {
+        icon: icon({
+          iconSize: [35, 35],
+          iconAnchor: [13, 5],
+          iconUrl: iconURL
+        })
+      }).bindPopup(`<h5 style="font-weight: bold; text-align: center">${cart.getTitle()} (${cart.getID()})</h5>
         <button class="btn btn-primary btn-block btn-pick-cart" data-cart-id=${cart.getID()}>Pick this Cart</button>`);
+    } else if (this.pickedWagon === true) { // when User already chosen a cart
+      createdMarker = marker([cart.getLat(), cart.getLng()], {
+        icon: icon({
+          iconSize: [35, 35],
+          iconAnchor: [13, 5],
+          iconUrl: iconURL
+        })
+      }).bindTooltip(`<i style="font-weight: bold; font-size: 16px">You've already chosen a Cart</i>`);
+    } else { // when user didn't choose a Cart yet, but the Cart is in use of unavailable, then show status
+      createdMarker = marker([cart.getLat(), cart.getLng()], {
+        icon: icon({
+          iconSize: [35, 35],
+          iconAnchor: [13, 5],
+          iconUrl: iconURL
+        })
+      }).bindTooltip(`<i style="font-weight: bold; font-size: 16px">Status: ${cart.getEquipmentStatus()}</i>`);
+    }
+
     return createdMarker;
   }
 
@@ -176,7 +198,7 @@ export class WagonsService {
    *
    * @param type used type enum in the application
    */
-  private translateAppEnumToSpring(type) {
+  private translateAppEquipmentEnumToSpring(type) {
     let translated;
     switch (type) {
       case 'Equipment':

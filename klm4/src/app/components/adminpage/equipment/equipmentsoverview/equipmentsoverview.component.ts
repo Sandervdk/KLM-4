@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../../services/authentication/authentication.service';
 import {WagonsService} from '../../../../services/wagons/wagons.service';
 import {AdminService} from '../../admin.service';
+import {Cart} from '../../../../models/carts/Cart.model';
 
 @Component({
   selector: 'app-equipmentsoverview',

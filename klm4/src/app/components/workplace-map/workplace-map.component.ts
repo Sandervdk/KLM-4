@@ -56,13 +56,23 @@ export class WorkplaceMapComponent implements OnInit {
     checkBoxes.getContainer().setAttribute('class', ''); // removed default style
     document.querySelector('#jpt .wagons-container .card-body').appendChild(checkBoxes.getContainer()); // move box from map to side
     document.querySelector('#jpt .leaflet-control-layers-toggle').remove(); // removes icon which blocked view
-    this.initChooseCartBtn();
+    this.showAllEquipmentOnMap();
   }
 
   /**
-   * This method will find the button to pick a Cart and set the status of that Cart
+   * This method will search for all the checkboxes of the Equipment and activate them
    */
-  private initChooseCartBtn() {
+  private showAllEquipmentOnMap() {
+    const buttons = document.querySelectorAll('.leaflet-control-layers-overlays label input'); // all cart checkboxes
+    // @ts-ignore
+    buttons.forEach(checkBox => checkBox.click()); // checking all the Equipment checkboxes on
+    this.initCartSelectionBtn();
+  }
+
+  /**
+   * Method that binds a Cart to the Request and changes the state of the chosen cart
+   */
+  private initCartSelectionBtn() {
     const chooseCartDiv = document.querySelector('.leaflet-pane.leaflet-marker-pane'); // div where the popup-text is hold
     chooseCartDiv.addEventListener('click', (popup) => { // after the marker is clicked the button will appear
       setTimeout(() => { // wait for the button to appear and set an eventListener
@@ -70,13 +80,14 @@ export class WorkplaceMapComponent implements OnInit {
         const chooseCartBtn = popup.target.offsetParent.nextSibling.nextElementSibling
           .querySelector('.leaflet-zoom-animated button.btn-pick-cart'); // find the choose cart button
         try { // try catch for hiding errors in the frontend console
-          chooseCartBtn.addEventListener('click', (data) => {
-            const cartId = data.target.dataset.cartId; // get value of the id from the cartID attribute in HTML
-            this.wagonServices.getCartByID(cartId).subscribe((springBootCart) => {
-              const cart = this.wagonServices.createCart(springBootCart[0]); // create wagon of springBoot data
-              this.wagonServices.changeCartStatus(cart, 'IN_USE'); // change the status of the wagon
+          chooseCartBtn.addEventListener('click', (button) => {
+            this.wagonServices.pickedWagon = true; // the user picked a wagon
+            const cartId = button.target.dataset.cartId; // get value of the id from the cartID attribute in HTML
+            this.wagonServices.getCartByID(cartId).subscribe((springBootCart) => { // get the selected cart by using it's ID
+              const cart = this.wagonServices.createCart(springBootCart[0]); // create Typescript wagon using the springBoot data
+              this.wagonServices.changeCartStatus(cart, 'IN_USE'); // change the status of the wagon, this also changes the color
               this.equipment.pickCart(cart); // will bind a cart to the Request
-              this.resetMap();
+              this.resetMap(); // refreshes the map
             });
           });
         } catch (e) {
@@ -85,6 +96,9 @@ export class WorkplaceMapComponent implements OnInit {
     });
   }
 
+  /**
+   * This method will destroy and rebuild the map showing the new Cart markers
+   */
   private resetMap() {
     this.wagonServices.resetMarkers();
     this.map.remove();
@@ -104,6 +118,7 @@ export class WorkplaceMapComponent implements OnInit {
 
   bezorgd(index: number) {
     this.check = false;
+    this.wagonServices.pickedWagon = false; // when user is done with request, it's possible to choose a new Cart on the map
     this.meldingService.bezorgd(index);
   }
 }
