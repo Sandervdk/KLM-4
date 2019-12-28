@@ -77,8 +77,6 @@ public class RequestController {
     for (Request request: newRequests) {
       //adding the request to the user
       Request saveRequest = this.requestRepositorie.addRequestsToUser(userID, request);
-      System.out.println("yote");
-      System.out.println(saveRequest.toString());
       requestIds.add(saveRequest.getId());
     }
 

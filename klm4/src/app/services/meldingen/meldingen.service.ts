@@ -286,7 +286,7 @@ export class MeldingenService implements OnInit {
       id = this.authentication.getID();
     }
     this.httpClient.get(this.URL + '/open-requests/changed-requests/' + id).subscribe((requests) => {
-      let updatedRequests: Melding[];
+      let updatedRequests: Melding[] = <Melding[]> requests;
 
       if (updatedRequests == undefined)
         return;
