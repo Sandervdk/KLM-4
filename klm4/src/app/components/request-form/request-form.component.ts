@@ -236,11 +236,12 @@ export class RequestFormComponent implements OnInit {
     // loops through the selected equipment array and adds a new request for each piece of equipment, each requests
     // gets the ID of the currently logged in user
     let extraInfo = null;
+    let newRequests: Melding[] = [];
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === this.equipmentEnums.TIRECART) {
         extraInfo = 'N:' + this.tireWagonComponent.getNoseTires() + ' ,m:' + this.tireWagonComponent.getMainTires();
       }
-      console.log(extraInfo);
+
       let request = new Melding(this.authentication.getID(), this.location, new Date(),
         new Date(new Date().setHours(
           parseInt(this.deadline.toString().substr(0, 3)),
@@ -249,7 +250,10 @@ export class RequestFormComponent implements OnInit {
         RequestStatus.Pending, extraInfo, this.authentication.getID());
       this.meldingService.getMeldingen().push(request);
       this.meldingService.getMechanicMeldingen().push(request);
+      newRequests.push(request);
     }
+
+    this.meldingService.createRequest(newRequests);
 
     // rerouts the user to the made requests screen after adding all the requests.
     this.mechanicAnimation = true;
@@ -277,6 +281,5 @@ export class RequestFormComponent implements OnInit {
     this.locationArray.push('');
     this.meldingService.checkPendingStatus();
   }
-
-
+  
 }

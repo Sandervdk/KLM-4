@@ -12,8 +12,9 @@ import {RequestStatus} from '../../models/enums/requestStatus';
   providedIn: 'root'
 })
 
-export class MeldingenService implements OnInit, OnDestroy {
+export class MeldingenService implements OnInit {
   private TIMEOUT_INTERVAL: number = 15000;
+  private lastUserRole: String;
   private interval;
   private alleMeldingen: Melding[] = [];                      //
   private meldingen: Melding[] = [];
@@ -30,6 +31,27 @@ export class MeldingenService implements OnInit, OnDestroy {
   public isLoaded: boolean;
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
+    this.loadAllRequests();
+  }
+
+  ngOnInit() {
+  }
+
+  public loadAllRequests() {
+    //Check to see if the shit has to be reloaded or not due to switching accouts
+    //Checks that a user has logged in before and that the roles are the same, stops the method from continueing
+    if (this.lastUserRole !== undefined && this.lastUserRole === this.authentication.getUser().getRole()) {
+      return;
+      //Checks if the user has logged in before and if the roles are different, empties all arrays and continues
+    } else if (this.lastUserRole !== undefined && this.lastUserRole !== this.authentication.getUser().getRole()) {
+      this.isLoaded = false;
+      this.lastUserRole = this.authentication.getUser().getRole();
+      this.alleMeldingen = [];
+      this.meldingen = [];
+      this.mechanicMeldingen = [];
+    } else {
+      this.lastUserRole = this.authentication.getUser().getRole();
+    }
 
     this.getAllMeldingenFromSpring().subscribe((requests) => {
       for (let i = 0; i < requests.length; i++) {
@@ -49,7 +71,7 @@ export class MeldingenService implements OnInit, OnDestroy {
           this.meldingen.push(this.alleMeldingen[i]);
 
           // checks if the request are made by the currently logged in employee
-          if (this.alleMeldingen[i].mechanicId === authentication.getID()) {
+          if (this.alleMeldingen[i].mechanicId === this.authentication.getID()) {
             this.mechanicMeldingen.push(this.meldingen[i]);
           }
         }
@@ -57,6 +79,9 @@ export class MeldingenService implements OnInit, OnDestroy {
       this.sortAllRequests();
       this.isLoaded = true;
 
+      if (this.interval !== undefined) {
+        clearInterval(this.interval);
+      }
       this.interval = setInterval(() => this.getUpdatedOrNewRequests(), this.TIMEOUT_INTERVAL);
     });
   }
@@ -109,20 +134,8 @@ export class MeldingenService implements OnInit, OnDestroy {
     } else this.deliveredTextCheck = false;
   }
 
-  ngOnInit() {
-  }
-
   public getAllMeldingenFromSpring(): Observable<Melding[]> {
     return this.httpClient.get<Melding[]>(this.URL + '/open-requests');
-
-  }
-
-  public randomMeldingen() {
-    // this.meldingen.push(new Melding(1001, 'F3', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.NITROGENCART, null, 'Right', RequestStatus.Pending, null));
-    // this.meldingen.push(new Melding(1001, 'F4', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BXB, WagonTypes.TIRECART, null, 'Left', RequestStatus.Collect, 'n:1, m:0'));
-    // this.meldingen.push(new Melding(1001, 'F5', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCD, WagonTypes.BRAKES_CART, null, 'Nose', RequestStatus.Delivered, null));
-    // this.meldingen.push(new Melding(1001, 'F6', new Date(), new Date(), PlaneTypes.BOEING737700, TailType.PH_BCB, WagonTypes.SKYDROLWAGEN, null, 'Right', RequestStatus.Pending, null));
-    // this.sortAllRequests();
   }
 
   // Sorts both the general requests and the mechanic requests from earliest to latest by deadline
@@ -172,6 +185,7 @@ export class MeldingenService implements OnInit, OnDestroy {
 
   public bezorgd(index: number) {
     this.meldingen[index].status = RequestStatus.Delivered;
+    this.updateRequest(this.meldingen[index]);
     this.checkDeliveredStatus();
     this.router.navigate(['/runner/open-requests']);
   }
@@ -184,7 +198,7 @@ export class MeldingenService implements OnInit, OnDestroy {
     return this.mechanicMeldingen;
   }
 
-  public sortEnumsMostUsed(list: string[], enumType: PlaneTypes.VLIEGTUIGTYPE | WagonTypes.EQUIPMENT) {
+  public sortEnumsMostUsed(list: string[], enumType: PlaneTypes.VLIEGTUIGTYPE | WagonTypes.EQUIPMENT): void {
     let newList = [];
     if (enumType === PlaneTypes.VLIEGTUIGTYPE) {
       //Adds the first planetype to the newList, since it can't check for existing values if the newList is empty
@@ -260,13 +274,22 @@ export class MeldingenService implements OnInit, OnDestroy {
     }
   }
 
-  public getUpdatedOrNewRequests() {
+  public getUpdatedOrNewRequests(): void {
+    //checks if the user is still signed in, doensn't do shit when not logged in |:^)
+    if (this.authentication.getUser() === null) {
+      // console.log('DENIED MOTHERFUCKER, NO UPDATES FOR YOU');
+      return;
+    }
+
     let id = 0;
     if (this.authentication.getUser().getRole() === 'MECHANIC') {
       id = this.authentication.getID();
     }
     this.httpClient.get(this.URL + '/open-requests/changed-requests/' + id).subscribe((requests) => {
-      let updatedRequests: Melding[] = <Melding[]> requests;
+      let updatedRequests: Melding[];
+
+      if (updatedRequests == undefined)
+        return;
 
       for (let i = 0; i < updatedRequests.length; i++) {
         updatedRequests[i] =
@@ -286,7 +309,7 @@ export class MeldingenService implements OnInit, OnDestroy {
               updatedRequests.splice(j, 1);
             }
 
-            if (this.meldingen[i].status === RequestStatus.Collect) {
+            if (updatedRequests[j].status === RequestStatus.Collect) {
               this.shopPopup('Equipment needs to be collected at ' + this.meldingen[i].location);
             }
           }
@@ -318,12 +341,33 @@ export class MeldingenService implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this.interval = null;
+  public updateRequest(melding: Melding): void {
+    this.httpClient.post(this.URL + "/open-requests/update-request/" + melding.id, melding.status).subscribe(() => {
+      this.checkCollectStatus();
+      this.checkDeliveredStatus();
+      this.checkPendingStatus();
+    });
   }
 
+  public deleteRequest(id: number): void {
+    this.httpClient.delete(this.URL + '/open-requests/' + id).subscribe(response => {
+      this.checkCollectStatus();
+      this.checkDeliveredStatus();
+      this.checkPendingStatus();
+    })
+  }
 
   private shopPopup(popupText: string) {
     console.log(popupText);
+  }
+
+  createRequest(request: Melding[]) {
+    this.httpClient.post(this.URL + "/users/" + this.authentication.getID() + "/open-requests", request).subscribe(data => {
+      let requestIds: number[] = <number[]> data;
+
+      for (let i = 0; i < requestIds.length; i++) {
+        request[i].id = requestIds[i];
+      }
+    })
   }
 }

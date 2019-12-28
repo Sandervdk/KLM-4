@@ -3,6 +3,9 @@ package com.example.demo.repositories;
 import com.example.demo.models.Request;
 import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +17,7 @@ import java.util.List;
 @Component
 @Repository
 @Transactional
-public class RequestRepositorie {
+public class RequestRepositorie  {
 
   @Autowired
   protected EntityManager entityManager;
@@ -40,6 +43,12 @@ public class RequestRepositorie {
     return deleteRequest;
   }
 
+  public void updateRequest(long requestId, String status) {
+    Request request = findRequest(requestId);
+    request.setStatus(status);
+    entityManager.merge(request);
+  }
+
   public Request addRequestsToUser(long userId, Request request) {
     //find a user
     User user = userRepositorie.findUser(userId);
@@ -47,13 +56,9 @@ public class RequestRepositorie {
     user.addMelding(request);
     request.setUser(user);
     //save to the database
-    entityManager.persist(request);
-    return request;
+    return entityManager.merge(request);
+//    return request;
   }
-
-
-
-
 
   /*
   private long idCounter = 2;
@@ -87,8 +92,6 @@ public class RequestRepositorie {
     }
     return null;
   }
-
-  //TODO make a method to update a 'Melding' with the id.
 
   //DELETE a melding
   public Melding deleteMeldingByID(long id) {

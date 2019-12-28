@@ -48,6 +48,7 @@ export class OpenstaandComponent implements OnInit {
     this.currentTime = new Date();
     this.comparingTime = new Date();
     this.comparingTime.setTime(this.currentTime.getTime() + (30 * 60 * 1000));
+    this.meldingService.loadAllRequests();
   }
 
   ngOnInit() {
@@ -172,6 +173,7 @@ export class OpenstaandComponent implements OnInit {
     this.meldingen[index].status = RequestStatus.Accepted;
     this.meldingService.index = index;
     this.click = false;
+    this.meldingService.updateRequest(this.meldingen[index]);
     this.meldingService.checkPendingStatus();
     this.meldingService.checkCollectStatus();
     this.nextScreen();
@@ -187,6 +189,8 @@ export class OpenstaandComponent implements OnInit {
   }
 
   deleteMelding(index: number) {
+    this.meldingService.deleteRequest(this.mechanicMeldingein[index].id);
+
     for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].id === this.mechanicMeldingein[index].id) {
         this.meldingen.splice(i, 1);
@@ -196,13 +200,7 @@ export class OpenstaandComponent implements OnInit {
     this.mechanicMeldingein.splice(index, 1);
     this.check = false;
     this.meldingService.checkPendingStatus();
-  }
 
-  ophaalmelding(index: number) {
-    this.meldingen[index].status = RequestStatus.Collect;
-    this.check = false;
-    this.meldingService.checkCollectStatus();
-    this.meldingService.checkDeliveredStatus();
   }
 
   afrondMelding(index: number) {
@@ -211,24 +209,22 @@ export class OpenstaandComponent implements OnInit {
     this.meldingService.checkCollectStatus();
   }
 
-  sopenDeliverPopup() {
+  openDeliverPopup() {
     this.towpopup = true;
   }
 
   noTow(index: number) {
-    this.meldingen[index].status = RequestStatus.Finished;
+    this.mechanicMeldingein[index].status = RequestStatus.Finished;
     this.check = false;
     this.deliverChecker = false;
-    this.meldingService.checkCollectStatus();
-    this.meldingService.checkDeliveredStatus();
+    this.meldingService.updateRequest(this.mechanicMeldingein[index]);
   }
 
   tow(index: number) {
-    this.meldingen[index].status = RequestStatus.Collect;
+    this.mechanicMeldingein[index].status = RequestStatus.Collect;
     this.check = false;
     this.deliverChecker = false;
-    this.meldingService.checkCollectStatus();
-    this.meldingService.checkDeliveredStatus();
+    this.meldingService.updateRequest(this.mechanicMeldingein[index]);
     this.bevestigd();
   }
 
@@ -237,7 +233,7 @@ export class OpenstaandComponent implements OnInit {
     this.popupOpen = true;
     setTimeout(() => {
       this.popupOpen = false;
-    }, 1000);
+    }, 2500);
   }
 }
 

@@ -105,5 +105,6 @@ export class AuthenticationService {
 
   public signOut() {
     this.user = null;
+
   }
 }

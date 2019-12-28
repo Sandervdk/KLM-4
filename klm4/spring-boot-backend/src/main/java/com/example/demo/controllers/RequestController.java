@@ -71,15 +71,24 @@ public class RequestController {
 
   //CREATED a new request with the current user
   @PostMapping("/users/{userID}/open-requests")
-  public ResponseEntity<Object> addNewRequestToUser(@PathVariable long userID,@RequestBody Request newRequest) {
+  public List<Long> addNewRequestToUser(@PathVariable long userID,@RequestBody Request[] newRequests) {
+    ArrayList<Long> requestIds = new ArrayList<>();
 
-    //adding the request to the user
-    Request saveRequest = this.requestRepositorie.addRequestsToUser(userID , newRequest);
-    // This will take the current uri ("/users/{userID}/open-requests") and append ("/requestId") from the new saved event
-    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{requestId}").buildAndExpand(saveRequest.getId()).toUri();
-    return ResponseEntity.created(uri).build();
+    for (Request request: newRequests) {
+      //adding the request to the user
+      Request saveRequest = this.requestRepositorie.addRequestsToUser(userID, request);
+      System.out.println("yote");
+      System.out.println(saveRequest.toString());
+      requestIds.add(saveRequest.getId());
+    }
+
+    return requestIds;
   }
 
+  @PostMapping("/open-requests/update-request/{requestId}")
+  public void updateRequest(@PathVariable long requestId, @RequestBody String status) {
+    requestRepositorie.updateRequest(requestId, status);
+  }
 
   //DELETE a request
   @DeleteMapping("/open-requests/{requestId}")

@@ -1,20 +1,13 @@
 package com.example.demo.models;
 
 import com.example.demo.enums.PlaneTypes;
-import com.example.demo.enums.CartTypes;
-import com.example.demo.enums.RequestStatus;
-import com.example.demo.enums.TailTypes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
-@Entity
+@Entity()
 public class Request {
 
   @Id
@@ -35,15 +28,14 @@ public class Request {
   private String extraInfo;
 
   @JsonIgnore
-  @CreatedDate
   private LocalDateTime requestCreated;
 
   @JsonIgnore
-  @LastModifiedDate
   private LocalDateTime requestUpdated;
 
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name="userId")
   private User user;
 
   protected Request() {
@@ -63,6 +55,14 @@ public class Request {
     this.extraInfo = extraInfo;
   }
 
+  @PreUpdate
+  @PrePersist
+  public void updateTimeStamps() {
+    requestUpdated = LocalDateTime.now();
+    if (requestCreated == null) {
+      requestCreated = LocalDateTime.now();
+    }
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -193,5 +193,24 @@ public class Request {
     this.user = user;
   }
 
+  @Override
+  public String toString() {
+    return "Request{" +
+      "id=" + id +
+      ", location='" + location + '\'' +
+      ", completionTime=" + completionTime +
+      ", deadline=" + deadline +
+      ", planeType=" + planeType +
+      ", tailType='" + tailType + '\'' +
+      ", wagonType='" + wagonType + '\'' +
+      ", selectedWagon='" + selectedWagon + '\'' +
+      ", position='" + position + '\'' +
+      ", status='" + status + '\'' +
+      ", extraInfo='" + extraInfo + '\'' +
+      ", requestCreated=" + requestCreated +
+      ", requestUpdated=" + requestUpdated +
+      ", user=" + user +
+      '}';
+  }
 }
 

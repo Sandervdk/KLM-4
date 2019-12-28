@@ -26,7 +26,6 @@ export class TireWagon implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.PlaneType);
     this.changeType(this.PlaneType);
   }
 
