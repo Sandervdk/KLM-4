@@ -9,13 +9,13 @@ INSERT INTO CART(id, lat, lng, carttype, EQUIPMENT_STATUS, title) VALUES (70, 52
 INSERT INTO CART(id, lat, lng, carttype, EQUIPMENT_STATUS, title) VALUES (80, 52.314015, 4.754484, 'SKYDROL_CART', 'AVAILABLE','SKYDROL_CART');
 
 INSERT INTO REQUEST(id, location, completion_time, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, user_id)
-VALUES (500, 'F5', current_time , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', null, 'Left', 'Pending', null, current_time, current_time, 1001);
+VALUES (500, 'F5', current_time , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', null, 'Left', 'Pending', null, current_time, '2019-12-29 15:20:33', 1001);
 INSERT INTO REQUEST(id, location, completion_time, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, user_id)
 VALUES (501, 'F5', current_time, current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', null, 'Left', 'Delivered', null, current_time, current_time, 1002);
 INSERT INTO REQUEST(id, location, completion_time, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, user_id)
 VALUES (502, 'F5', current_time, current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', null, 'Left', 'Pending', null, current_time, current_time, 1001);
 INSERT INTO REQUEST(id, location, completion_time, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, user_id)
-VALUES (503, 'F5', current_time, current_time, 'BOEING737700', 'PH_AKA', 'Tire Cart', 'N:2, M:1', 'Left', 'Pending', null, current_time, current_time, 1002);
+VALUES (503, 'F5', current_time, current_time, 'BOEING737700', 'PH_AKA', 'Tire Cart', null, 'Left', 'Pending', 'N:2, M:1', current_time, current_time, 1002);
 INSERT INTO REQUEST(id, location, completion_time, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, user_id)
 VALUES (504, 'F5', current_time, current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', null, 'Left', 'Delivered', null, current_time, current_time, 1001);
 

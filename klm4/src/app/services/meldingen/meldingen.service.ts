@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {Melding} from '../../models/melding/melding';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
@@ -12,7 +12,9 @@ import {RequestStatus} from '../../models/enums/requestStatus';
   providedIn: 'root'
 })
 
-export class MeldingenService implements OnInit {
+export class MeldingenService implements OnInit, OnDestroy {
+  private TIMEOUT_INTERVAL: number = 15000;
+  private interval;
   private alleMeldingen: Melding[] = [];                      //
   private meldingen: Melding[] = [];
   private mechanicMeldingen: Melding[] = [];                  // Array van meldingen voor de actieve mechanic
@@ -28,9 +30,6 @@ export class MeldingenService implements OnInit {
   public isLoaded: boolean;
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
-    // this.randomMeldingen();
-    // this.alleMeldingen = this.meldingen;
-
 
     this.getAllMeldingenFromSpring().subscribe((requests) => {
       for (let i = 0; i < requests.length; i++) {
@@ -44,11 +43,11 @@ export class MeldingenService implements OnInit {
 
       //loops through every request that has been made
       for (let i = 0; i < this.alleMeldingen.length; i++) {
-        console.log("yeet? ");
+
         //checks for any request that has been made on the current date, adds the requests to the meldingen list
         if (this.alleMeldingen[i].deadline.getDate() == new Date().getDate()) {
           this.meldingen.push(this.alleMeldingen[i]);
-          console.log(this.alleMeldingen[i].mechanicId + " - " + this.authentication.getID());
+
           // checks if the request are made by the currently logged in employee
           if (this.alleMeldingen[i].mechanicId === authentication.getID()) {
             this.mechanicMeldingen.push(this.meldingen[i]);
@@ -57,10 +56,9 @@ export class MeldingenService implements OnInit {
       }
       this.sortAllRequests();
       this.isLoaded = true;
-      console.log(this.alleMeldingen);
-      console.log(this.meldingen);
-      console.log(this.mechanicMeldingen);
-      });
+
+      this.interval = setInterval(() => this.getUpdatedOrNewRequests(), this.TIMEOUT_INTERVAL);
+    });
   }
 
   checkPendingStatus() {
@@ -88,15 +86,15 @@ export class MeldingenService implements OnInit {
   }
 
   checkCollectStatus() {
-      for (let i = 0; i < this.meldingen.length; i++) {
-        if (this.meldingen[i].status == RequestStatus.Collect) {
-          this.counter2++
-        }
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].status == RequestStatus.Collect) {
+        this.counter2++
       }
-      if (this.counter2 > 0) {
-        this.counter2 = 0;
-        this.collectTextCheck = true;
-      } else this.collectTextCheck = false;
+    }
+    if (this.counter2 > 0) {
+      this.counter2 = 0;
+      this.collectTextCheck = true;
+    } else this.collectTextCheck = false;
   }
 
   checkDeliveredStatus() {
@@ -173,9 +171,9 @@ export class MeldingenService implements OnInit {
 
 
   public bezorgd(index: number) {
-      this.meldingen[index].status = RequestStatus.Delivered;
-      this.checkDeliveredStatus();
-      this.router.navigate(['/runner/open-requests']);
+    this.meldingen[index].status = RequestStatus.Delivered;
+    this.checkDeliveredStatus();
+    this.router.navigate(['/runner/open-requests']);
   }
 
   public getMeldingen(): Melding[] {
@@ -183,7 +181,7 @@ export class MeldingenService implements OnInit {
   }
 
   public getMechanicMeldingen(): Melding[] {
-     return this.mechanicMeldingen;
+    return this.mechanicMeldingen;
   }
 
   public sortEnumsMostUsed(list: string[], enumType: PlaneTypes.VLIEGTUIGTYPE | WagonTypes.EQUIPMENT) {
@@ -262,4 +260,70 @@ export class MeldingenService implements OnInit {
     }
   }
 
+  public getUpdatedOrNewRequests() {
+    let id = 0;
+    if (this.authentication.getUser().getRole() === 'MECHANIC') {
+      id = this.authentication.getID();
+    }
+    this.httpClient.get(this.URL + '/open-requests/changed-requests/' + id).subscribe((requests) => {
+      let updatedRequests: Melding[] = <Melding[]> requests;
+
+      for (let i = 0; i < updatedRequests.length; i++) {
+        updatedRequests[i] =
+          new Melding(requests[i].id, requests[i].location,
+            new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
+            new Date(Date.parse(<string> <unknown> requests[i].deadline)),
+            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
+            requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId);
+      }
+
+      //Updates the requests if they've already been loaded
+      for (let i = 0; i < this.meldingen.length; i++) {
+        for (let j = 0; j < updatedRequests.length; j++) {
+          if (this.meldingen[i].id == updatedRequests[j].id) {
+            this.meldingen[i] = updatedRequests[j];
+            if (updatedRequests[j].mechanicId !== this.authentication.getID()) {
+              updatedRequests.splice(j, 1);
+            }
+
+            if (this.meldingen[i].status === RequestStatus.Collect) {
+              this.shopPopup('Equipment needs to be collected at ' + this.meldingen[i].location);
+            }
+          }
+        }
+      }
+
+      //updates the requests that have been made by a mechanic and updates them
+      for (let i = 0; i < this.mechanicMeldingen.length; i++) {
+        for (let j = 0; j < updatedRequests.length; j++) {
+          if (this.meldingen[i].id == updatedRequests[j].id) {
+            this.mechanicMeldingen[i] = updatedRequests[j];
+            updatedRequests.splice(j, 1);
+            if (this.mechanicMeldingen[i].status === RequestStatus.Delivered) {
+              this.shopPopup('Equipment has been delivered at ' + this.mechanicMeldingen[i].location);
+            }
+          }
+        }
+      }
+
+      //adds the new requests to the request lists
+      for (let i = 0; i < updatedRequests.length; i++) {
+        this.meldingen.push(updatedRequests[i]);
+        this.mechanicMeldingen.push(updatedRequests[i]);
+
+        if (this.authentication.getUser().getRole() === 'RUNNER') {
+          this.shopPopup('A new Request has been made');
+        }
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.interval = null;
+  }
+
+
+  private shopPopup(popupText: string) {
+    console.log(popupText);
+  }
 }

@@ -11,11 +11,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @Transactional
 public class RequestController {
+  private int CHANGEDS_REQUEST_TIMEOUT_INTERVAL = 15;
 
   @Autowired
   private RequestRepositorie requestRepositorie;
@@ -36,6 +39,34 @@ public class RequestController {
       throw new RequestNotFoundException("Melding met id: " + requestId + " is niet gevonden.");
     }
     return requestByID;
+  }
+
+  //find recently changed requests
+  @GetMapping("/open-requests/changed-requests/{userId}")
+  public List<Request> getChangedRequests(@PathVariable long userId) {
+    LocalDateTime comparingDate = LocalDateTime.now().minusSeconds(CHANGEDS_REQUEST_TIMEOUT_INTERVAL);
+    List<Request> allReqests = getAllMeldingen();
+    List<Request> changedRequests = new ArrayList<>();
+
+    //User id of 0 means that the current user is a runner
+    if (userId == 0) {
+      for (Request request : allReqests) {
+        if (request.getRequestCreated().compareTo(comparingDate) > 0 ||
+          (request.getRequestUpdated() != null &&
+            request.getRequestUpdated().compareTo(comparingDate) > 0)) {
+          changedRequests.add(request);
+        }
+      }
+    } else {
+      for (Request request : allReqests) {
+        if (request.getUser().getId() == userId && (request.getRequestCreated().compareTo(comparingDate) > 0 ||
+          (request.getRequestUpdated() != null &&
+            request.getRequestUpdated().compareTo(comparingDate) > 0))) {
+          changedRequests.add(request);
+        }
+      }
+    }
+    return changedRequests;
   }
 
   //CREATED a new request with the current user

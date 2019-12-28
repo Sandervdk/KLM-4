@@ -169,8 +169,6 @@ export class OpenstaandComponent implements OnInit {
   }
 
   acceptMelding(index: number) {
-    console.log(this.meldingen);
-    console.log(index);
     this.meldingen[index].status = RequestStatus.Accepted;
     this.meldingService.index = index;
     this.click = false;
@@ -212,10 +210,6 @@ export class OpenstaandComponent implements OnInit {
     this.meldingen[index].status = RequestStatus.Finished;
     this.meldingService.checkCollectStatus();
   }
-
-  // openDeliverPopup() {
-  //   this.deliverChecker = true;
-  // }
 
   sopenDeliverPopup() {
     this.towpopup = true;
