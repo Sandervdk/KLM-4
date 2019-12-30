@@ -5,3 +5,17 @@
   --color-blue: #00AAE7;
   --application-font-size: 18px;
 }
+
+.popup {
+  font-size: var(--application-font-size);
+  width: max-content;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 25px;
+  padding: 20px;
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  left: 50%;
+}

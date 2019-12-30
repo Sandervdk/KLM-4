@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Melding} from '../../models/melding/melding';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {RequestStatus} from '../../models/enums/requestStatus';
+import {popup} from "leaflet";
 
 @Injectable({
   providedIn: 'root'
@@ -288,7 +289,7 @@ export class MeldingenService implements OnInit {
     this.httpClient.get(this.URL + '/open-requests/changed-requests/' + id).subscribe((requests) => {
       let updatedRequests: Melding[] = <Melding[]> requests;
 
-      if (updatedRequests == undefined)
+      if (updatedRequests[0] == undefined)
         return;
 
       for (let i = 0; i < updatedRequests.length; i++) {
@@ -305,26 +306,28 @@ export class MeldingenService implements OnInit {
         for (let j = 0; j < updatedRequests.length; j++) {
           if (this.meldingen[i].id == updatedRequests[j].id) {
             this.meldingen[i] = updatedRequests[j];
-            if (updatedRequests[j].mechanicId !== this.authentication.getID()) {
-              updatedRequests.splice(j, 1);
+            if (updatedRequests[j].mechanicId === this.authentication.getID()) {
+              for (let k = 0; k < this.mechanicMeldingen.length; k++) {
+
+                if (this.mechanicMeldingen[k].id === updatedRequests[j].id) {
+                  this.mechanicMeldingen[k] = updatedRequests[j];
+
+                  if(this.mechanicMeldingen[k].status === RequestStatus.Delivered) {
+                    this.shopPopup('Equipment has been delivered at ' + this.mechanicMeldingen[k].location);
+                  }
+                  console.log("Request removed because it already exists mechanic");
+                  updatedRequests.splice(j, 1);
+                }
+
+              }
+              continue;
             }
 
             if (updatedRequests[j].status === RequestStatus.Collect) {
               this.shopPopup('Equipment needs to be collected at ' + this.meldingen[i].location);
             }
-          }
-        }
-      }
-
-      //updates the requests that have been made by a mechanic and updates them
-      for (let i = 0; i < this.mechanicMeldingen.length; i++) {
-        for (let j = 0; j < updatedRequests.length; j++) {
-          if (this.meldingen[i].id == updatedRequests[j].id) {
-            this.mechanicMeldingen[i] = updatedRequests[j];
+            console.log("Request removed because it already exists not mechanic");
             updatedRequests.splice(j, 1);
-            if (this.mechanicMeldingen[i].status === RequestStatus.Delivered) {
-              this.shopPopup('Equipment has been delivered at ' + this.mechanicMeldingen[i].location);
-            }
           }
         }
       }
@@ -334,10 +337,14 @@ export class MeldingenService implements OnInit {
         this.meldingen.push(updatedRequests[i]);
         this.mechanicMeldingen.push(updatedRequests[i]);
 
-        if (this.authentication.getUser().getRole() === 'RUNNER') {
+        if (this.authentication.getUser().getRole() == 'RUNNER') {
           this.shopPopup('A new Request has been made');
         }
+
       }
+      this.checkCollectStatus();
+      this.checkDeliveredStatus();
+      this.checkPendingStatus();
     })
   }
 
@@ -358,7 +365,23 @@ export class MeldingenService implements OnInit {
   }
 
   private shopPopup(popupText: string) {
-    console.log(popupText);
+    //stops method from doing shit if the user has logged out
+    if (this.authentication.getUser() === null) {
+      return;
+    }
+
+    let body = document.getElementsByTagName("BODY")[0];
+    let popupDiv = document.createElement("DIV");
+    let popupSpan = document.createElement("SPAN");
+
+    popupDiv.classList.add('popup');
+    popupSpan.innerHTML = popupText;
+
+    body.appendChild(popupDiv);
+    popupDiv.appendChild(popupSpan);
+    popupDiv.setAttribute("style", "margin-left: -" + (popupDiv.offsetWidth / 2) + "px");
+    
+    setTimeout(() => body.removeChild(popupDiv), 4000);
   }
 
   createRequest(request: Melding[]) {
