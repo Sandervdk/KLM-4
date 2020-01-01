@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -46,6 +47,10 @@ public class RequestRepositorie  {
   public void updateRequest(long requestId, String status) {
     Request request = findRequest(requestId);
     request.setStatus(status);
+    if (status.equals("Delivered"))
+      request.setDeliveryTime(LocalDateTime.now());
+    if (status.equals("Finished") || status.equals("Collect"))
+      request.setCompletionTime(LocalDateTime.now());
     entityManager.merge(request);
   }
 

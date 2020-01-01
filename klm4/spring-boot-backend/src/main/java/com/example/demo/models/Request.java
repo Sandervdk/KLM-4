@@ -7,14 +7,14 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity()
+@Entity
 public class Request {
 
   @Id
   @GeneratedValue
   private long id;
   private String location;
-  private LocalDateTime completionTime;
+
   private LocalDateTime deadline;
 
   @Enumerated(EnumType.STRING)
@@ -34,6 +34,12 @@ public class Request {
   private LocalDateTime requestUpdated;
 
   @JsonIgnore
+  private LocalDateTime completionTime;
+
+  @JsonIgnore
+  private LocalDateTime deliveryTime;
+
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="userId")
   private User user;
@@ -41,10 +47,9 @@ public class Request {
   protected Request() {
   }
 
-  public Request(String location, LocalDateTime completionTime, LocalDateTime deadline, PlaneTypes planeType, String tailType,
+  public Request(String location, LocalDateTime deadline, PlaneTypes planeType, String tailType,
                  String wagonType, String selectedWagon, String position, String status, String extraInfo) {
     this.location = location;
-    this.completionTime = completionTime;
     this.deadline = deadline;
     this.planeType = planeType;
     this.tailType = tailType;
@@ -175,6 +180,14 @@ public class Request {
 
   public void setRequestCreated(LocalDateTime requestCreated) {
     this.requestCreated = requestCreated;
+  }
+
+  public LocalDateTime getDeliveryTime() {
+    return deliveryTime;
+  }
+
+  public void setDeliveryTime(LocalDateTime deliveryTime) {
+    this.deliveryTime = deliveryTime;
   }
 
   public LocalDateTime getRequestUpdated() {

@@ -7,7 +7,6 @@ import {Cart} from '../carts/Cart.model';
 export class Melding {
   id: number;
   location: string;
-  completionTime: Date;
   deadline: Date;
   planeType: PlaneTypes;
   tailType: TailType;
@@ -17,13 +16,14 @@ export class Melding {
   status: RequestStatus;
   extraInfo: string;
   mechanicId: number;
+  deliveryTime: Date;
+  completionTime: Date;
 
-  constructor(id: number, location: string, completionTime: Date, deadline: Date, planetype: PlaneTypes,
+  constructor(id: number, location: string, deadline: Date, planetype: PlaneTypes,
               tailtype: TailType, wagonType: WagonTypes, selectedCart: Cart, position: string,
-              status: RequestStatus, extraInfo: string, mechanicId: number) {
+              status: RequestStatus, extraInfo: string, mechanicId: number, deliveryTime: Date, completionTime: Date) {
     this.id = id;
     this.location = location;
-    this.completionTime = completionTime;
     this.deadline = deadline;
     this.planeType = planetype;
     this.tailType = tailtype;
@@ -33,6 +33,8 @@ export class Melding {
     this.status = status;
     this.extraInfo = extraInfo;
     this.mechanicId = mechanicId;
+    this.deliveryTime = deliveryTime;
+    this.completionTime = completionTime;
   }
 
   /**

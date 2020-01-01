@@ -58,10 +58,12 @@ export class MeldingenService implements OnInit {
       for (let i = 0; i < requests.length; i++) {
         this.alleMeldingen.push(
           new Melding(requests[i].id, requests[i].location,
-            new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
             requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
-            requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId));
+            requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
+            new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
+            new Date(Date.parse(<string> <unknown> requests[i].completionTime))
+          ));
       }
 
       //loops through every request that has been made
@@ -278,7 +280,6 @@ export class MeldingenService implements OnInit {
   public getUpdatedOrNewRequests(): void {
     //checks if the user is still signed in, doensn't do shit when not logged in |:^)
     if (this.authentication.getUser() === null) {
-      // console.log('DENIED MOTHERFUCKER, NO UPDATES FOR YOU');
       return;
     }
 
@@ -295,10 +296,12 @@ export class MeldingenService implements OnInit {
       for (let i = 0; i < updatedRequests.length; i++) {
         updatedRequests[i] =
           new Melding(requests[i].id, requests[i].location,
-            new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
             requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
-            requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId);
+            requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
+            new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
+            new Date(Date.parse(<string> <unknown> requests[i].completionTime))
+          );
       }
 
       //Updates the requests if they've already been loaded
@@ -312,10 +315,9 @@ export class MeldingenService implements OnInit {
                 if (this.mechanicMeldingen[k].id === updatedRequests[j].id) {
                   this.mechanicMeldingen[k] = updatedRequests[j];
 
-                  if(this.mechanicMeldingen[k].status === RequestStatus.Delivered) {
+                  if (this.mechanicMeldingen[k].status === RequestStatus.Delivered) {
                     this.shopPopup('Equipment has been delivered at ' + this.mechanicMeldingen[k].location);
                   }
-                  console.log("Request removed because it already exists mechanic");
                   updatedRequests.splice(j, 1);
                 }
 
@@ -326,7 +328,6 @@ export class MeldingenService implements OnInit {
             if (updatedRequests[j].status === RequestStatus.Collect) {
               this.shopPopup('Equipment needs to be collected at ' + this.meldingen[i].location);
             }
-            console.log("Request removed because it already exists not mechanic");
             updatedRequests.splice(j, 1);
           }
         }
@@ -380,7 +381,7 @@ export class MeldingenService implements OnInit {
     body.appendChild(popupDiv);
     popupDiv.appendChild(popupSpan);
     popupDiv.setAttribute("style", "margin-left: -" + (popupDiv.offsetWidth / 2) + "px");
-    
+
     setTimeout(() => body.removeChild(popupDiv), 4000);
   }
 
