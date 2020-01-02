@@ -242,12 +242,12 @@ export class RequestFormComponent implements OnInit {
         extraInfo = 'N:' + this.tireWagonComponent.getNoseTires() + ' ,m:' + this.tireWagonComponent.getMainTires();
       }
 
-      let request = new Melding(this.authentication.getID(), this.location, new Date(),
+      let request = new Melding(this.authentication.getID(), this.location,
         new Date(new Date().setHours(
           parseInt(this.deadline.toString().substr(0, 3)),
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
         this.planeType, this.tailType, this.selectedEquipment[i], null, this.locationArray[i],
-        RequestStatus.Pending, extraInfo, this.authentication.getID());
+        RequestStatus.Pending, extraInfo, this.authentication.getID(), null, null);
       this.meldingService.getMeldingen().push(request);
       this.meldingService.getMechanicMeldingen().push(request);
       newRequests.push(request);

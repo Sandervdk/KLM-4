@@ -316,6 +316,7 @@ li.breadcrumb-item {
 
 .popup {
   width: 240px;
+  height: 70px;
   background-color: #555;
   color: #fff;
   text-align: center;
