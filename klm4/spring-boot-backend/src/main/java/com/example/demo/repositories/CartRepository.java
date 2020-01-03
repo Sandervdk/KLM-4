@@ -16,10 +16,22 @@ public class CartRepository {
   @Autowired
   EntityManager entityManager;
 
+  /**
+   * This method will return all the Carts from the database
+   *
+   * @return
+   */
   public List<Cart> findAll() {
     return this.findByQuery("All_carts", null);
   }
 
+  /**
+   * This method will find Carts by using queries
+   *
+   * @param jpqlName - the NamedQuery name
+   * @param param    - the parameters for finding a specific Cart
+   * @return
+   */
   public List<Cart> findByQuery(String jpqlName, Object... param) {
     TypedQuery<Cart> query = this.entityManager.createNamedQuery(jpqlName, Cart.class);
     switch (jpqlName) {
@@ -45,5 +57,17 @@ public class CartRepository {
     query.setParameter("id", param[0]);
     query.setParameter("status", param[1]);
     query.executeUpdate();
+  }
+
+  /**
+   * This method will add created cart to the database
+   *
+   * @param cart
+   * @return
+   */
+  public Cart addCart(Cart cart) {
+    this.entityManager.persist(cart);
+
+    return cart;
   }
 }

@@ -7,8 +7,9 @@ import {Melding} from '../../../models/melding/melding';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
-import {DomEvent} from "leaflet";
-import {PlaneTypes} from "../../../models/enums/planeTypes";
+import {DomEvent} from 'leaflet';
+import {PlaneTypes} from '../../../models/enums/planeTypes';
+import {WagonsService} from '../../../services/wagons/wagons.service';
 
 @Component({
   selector: 'app-openstaand',
@@ -44,7 +45,7 @@ export class OpenstaandComponent implements OnInit {
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
   constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
-              private authentication: AuthenticationService) {
+              private authentication: AuthenticationService, private wagonService: WagonsService) {
     this.currentTime = new Date();
     this.comparingTime = new Date();
     this.comparingTime.setTime(this.currentTime.getTime() + (30 * 60 * 1000));
@@ -158,7 +159,7 @@ export class OpenstaandComponent implements OnInit {
 
   openPopUp(index: number) {
     this.click = true;
-    this.setNumber(index)
+    this.setNumber(index);
   }
 
   closePopUp() {
@@ -180,8 +181,9 @@ export class OpenstaandComponent implements OnInit {
   }
 
   openPopUp2(index: number) {
+    console.log('HERE AM I', this.mechanicMeldingein[index], this.meldingen);
     this.check = true;
-    this.setNumber(index)
+    this.setNumber(index);
   }
 
   closePopUp2() {
@@ -215,6 +217,8 @@ export class OpenstaandComponent implements OnInit {
 
   noTow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Finished;
+    console.log('HERE AM I', this.mechanicMeldingein[index]);
+    // this.wagonService.changeCartStatus()
     this.check = false;
     this.deliverChecker = false;
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);
@@ -222,6 +226,7 @@ export class OpenstaandComponent implements OnInit {
 
   tow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Collect;
+    console.log('HERE AM I', this.mechanicMeldingein[index]);
     this.check = false;
     this.deliverChecker = false;
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);

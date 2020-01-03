@@ -115,6 +115,12 @@ export class WagonsService {
     );
   }
 
+  /**
+   * This method will change the status of a Cart
+   *
+   * @param cart - the Cart that the status should change of
+   * @param status - the status that a Cart should change to
+   */
   public changeCartStatus(cart: Cart, status: string) {
     this.http.post(`${this.URL}/change-status/?id=${cart.getID()}&status=${status}`, {}).subscribe();
   }
@@ -130,6 +136,11 @@ export class WagonsService {
         }
       }
     }
+  }
+
+  public bindCartToRequest(cartId: number, requestId: number) {
+    console.log('wagonServices', cartId, requestId);
+    this.http.post(`http://localhost:8080/add-cart-to-request/${requestId}/${cartId}`, null).subscribe();
   }
 
   /**

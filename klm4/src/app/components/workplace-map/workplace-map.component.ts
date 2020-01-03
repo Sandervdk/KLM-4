@@ -86,7 +86,9 @@ export class WorkplaceMapComponent implements OnInit {
             this.wagonServices.getCartByID(cartId).subscribe((springBootCart) => { // get the selected cart by using it's ID
               const cart = this.wagonServices.createCart(springBootCart[0]); // create Typescript wagon using the springBoot data
               this.wagonServices.changeCartStatus(cart, 'IN_USE'); // change the status of the wagon, this also changes the color
-              this.equipment.pickCart(cart); // will bind a cart to the Request
+              // this.equipment.pickCart(cart); // will bind a cart to the Request
+              console.log(cart.getID(), this.equipment.id);
+              this.wagonServices.bindCartToRequest(cart.getID(), this.equipment.id);
               this.resetMap(); // refreshes the map
             });
           });
@@ -103,6 +105,7 @@ export class WorkplaceMapComponent implements OnInit {
     this.wagonServices.resetMarkers();
     this.map.remove();
     this.map = null;
+    console.log(this.equipment);
     setTimeout(() => {
       this.ngOnInit();
     }, 500);

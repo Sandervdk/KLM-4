@@ -22,7 +22,7 @@ public class Request {
 
   private String tailType;
   private String wagonType;
-  private String selectedWagon;
+  private int selectedWagon;
   private String position;
   private String status;
   private String extraInfo;
@@ -45,7 +45,7 @@ public class Request {
   }
 
   public Request(String location, LocalDateTime deadline, PlaneTypes planeType, String tailType,
-                 String wagonType, String selectedWagon, String position, String status, String extraInfo) {
+                 String wagonType, int selectedWagon, String position, String status, String extraInfo) {
     this.location = location;
     this.deadline = deadline;
     this.planeType = planeType;
@@ -135,11 +135,11 @@ public class Request {
     this.wagonType = wagonType;
   }
 
-  public String getSelectedWagon() {
+  public int getSelectedWagon() {
     return selectedWagon;
   }
 
-  public void setSelectedWagon(String selectedWagon) {
+  public void setSelectedWagon(int selectedWagon) {
     this.selectedWagon = selectedWagon;
   }
 

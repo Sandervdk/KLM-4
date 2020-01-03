@@ -5,19 +5,17 @@ import com.example.demo.enums.EquipmentStatus;
 import com.example.demo.models.Cart;
 import com.example.demo.repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/carts")
 public class CartController {
   @Autowired
   CartRepository cartRepository;
 
-  @GetMapping("/carts")
+  @GetMapping()
   public List<Cart> getAllCarts(
     @RequestParam(required = false, name = "type") CartTypes cartType,
     @RequestParam(required = false, name = "id") Integer id) {
@@ -31,10 +29,15 @@ public class CartController {
     return this.cartRepository.findAll();
   }
 
-  @PostMapping("/carts/change-status")
+  @PostMapping("/change-status")
   public void changeCartStatus(
     @RequestParam(required = false, name = "id") int id,
     @RequestParam(required = false, name = "status") EquipmentStatus status) {
     this.cartRepository.updateStatus("Change_status", id, status);
+  }
+
+  @PostMapping("/add-cart")
+  public Cart addNewCart(@RequestBody Cart cart) {
+    return this.cartRepository.addCart(cart);
   }
 }

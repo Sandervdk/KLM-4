@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.models.Cart;
 import com.example.demo.models.Request;
 import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 @Component
 @Repository
 @Transactional
-public class RequestRepositorie  {
+public class RequestRepositorie {
 
   @Autowired
   protected EntityManager entityManager;
@@ -63,6 +64,12 @@ public class RequestRepositorie  {
     //save to the database
     return entityManager.merge(request);
 //    return request;
+  }
+
+  public void addCartToRequest(int cartId, Long requestId) {
+    Request request = this.findRequest(requestId);
+    request.setSelectedWagon(cartId);
+    entityManager.persist(request);
   }
 
   /*

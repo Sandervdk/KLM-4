@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.exceptions.RequestNotFoundException;
+import com.example.demo.models.Cart;
 import com.example.demo.models.Request;
 import com.example.demo.repositories.RequestRepositorie;
 import com.example.demo.repositories.UserRepositorie;
@@ -27,7 +28,7 @@ public class RequestController {
 
   //GET all requests
   @GetMapping("/open-requests")
-  public List<Request> getAllMeldingen(){
+  public List<Request> getAllMeldingen() {
     return requestRepositorie.findAll();
   }
 
@@ -71,10 +72,10 @@ public class RequestController {
 
   //CREATED a new request with the current user
   @PostMapping("/users/{userID}/open-requests")
-  public List<Long> addNewRequestToUser(@PathVariable long userID,@RequestBody Request[] newRequests) {
+  public List<Long> addNewRequestToUser(@PathVariable long userID, @RequestBody Request[] newRequests) {
     ArrayList<Long> requestIds = new ArrayList<>();
 
-    for (Request request: newRequests) {
+    for (Request request : newRequests) {
       //adding the request to the user
       Request saveRequest = this.requestRepositorie.addRequestsToUser(userID, request);
       requestIds.add(saveRequest.getId());
@@ -86,6 +87,11 @@ public class RequestController {
   @PostMapping("/open-requests/update-request/{requestId}")
   public void updateRequest(@PathVariable long requestId, @RequestBody String status) {
     requestRepositorie.updateRequest(requestId, status);
+  }
+
+  @PostMapping("/add-cart-to-request/{requestId}/{cartId}")
+  public void addCartToRequest(@PathVariable int cartId, @PathVariable Long requestId) {
+    requestRepositorie.addCartToRequest(cartId, requestId);
   }
 
   //DELETE a request

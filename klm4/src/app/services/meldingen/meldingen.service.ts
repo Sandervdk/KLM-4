@@ -56,7 +56,6 @@ export class MeldingenService implements OnInit {
     }
 
     this.getAllMeldingenFromSpring().subscribe((requests) => {
-      console.log(requests)
       for (let i = 0; i < requests.length; i++) {
         this.alleMeldingen.push(
           new Melding(requests[i].id, requests[i].location,
