@@ -17,7 +17,7 @@ export class MeldingenService implements OnInit {
   private TIMEOUT_INTERVAL: number = 15000;
   private lastUserRole: String;
   private interval;
-  private alleMeldingen: Melding[] = [];                      //
+  public alleMeldingen: Melding[] = [];                      //
   private meldingen: Melding[] = [];
   private mechanicMeldingen: Melding[] = [];                  // Array van meldingen voor de actieve mechanic
   private readonly URL: string = 'http://localhost:8080';
@@ -29,6 +29,7 @@ export class MeldingenService implements OnInit {
   public counter = 0;
   public counter2 = 0;
   public counter3 = 0;
+  public counter4 = 0;
   public isLoaded: boolean;
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
@@ -55,6 +56,7 @@ export class MeldingenService implements OnInit {
     }
 
     this.getAllMeldingenFromSpring().subscribe((requests) => {
+      console.log(requests)
       for (let i = 0; i < requests.length; i++) {
         this.alleMeldingen.push(
           new Melding(requests[i].id, requests[i].location,
@@ -62,7 +64,8 @@ export class MeldingenService implements OnInit {
             requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
             new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
-            new Date(Date.parse(<string> <unknown> requests[i].completionTime))
+            new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
+            new Date(Date.parse(<string> <unknown> requests[i].requestCreated))
           ));
       }
 
@@ -103,11 +106,11 @@ export class MeldingenService implements OnInit {
     } else {
       for (let i = 0; i < this.mechanicMeldingen.length; i++) {
         if (this.mechanicMeldingen[i].status == RequestStatus.Pending) {
-          this.counter++
+          this.counter4++
         }
       }
-      if (this.counter > 0) {
-        this.counter = 0;
+      if (this.counter4 > 0) {
+        this.counter4 = 0;
         this.pendingTextCheck = true;
       } else this.pendingTextCheck = false;
     }
@@ -181,8 +184,8 @@ export class MeldingenService implements OnInit {
     return Math.floor(Math.random() * 100 + 1);
   }
 
-  public getAlleMeldingen() {
-    return this.mechanicMeldingen;
+  public getAlleMeldingen() : Melding[] {
+    return this.alleMeldingen;
   }
 
 
@@ -300,7 +303,8 @@ export class MeldingenService implements OnInit {
             requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
             new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
-            new Date(Date.parse(<string> <unknown> requests[i].completionTime))
+            new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
+            new Date(Date.parse(<string> <unknown> requests[i].requestCreated))
           );
       }
 

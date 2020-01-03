@@ -27,16 +27,13 @@ public class Request {
   private String status;
   private String extraInfo;
 
-  @JsonIgnore
   private LocalDateTime requestCreated;
 
   @JsonIgnore
   private LocalDateTime requestUpdated;
 
-  @JsonIgnore
   private LocalDateTime completionTime;
 
-  @JsonIgnore
   private LocalDateTime deliveryTime;
 
   @JsonIgnore

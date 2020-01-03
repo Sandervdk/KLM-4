@@ -18,10 +18,11 @@ export class Melding {
   mechanicId: number;
   deliveryTime: Date;
   completionTime: Date;
+  requestCreated: Date;
 
   constructor(id: number, location: string, deadline: Date, planetype: PlaneTypes,
               tailtype: TailType, wagonType: WagonTypes, selectedCart: Cart, position: string,
-              status: RequestStatus, extraInfo: string, mechanicId: number, deliveryTime: Date, completionTime: Date) {
+              status: RequestStatus, extraInfo: string, mechanicId: number, deliveryTime: Date, completionTime: Date, requestCreated: Date) {
     this.id = id;
     this.location = location;
     this.deadline = deadline;
@@ -35,6 +36,7 @@ export class Melding {
     this.mechanicId = mechanicId;
     this.deliveryTime = deliveryTime;
     this.completionTime = completionTime;
+    this.requestCreated = requestCreated;
   }
 
   /**

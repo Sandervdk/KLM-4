@@ -244,10 +244,10 @@ export class RequestFormComponent implements OnInit {
 
       let request = new Melding(this.authentication.getID(), this.location,
         new Date(new Date().setHours(
-          parseInt(this.deadline.toString().substr(0, 3)),
+          parseInt(this.deadline.toString().substr(0, 3)) + 1,
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
         this.planeType, this.tailType, this.selectedEquipment[i], null, this.locationArray[i],
-        RequestStatus.Pending, extraInfo, this.authentication.getID(), null, null);
+        RequestStatus.Pending, extraInfo, this.authentication.getID(), null, null, new Date());
       this.meldingService.getMeldingen().push(request);
       this.meldingService.getMechanicMeldingen().push(request);
       newRequests.push(request);
@@ -281,5 +281,5 @@ export class RequestFormComponent implements OnInit {
     this.locationArray.push('');
     this.meldingService.checkPendingStatus();
   }
-  
+
 }

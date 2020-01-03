@@ -16,7 +16,7 @@
           <th scope="col">Location</th>
         </tr>
         <tr *ngFor="let cart of this.carts | wagonsFilter: equipmentSearch">
-          <th scope="row">{{cart.id}}</th>
+          <td scope="row"><b>{{cart.id}}</b></td>
           <td>{{cart.title}}</td>
           <td>{{cart.carttype}}</td>
           <td>{{cart.equipmentStatus}}</td>

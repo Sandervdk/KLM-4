@@ -19,13 +19,24 @@
         <form (ngSubmit)="onSumbitDamageForm(damageForm)" #damageForm="ngForm">
 
           <div class="form-row">
-            <div class="col"><label for="melder"></label>
+            <div class="col"><label>Location:</label>
               <input type="text" class="form-control" id="melder"
-                     placeholder="{{authentication.getID()}}" readonly>
+                     placeholder="{{meldingenService.getMechanicMeldingen()[meldingenService.index].location}}" readonly>
             </div>
-            <div class="col"><label for="datum"></label>
+            <div class="col"><label>Time:</label>
               <input type="text" class="form-control" id="datum"
                      placeholder="{{currentTime}}" readonly>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col"><label>Type Equipment:</label>
+              <input type="text" class="form-control" id="typeEquipment"
+                     placeholder="{{meldingenService.getMechanicMeldingen()[meldingenService.index].wagonType}}" readonly>
+            </div>
+            <div class="col"><label>Equipment ID:</label>
+              <input type="text" class="form-control" id="equipmentId"
+                     placeholder="{{meldingenService.getMechanicMeldingen()[meldingenService.index].selectedCart.getID()}}" readonly>
             </div>
           </div>
           <br>
@@ -39,22 +50,6 @@
             </div>
           </div>
           <br>
-
-          <div class="form-row">
-            <label for="locatie"></label>
-            <input type="text" class="form-control" id="locatie" placeholder="Location" required>
-          </div>
-          <br>
-
-          <div class="form-row">
-            <select name="planeType" class="dropdown-input feedback-input"
-                    [(ngModel)]="planeType"
-                    required>
-              <option>{{planeType}}</option>
-              <option
-                *ngFor="let type of planeTypeList| slice:1">{{type}}</option>
-            </select>
-          </div>
 
           <div class="form-row">
             <label for="omschrijving"></label>

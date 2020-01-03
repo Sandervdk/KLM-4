@@ -3,6 +3,7 @@ import {PlaneTypes} from '../../models/enums/planeTypes';
 import {NgForm} from '@angular/forms';
 import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {MeldingenService} from "../../services/meldingen/meldingen.service";
 
 @Component({
   selector: 'app-damaged-form',
@@ -19,7 +20,8 @@ export class DamagedFormComponent implements OnInit {
   @ViewChild('damageForm', {static: false}) damageForm: NgForm;
 
 
-  constructor(private mechanicRouter: MechanicService, private authentication: AuthenticationService) { }
+  constructor(private mechanicRouter: MechanicService, private authentication: AuthenticationService,
+              private meldingenService: MeldingenService) { }
 
   ngOnInit() {
   }
@@ -44,7 +46,6 @@ export class DamagedFormComponent implements OnInit {
   }
 
   onSumbitDamageForm(damageForm: NgForm) {
-
   }
 
   getShowForm() :boolean {

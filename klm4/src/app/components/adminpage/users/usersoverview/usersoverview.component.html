@@ -17,7 +17,7 @@
           <th>Role</th>
         </tr>
         <tr *ngFor="let user of this.users | userFilter: userSearch">
-          <td>{{user.id}}</td>
+          <td><b>{{"KLM" + user.id}}</b></td>
           <td>{{user.email}}</td>
           <td>{{user.firstname}}</td>
           <td>{{user.lastname}}</td>

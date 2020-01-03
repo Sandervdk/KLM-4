@@ -11,28 +11,27 @@
       <table class="table table-responsive">
         <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Locatie</th>
+          <th scope="col">Request-ID</th>
+          <th scope="col">Mechanic-ID</th>
+          <th scope="col">Created</th>
           <th scope="col">Deadline</th>
-          <th scope="col">Plane Type </th>
-          <th scope="col">Wagon type</th>
-          <th scope="col">Position</th>
-          <th scope="col">Time</th>
-          <th scope="col">Made by</th>
-          <th scope="col">Finished by</th>
+          <th scope="col">Delivered</th>
+          <th scope="col">Completed</th>
+          <th scope="col">Planetype </th>
+          <th scope="col">Wagontype</th>
+
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let log of meldingService.getAlleMeldingen() | meldingFilter: systemLogSearchInput">
-          <th scope="row">{{log.id}}</th>
-          <td>{{log.locatie}}</td>
-          <td>{{log.deadline}}</td>
-          <td>{{log.typeVliegtuig}}</td>
-          <td>{{log.wagonTypes}}</td>
-          <td>{{log.positie}}</td>
-          <td>{{log.tijd}}</td>
-          <td>Thomas</td>
-          <td>Thomas</td>
+          <td><b>{{log.id}}</b></td>
+          <td>{{"KLM" + log.mechanicId}}</td>
+          <td>{{log.requestCreated.toLocaleDateString() + " " + log.requestCreated.toTimeString().substr(0, 5)}}</td>
+          <td>{{log.deadline.toTimeString().substr(0, 5)}}</td>
+          <td>{{log.deliveryTime.toTimeString().substr(0, 5)}}</td>
+          <td>{{log.completionTime.toTimeString().substr(0, 5)}}</td>
+          <td>{{log.planeType}}</td>
+          <td>{{log.wagonType}}</td>
         </tr>
         </tbody>
       </table>
