@@ -2,8 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {NgForm} from '@angular/forms';
 import {MechanicService} from '../mechanicpage/mechanic.service';
-import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {MeldingenService} from "../../services/meldingen/meldingen.service";
+import {AuthenticationService} from '../../services/authentication/authentication.service';
+import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {WagonsService} from '../../services/wagons/wagons.service';
+import {Cart} from '../../models/carts/Cart.model';
 
 @Component({
   selector: 'app-damaged-form',
@@ -21,12 +23,13 @@ export class DamagedFormComponent implements OnInit {
 
 
   constructor(private mechanicRouter: MechanicService, private authentication: AuthenticationService,
-              private meldingenService: MeldingenService) { }
+              private meldingenService: MeldingenService, private wagonService: WagonsService) {
+  }
 
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit() {
     // this.popupOpen = true;
     // setTimeout(() => {
     //   this.popupOpen = false;
@@ -40,15 +43,20 @@ export class DamagedFormComponent implements OnInit {
   bevestigd() {
     this.showform = false;
     this.popupOpen = true;
-    setTimeout(() => {
-      this.popupOpen = false;
-    }, 1500);
+    const cartID = this.meldingenService.getMechanicMeldingen()[this.meldingenService.index].selectedCart;
+    this.wagonService.getCartByID(cartID).subscribe(cart => {
+      const angularCart = this.wagonService.createCart(cart[0]);
+      this.wagonService.changeCartStatus(angularCart, 'UNAVAILABLE');
+      setTimeout(() => {
+        this.popupOpen = false;
+      }, 1500);
+    });
   }
 
   onSumbitDamageForm(damageForm: NgForm) {
   }
 
-  getShowForm() :boolean {
+  getShowForm(): boolean {
     return this.showform;
   }
 }

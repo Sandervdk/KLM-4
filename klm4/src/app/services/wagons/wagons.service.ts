@@ -11,6 +11,7 @@ declare let L; // used for Leaflet.js
 export class WagonsService {
   private readonly URL = 'http://localhost:8080/carts'; // springboot url for the carts
   public pickedWagon = false;
+
   /**
    * Will hold all the markers for a specific cart
    */
@@ -139,7 +140,6 @@ export class WagonsService {
   }
 
   public bindCartToRequest(cartId: number, requestId: number) {
-    console.log('wagonServices', cartId, requestId);
     this.http.post(`http://localhost:8080/add-cart-to-request/${requestId}/${cartId}`, null).subscribe();
   }
 
