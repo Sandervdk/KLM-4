@@ -55,6 +55,7 @@ export class OpenstaandComponent implements OnInit {
   ngOnInit() {
     this.userRole = this.authentication.getUser().getRole();
     this.id = this.authentication.getID();
+    this.meldingService.loadAllRequests();
     this.checkIfLoaded();
   }
 
@@ -181,7 +182,6 @@ export class OpenstaandComponent implements OnInit {
   }
 
   openPopUp2(index: number) {
-    console.log('HERE AM I', this.mechanicMeldingein[index], this.meldingen);
     this.check = true;
     this.setNumber(index);
   }
@@ -217,8 +217,8 @@ export class OpenstaandComponent implements OnInit {
 
   noTow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Finished;
-    console.log('HERE AM I', this.mechanicMeldingein[index]);
-    // this.wagonService.changeCartStatus()
+    const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedCart;
+    this.checkStatusOfCartForTowing(cartID, index);
     this.check = false;
     this.deliverChecker = false;
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);
@@ -226,11 +226,23 @@ export class OpenstaandComponent implements OnInit {
 
   tow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Collect;
-    console.log('HERE AM I', this.mechanicMeldingein[index]);
+    const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedCart;
+    this.checkStatusOfCartForTowing(cartID, index);
     this.check = false;
     this.deliverChecker = false;
-    this.meldingService.updateRequest(this.mechanicMeldingein[index]);
     this.bevestigd();
+  }
+
+  checkStatusOfCartForTowing(cartId: number, index) {
+    this.wagonService.getCartByID(cartId).subscribe(cart => {
+      if (cart[0]) {
+        const angularCart = this.wagonService.createCart(cart[0]);
+        if (angularCart.getEquipmentStatus().toString() !== 'UNAVAILABLE') {
+          this.wagonService.changeCartStatus(angularCart, 'AVAILABLE');
+          this.meldingService.updateRequest(this.mechanicMeldingein[index]);
+        }
+      }
+    });
   }
 
   bevestigd() {

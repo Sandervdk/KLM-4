@@ -21,7 +21,7 @@ export class Melding {
   requestCreated: Date;
 
   constructor(id: number, location: string, deadline: Date, planetype: PlaneTypes,
-              tailtype: TailType, wagonType: WagonTypes, selectedCart: Cart, position: string,
+              tailtype: TailType, wagonType: WagonTypes, selectedCart, position: string,
               status: RequestStatus, extraInfo: string, mechanicId: number, deliveryTime: Date, completionTime: Date, requestCreated: Date) {
     this.id = id;
     this.location = location;

@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {RequestStatus} from '../../models/enums/requestStatus';
-import {popup} from "leaflet";
+import {popup} from 'leaflet';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +60,7 @@ export class MeldingenService implements OnInit {
         this.alleMeldingen.push(
           new Melding(requests[i].id, requests[i].location,
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
-            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
+            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedWagon,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
             new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
             new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
@@ -95,48 +95,56 @@ export class MeldingenService implements OnInit {
     if (this.authentication.getUser().getRole() == 'RUNNER') {
       for (let i = 0; i < this.meldingen.length; i++) {
         if (this.meldingen[i].status == RequestStatus.Pending) {
-          this.counter++
+          this.counter++;
         }
       }
       if (this.counter > 0) {
         this.counter = 0;
         this.pendingTextCheck = true;
-      } else this.pendingTextCheck = false;
+      } else {
+        this.pendingTextCheck = false;
+      }
     } else {
       for (let i = 0; i < this.mechanicMeldingen.length; i++) {
         if (this.mechanicMeldingen[i].status == RequestStatus.Pending) {
-          this.counter4++
+          this.counter4++;
         }
       }
       if (this.counter4 > 0) {
         this.counter4 = 0;
         this.pendingTextCheck = true;
-      } else this.pendingTextCheck = false;
+      } else {
+        this.pendingTextCheck = false;
+      }
     }
   }
 
   checkCollectStatus() {
     for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].status == RequestStatus.Collect) {
-        this.counter2++
+        this.counter2++;
       }
     }
     if (this.counter2 > 0) {
       this.counter2 = 0;
       this.collectTextCheck = true;
-    } else this.collectTextCheck = false;
+    } else {
+      this.collectTextCheck = false;
+    }
   }
 
   checkDeliveredStatus() {
     for (let i = 0; i < this.mechanicMeldingen.length; i++) {
       if (this.mechanicMeldingen[i].status == RequestStatus.Delivered) {
-        this.counter3++
+        this.counter3++;
       }
     }
     if (this.counter3 > 0) {
       this.counter3 = 0;
       this.deliveredTextCheck = true;
-    } else this.deliveredTextCheck = false;
+    } else {
+      this.deliveredTextCheck = false;
+    }
   }
 
   public getAllMeldingenFromSpring(): Observable<Melding[]> {
@@ -183,7 +191,7 @@ export class MeldingenService implements OnInit {
     return Math.floor(Math.random() * 100 + 1);
   }
 
-  public getAlleMeldingen() : Melding[] {
+  public getAlleMeldingen(): Melding[] {
     return this.alleMeldingen;
   }
 
@@ -292,14 +300,15 @@ export class MeldingenService implements OnInit {
     this.httpClient.get(this.URL + '/open-requests/changed-requests/' + id).subscribe((requests) => {
       let updatedRequests: Melding[] = <Melding[]> requests;
 
-      if (updatedRequests[0] == undefined)
+      if (updatedRequests[0] == undefined) {
         return;
+      }
 
       for (let i = 0; i < updatedRequests.length; i++) {
         updatedRequests[i] =
           new Melding(requests[i].id, requests[i].location,
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
-            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
+            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedWagon,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
             new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
             new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
@@ -338,6 +347,7 @@ export class MeldingenService implements OnInit {
 
       //adds the new requests to the request lists
       for (let i = 0; i < updatedRequests.length; i++) {
+        console.log(updatedRequests[i], 'Test');
         this.meldingen.push(updatedRequests[i]);
         this.mechanicMeldingen.push(updatedRequests[i]);
 
@@ -349,11 +359,11 @@ export class MeldingenService implements OnInit {
       this.checkCollectStatus();
       this.checkDeliveredStatus();
       this.checkPendingStatus();
-    })
+    });
   }
 
   public updateRequest(melding: Melding): void {
-    this.httpClient.post(this.URL + "/open-requests/update-request/" + melding.id, melding.status).subscribe(() => {
+    this.httpClient.post(this.URL + '/open-requests/update-request/' + melding.id, melding.status).subscribe(() => {
       this.checkCollectStatus();
       this.checkDeliveredStatus();
       this.checkPendingStatus();
@@ -365,7 +375,7 @@ export class MeldingenService implements OnInit {
       this.checkCollectStatus();
       this.checkDeliveredStatus();
       this.checkPendingStatus();
-    })
+    });
   }
 
   private shopPopup(popupText: string) {
@@ -374,27 +384,27 @@ export class MeldingenService implements OnInit {
       return;
     }
 
-    let body = document.getElementsByTagName("BODY")[0];
-    let popupDiv = document.createElement("DIV");
-    let popupSpan = document.createElement("SPAN");
+    let body = document.getElementsByTagName('BODY')[0];
+    let popupDiv = document.createElement('DIV');
+    let popupSpan = document.createElement('SPAN');
 
     popupDiv.classList.add('popup');
     popupSpan.innerHTML = popupText;
 
     body.appendChild(popupDiv);
     popupDiv.appendChild(popupSpan);
-    popupDiv.setAttribute("style", "margin-left: -" + (popupDiv.offsetWidth / 2) + "px");
+    popupDiv.setAttribute('style', 'margin-left: -' + (popupDiv.offsetWidth / 2) + 'px');
 
     setTimeout(() => body.removeChild(popupDiv), 4000);
   }
 
   createRequest(request: Melding[]) {
-    this.httpClient.post(this.URL + "/users/" + this.authentication.getID() + "/open-requests", request).subscribe(data => {
+    this.httpClient.post(this.URL + '/users/' + this.authentication.getID() + '/open-requests', request).subscribe(data => {
       let requestIds: number[] = <number[]> data;
 
       for (let i = 0; i < requestIds.length; i++) {
         request[i].id = requestIds[i];
       }
-    })
+    });
   }
 }
