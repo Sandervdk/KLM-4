@@ -237,7 +237,6 @@ export class OpenstaandComponent implements OnInit {
   }
 
   checkStatusOfCartForTowing(cartId: number, index) {
-    console.log(cartId, index);
     this.wagonService.getCartByID(cartId).subscribe(cart => {
       if (cart[0]) {
         const angularCart = this.wagonService.createCart(cart[0]);

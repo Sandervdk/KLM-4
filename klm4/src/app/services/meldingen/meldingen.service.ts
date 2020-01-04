@@ -94,7 +94,7 @@ export class MeldingenService implements OnInit {
   checkPendingStatus() {
     if (this.authentication.getUser().getRole() == 'RUNNER') {
       for (let i = 0; i < this.meldingen.length; i++) {
-        if (this.meldingen[i].status == RequestStatus.Pending) {
+        if (this.meldingen[i].status == RequestStatus.Pending || this.meldingen[i].status == RequestStatus.Accepted) {
           this.counter++;
         }
       }
@@ -106,7 +106,7 @@ export class MeldingenService implements OnInit {
       }
     } else {
       for (let i = 0; i < this.mechanicMeldingen.length; i++) {
-        if (this.mechanicMeldingen[i].status == RequestStatus.Pending) {
+        if (this.mechanicMeldingen[i].status == RequestStatus.Pending || this.mechanicMeldingen[i].status == RequestStatus.Accepted) {
           this.counter4++;
         }
       }
@@ -409,5 +409,13 @@ export class MeldingenService implements OnInit {
         request[i].id = requestIds[i];
       }
     });
+  }
+
+  getRequesetById(requestId: number): Melding {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id == requestId) {
+        return this.meldingen[i];
+      }
+    }
   }
 }

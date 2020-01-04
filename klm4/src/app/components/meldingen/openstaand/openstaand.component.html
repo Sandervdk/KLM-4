@@ -18,7 +18,7 @@
           *ngFor="let melding of meldingen; let i = index"
           (click)="openPopUp(i)"
           [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
-        <ng-container *ngIf="melding.status === requestStatus.Pending">
+        <ng-container *ngIf="(melding.status == requestStatus.Pending || melding.status == requestStatus.Accepted)">
           <td>{{melding.location}}</td>
           <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
           <td>{{melding.planeType}}</td>

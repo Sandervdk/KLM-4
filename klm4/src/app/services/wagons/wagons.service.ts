@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Cart} from '../../models/carts/Cart.model';
 import {Observable} from 'rxjs';
 import {icon, marker} from 'leaflet';
+import {Melding} from "../../models/melding/melding";
+import {MeldingenService} from "../meldingen/meldingen.service";
 
 declare let L; // used for Leaflet.js
 @Injectable({
@@ -47,7 +49,7 @@ export class WagonsService {
     SPILL_KIT_CART: [] = []
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private requestService: MeldingenService) {
   }
 
   // TODO: use http call to create new wagon
@@ -140,7 +142,9 @@ export class WagonsService {
   }
 
   public bindCartToRequest(cartId: number, requestId: number) {
-    this.http.post(`http://localhost:8080/add-cart-to-request/${requestId}/${cartId}`, null).subscribe();
+    this.http.post(`http://localhost:8080/add-cart-to-request/${requestId}/${cartId}`, null).subscribe(() => {
+      this.requestService.getRequesetById(requestId).selectedCart = cartId;
+    });
   }
 
   /**
