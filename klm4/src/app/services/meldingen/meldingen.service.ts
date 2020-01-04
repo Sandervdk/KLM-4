@@ -60,7 +60,7 @@ export class MeldingenService implements OnInit {
         this.alleMeldingen.push(
           new Melding(requests[i].id, requests[i].location,
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
-            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedWagon,
+            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
             new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
             new Date(Date.parse(<string> <unknown> requests[i].completionTime)),
@@ -318,11 +318,14 @@ export class MeldingenService implements OnInit {
 
       //Updates the requests if they've already been loaded
       for (let i = 0; i < this.meldingen.length; i++) {
-        for (let j = 0; j < updatedRequests.length; j++) {
+        second: for (let j = 0; j < updatedRequests.length; j++) {
           if (this.meldingen[i].id == updatedRequests[j].id) {
             this.meldingen[i] = updatedRequests[j];
             if (updatedRequests[j].mechanicId === this.authentication.getID()) {
               for (let k = 0; k < this.mechanicMeldingen.length; k++) {
+                //Skips current mechanic request if it has just been created and id hasn't been received by id yet
+                if (this.mechanicMeldingen[k].id === undefined)
+                  continue;
 
                 if (this.mechanicMeldingen[k].id === updatedRequests[j].id) {
                   this.mechanicMeldingen[k] = updatedRequests[j];
@@ -331,10 +334,11 @@ export class MeldingenService implements OnInit {
                     this.shopPopup('Equipment has been delivered at ' + this.mechanicMeldingen[k].location);
                   }
                   updatedRequests.splice(j, 1);
+                  j--;
+                  continue second;
                 }
 
               }
-              continue;
             }
 
             if (updatedRequests[j].status === RequestStatus.Collect) {
@@ -347,7 +351,6 @@ export class MeldingenService implements OnInit {
 
       //adds the new requests to the request lists
       for (let i = 0; i < updatedRequests.length; i++) {
-        console.log(updatedRequests[i], 'Test');
         this.meldingen.push(updatedRequests[i]);
         this.mechanicMeldingen.push(updatedRequests[i]);
 

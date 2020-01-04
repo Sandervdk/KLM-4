@@ -11,7 +11,7 @@ export class Melding {
   planeType: PlaneTypes;
   tailType: TailType;
   wagonType: WagonTypes;
-  selectedCart: Cart;
+  selectedCart: number;
   position: string;
   status: RequestStatus;
   extraInfo: string;
@@ -45,7 +45,7 @@ export class Melding {
    * @param cart the selected cart on the map
    */
   public pickCart(cart: Cart) {
-    this.selectedCart = cart;
+    this.selectedCart = cart.getID();
   }
 }
 

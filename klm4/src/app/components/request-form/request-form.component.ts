@@ -218,9 +218,12 @@ export class RequestFormComponent implements OnInit {
     }
 
     // Checks if all the the locations have been selected, if some are missing a popup will be shown and method stops
-    if (this.locationArray.length !== this.selectedEquipment.length) {
-      this.openPopup('There is no location selected for the equipment');
-      return false;
+    for (let i = 0; i < this.locationArray.length; i++) {
+      console.log(this.locationArray[i].length);
+      if (this.locationArray[i].length == 0) {
+        this.openPopup('There is no location selected for the equipment');
+        return false;
+      }
     }
 
     // Checks for each different type of equipment if the equipment specific info has been filled in.
@@ -244,7 +247,7 @@ export class RequestFormComponent implements OnInit {
 
       let request = new Melding(this.authentication.getID(), this.location,
         new Date(new Date().setHours(
-          parseInt(this.deadline.toString().substr(0, 3)) + 1,
+          parseInt(this.deadline.toString().substr(0, 3)),
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
         this.planeType, this.tailType, this.selectedEquipment[i], null, this.locationArray[i],
         RequestStatus.Pending, extraInfo, this.authentication.getID(), null, null, new Date());

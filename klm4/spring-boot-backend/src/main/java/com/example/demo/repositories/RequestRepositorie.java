@@ -61,7 +61,9 @@ public class RequestRepositorie {
     //add the request to user and set the relations
     user.addMelding(request);
     request.setUser(user);
-    //save to the database
+
+    //Adds 1 hour to the deadline since it somehow is 1 lower than it should be
+    request.setDeadline(request.getDeadline().plusHours(1));
     return entityManager.merge(request);
 //    return request;
   }

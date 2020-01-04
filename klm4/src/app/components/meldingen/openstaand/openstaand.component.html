@@ -17,7 +17,7 @@
       <tr class="clickableRow"
           *ngFor="let melding of meldingen; let i = index"
           (click)="openPopUp(i)"
-          [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
+          [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
         <ng-container *ngIf="melding.status === requestStatus.Pending">
           <td>{{melding.location}}</td>
           <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
@@ -83,7 +83,7 @@
         <tr class="clickableRow"
             *ngFor="let melding of mechanicMeldingein; let i = index"
             (click)="openPopUp2(i)"
-            [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
+            [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
 
           <ng-container
             *ngIf="melding.mechanicId == this.id && (melding.status == requestStatus.Pending || melding.status == requestStatus.Accepted)">
@@ -182,7 +182,7 @@
         <tr class="clickableRow"
             *ngFor="let melding of mechanicMeldingein; let i = index"
             (click)="openPopUp2(i)"
-            [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
+            [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
           <ng-container *ngIf="melding.mechanicId == this.id && melding.status == requestStatus.Delivered">
             <td>{{melding.location}}</td>
             <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
@@ -278,7 +278,7 @@
         <tr class="clickableRow"
             *ngFor="let melding of meldingen; let i = index"
             (click)="openPopUp(i)"
-            [ngClass]="{'warning': melding.deadline < comparingTime, 'late': melding.deadline < currentTime}">
+            [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
 
           <ng-container *ngIf="melding.status === requestStatus.Collect">
             <td>{{melding.location}}</td>

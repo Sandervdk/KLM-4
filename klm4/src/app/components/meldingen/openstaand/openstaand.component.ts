@@ -33,8 +33,8 @@ export class OpenstaandComponent implements OnInit {
   private equipmentlist = WagonTypes;
   private planetypeenums = PlaneTypes;
   public runnerAnimation = false;
-  private currentTime;
-  private comparingTime;      //Current time plus 30 minutes
+  private currentTimePlus15;
+  private currentTimePlus45;      //Current time plus 30 minutes
   public click = false;
   public check = false;
   public number;
@@ -46,9 +46,10 @@ export class OpenstaandComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
               private authentication: AuthenticationService, private wagonService: WagonsService) {
-    this.currentTime = new Date();
-    this.comparingTime = new Date();
-    this.comparingTime.setTime(this.currentTime.getTime() + (30 * 60 * 1000));
+    this.currentTimePlus15 = new Date();
+    this.currentTimePlus15.setTime(this.currentTimePlus15.getTime() + (15 * 60 * 1000));
+    this.currentTimePlus45 = new Date();
+    this.currentTimePlus45.setTime(this.currentTimePlus15.getTime() + (45 * 60 * 1000));
     this.meldingService.loadAllRequests();
   }
 
@@ -221,6 +222,7 @@ export class OpenstaandComponent implements OnInit {
     this.checkStatusOfCartForTowing(cartID, index);
     this.check = false;
     this.deliverChecker = false;
+    console.log(this.mechanicMeldingein[index]);
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);
   }
 
@@ -230,10 +232,12 @@ export class OpenstaandComponent implements OnInit {
     this.checkStatusOfCartForTowing(cartID, index);
     this.check = false;
     this.deliverChecker = false;
+    this.meldingService.updateRequest(this.mechanicMeldingein[index]);
     this.bevestigd();
   }
 
   checkStatusOfCartForTowing(cartId: number, index) {
+    console.log(cartId, index);
     this.wagonService.getCartByID(cartId).subscribe(cart => {
       if (cart[0]) {
         const angularCart = this.wagonService.createCart(cart[0]);

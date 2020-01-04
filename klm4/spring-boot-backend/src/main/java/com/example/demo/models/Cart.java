@@ -15,7 +15,7 @@ import java.util.Objects;
 })
 public class Cart {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int ID;
   private String title;
   private double lat;
