@@ -5,7 +5,7 @@ import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
 import {WagonsService} from '../../services/wagons/wagons.service';
-import {Cart} from '../../models/carts/Cart.model';
+import {RequestStatus} from "../../models/enums/requestStatus";
 
 @Component({
   selector: 'app-damaged-form',
@@ -13,6 +13,7 @@ import {Cart} from '../../models/carts/Cart.model';
   styleUrls: ['./damaged-form.component.css']
 })
 export class DamagedFormComponent implements OnInit {
+  public index = this.meldingenService.index;
   private showform: boolean = false;
   private popupOpen: boolean = false;
   private planeTypeList = Object.values(PlaneTypes);
@@ -43,14 +44,21 @@ export class DamagedFormComponent implements OnInit {
   bevestigd() {
     this.showform = false;
     this.popupOpen = true;
-    const cartID = this.meldingenService.getMechanicMeldingen()[this.meldingenService.index].selectedCart;
+    this.meldingenService.getMechanicMeldingen()[this.index].status = RequestStatus.Pending;
+    this.meldingenService.test = false;
+    const cartID = this.meldingenService.getMechanicMeldingen()[this.meldingenService.index].selectedWagon;
     this.wagonService.getCartByID(cartID).subscribe(cart => {
       const angularCart = this.wagonService.createCart(cart[0]);
       this.wagonService.changeCartStatus(angularCart, 'UNAVAILABLE');
-      setTimeout(() => {
-        this.popupOpen = false;
-      }, 1500);
+      this.meldingenService.getMechanicMeldingen()[this.index].selectedWagon = 0;
     });
+    this.meldingenService.checkDeliveredStatus();
+
+    setTimeout(() => {
+      this.popupOpen = false;
+    }, 2500);
+
+    this.meldingenService.updateRequest(this.meldingenService.getMechanicMeldingen()[this.index])
   }
 
   onSumbitDamageForm(damageForm: NgForm) {

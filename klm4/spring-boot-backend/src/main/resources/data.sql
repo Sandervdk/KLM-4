@@ -22,23 +22,23 @@ VALUES (504, 'F7', current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 50, 
 
 -- '2019-12-27 15:20:33'
 
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (1, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (2, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (3, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (4, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (5, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (6, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (7, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (8, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Skydrolwagen', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (9, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Skydrolwagen', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
-INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
-VALUES (10, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Heater, Polar Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (1, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (2, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (3, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (4, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Tires Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (5, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (6, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (7, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (8, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Skydrolwagen', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (9, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Skydrolwagen', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);
+-- INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, request_updated, completion_time, delivery_time, user_id)
+-- VALUES (10, 'A1' , current_time, 'BOEING737700', 'PH_AKA', 'Heater, Polar Cart', 0, 'Left', 'Finished', null, '2019-12-27 15:20:33', '2019-12-27 15:20:33' , '2019-12-27 15:20:33', '2019-12-27 15:20:33', 1001);

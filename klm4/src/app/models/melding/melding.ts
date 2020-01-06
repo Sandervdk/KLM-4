@@ -11,7 +11,7 @@ export class Melding {
   planeType: PlaneTypes;
   tailType: TailType;
   wagonType: WagonTypes;
-  selectedCart: number;
+  selectedWagon: number;
   position: string;
   status: RequestStatus;
   extraInfo: string;
@@ -21,7 +21,7 @@ export class Melding {
   requestCreated: Date;
 
   constructor(id: number, location: string, deadline: Date, planetype: PlaneTypes,
-              tailtype: TailType, wagonType: WagonTypes, selectedCart, position: string,
+              tailtype: TailType, wagonType: WagonTypes, selectedWagon, position: string,
               status: RequestStatus, extraInfo: string, mechanicId: number, deliveryTime: Date, completionTime: Date, requestCreated: Date) {
     this.id = id;
     this.location = location;
@@ -29,7 +29,7 @@ export class Melding {
     this.planeType = planetype;
     this.tailType = tailtype;
     this.wagonType = wagonType;
-    this.selectedCart = selectedCart;
+    this.selectedWagon = selectedWagon;
     this.position = position;
     this.status = status;
     this.extraInfo = extraInfo;
@@ -45,7 +45,7 @@ export class Melding {
    * @param cart the selected cart on the map
    */
   public pickCart(cart: Cart) {
-    this.selectedCart = cart.getID();
+    this.selectedWagon = cart.getID();
   }
 }
 

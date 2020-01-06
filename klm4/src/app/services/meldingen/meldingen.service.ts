@@ -14,7 +14,7 @@ import {popup} from 'leaflet';
 })
 
 export class MeldingenService implements OnInit {
-  private TIMEOUT_INTERVAL: number = 15000;
+  private TIMEOUT_INTERVAL: number = 10000;
   private lastUserRole: String;
   private interval;
   public alleMeldingen: Melding[] = [];                      //
@@ -31,6 +31,7 @@ export class MeldingenService implements OnInit {
   public counter3 = 0;
   public counter4 = 0;
   public isLoaded: boolean;
+  public test = false;
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
     this.loadAllRequests();
@@ -60,7 +61,7 @@ export class MeldingenService implements OnInit {
         this.alleMeldingen.push(
           new Melding(requests[i].id, requests[i].location,
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
-            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedCart,
+            requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedWagon,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
             new Date(Date.parse(<string> <unknown> requests[i].deliveryTime)),
             new Date(Date.parse(<string> <unknown> requests[i].completionTime)),

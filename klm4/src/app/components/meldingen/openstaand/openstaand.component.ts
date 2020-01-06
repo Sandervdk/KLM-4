@@ -36,7 +36,6 @@ export class OpenstaandComponent implements OnInit {
   private currentTimePlus15;
   private currentTimePlus45;      //Current time plus 30 minutes
   public click = false;
-  public check = false;
   public number;
   public deliverChecker = false;
   private showform: boolean = false;
@@ -64,6 +63,7 @@ export class OpenstaandComponent implements OnInit {
     if (this.meldingService.isLoaded == true) {
       this.meldingen = this.meldingService.getMeldingen();
       this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
+      console.log(this.mechanicMeldingein)
       this.isLoaded = true;
       this.meldingService.checkPendingStatus();
       this.meldingService.checkCollectStatus();
@@ -170,6 +170,7 @@ export class OpenstaandComponent implements OnInit {
 
   setNumber(index: number) {
     this.number = index;
+    this.meldingService.index = index;
   }
 
   acceptMelding(index: number) {
@@ -183,12 +184,12 @@ export class OpenstaandComponent implements OnInit {
   }
 
   openPopUp2(index: number) {
-    this.check = true;
+    this.meldingService.test = true;
     this.setNumber(index);
   }
 
   closePopUp2() {
-    this.check = false;
+    this.meldingService.test = false;
   }
 
   deleteMelding(index: number) {
@@ -201,7 +202,7 @@ export class OpenstaandComponent implements OnInit {
       }
     }
     this.mechanicMeldingein.splice(index, 1);
-    this.check = false;
+    this.meldingService.test = false;
     this.meldingService.checkPendingStatus();
 
   }
@@ -218,9 +219,9 @@ export class OpenstaandComponent implements OnInit {
 
   noTow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Finished;
-    const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedCart;
+    const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedWagon;
     this.checkStatusOfCartForTowing(cartID, index);
-    this.check = false;
+    this.meldingService.test = false;
     this.deliverChecker = false;
     console.log(this.mechanicMeldingein[index]);
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);
@@ -228,9 +229,9 @@ export class OpenstaandComponent implements OnInit {
 
   tow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Collect;
-    const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedCart;
+    const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedWagon;
     this.checkStatusOfCartForTowing(cartID, index);
-    this.check = false;
+    this.meldingService.test = false;
     this.deliverChecker = false;
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);
     this.bevestigd();

@@ -143,7 +143,7 @@ export class WagonsService {
 
   public bindCartToRequest(cartId: number, requestId: number) {
     this.http.post(`http://localhost:8080/add-cart-to-request/${requestId}/${cartId}`, null).subscribe(() => {
-      this.requestService.getRequesetById(requestId).selectedCart = cartId;
+      this.requestService.getRequesetById(requestId).selectedWagon = cartId;
     });
   }
 

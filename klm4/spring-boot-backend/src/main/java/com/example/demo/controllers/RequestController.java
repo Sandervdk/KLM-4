@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @Transactional
 public class RequestController {
-  private int CHANGEDS_REQUEST_TIMEOUT_INTERVAL = 15;
+  private int CHANGEDS_REQUEST_TIMEOUT_INTERVAL = 10;
 
   @Autowired
   private RequestRepositorie requestRepositorie;

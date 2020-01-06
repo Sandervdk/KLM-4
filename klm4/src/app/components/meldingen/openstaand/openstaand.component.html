@@ -182,7 +182,7 @@
         <tr class="clickableRow"
             *ngFor="let melding of mechanicMeldingein; let i = index"
             (click)="openPopUp2(i)"
-            [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
+            >
           <ng-container *ngIf="melding.mechanicId == this.id && melding.status == requestStatus.Delivered">
             <td>{{melding.location}}</td>
             <td>{{melding.deadline.toLocaleTimeString().substr(0, 5)}}</td>
@@ -277,8 +277,7 @@
         <tbody>
         <tr class="clickableRow"
             *ngFor="let melding of meldingen; let i = index"
-            (click)="openPopUp(i)"
-            [ngClass]="{'warning': melding.deadline < currentTimePlus45, 'late': melding.deadline < currentTimePlus15}">
+            (click)="openPopUp(i)">
 
           <ng-container *ngIf="melding.status === requestStatus.Collect">
             <td>{{melding.location}}</td>
@@ -425,7 +424,7 @@
       </div>
       <div class="btndiv">
         <button class="noBtn" (click)="closePopUp()">Cancel</button>
-        <button *ngIf="meldingen[number].status === requestStatus.Pending" class="yesBtn"
+        <button *ngIf="meldingen[number].status === requestStatus.Pending || meldingen[number].status === requestStatus.Accepted" class="yesBtn"
                 (click)="acceptMelding(number)">
           Accept
         </button>
@@ -438,7 +437,7 @@
   </div>
 </ng-template>
 
-<ng-template [ngIf]="!runnerAnimation && check === true">
+<ng-template [ngIf]="!runnerAnimation && meldingService.test === true">
   <div class="box">
     <!--    <div class="closeBtndiv">-->
     <!--      <a class="closeBtn" (click)="closePopUp2()">X</a>-->
