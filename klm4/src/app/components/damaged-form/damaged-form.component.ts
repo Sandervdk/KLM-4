@@ -52,7 +52,6 @@ export class DamagedFormComponent implements OnInit {
       this.wagonService.changeCartStatus(angularCart, 'UNAVAILABLE');
       this.meldingenService.getMechanicMeldingen()[this.index].selectedWagon = 0;
     });
-    this.meldingenService.checkDeliveredStatus();
 
     setTimeout(() => {
       this.popupOpen = false;

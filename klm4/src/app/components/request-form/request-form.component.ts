@@ -255,6 +255,7 @@ export class RequestFormComponent implements OnInit {
       this.meldingService.getMechanicMeldingen().push(request);
       newRequests.push(request);
     }
+    this.meldingService.sortAllRequests();
 
     this.meldingService.createRequest(newRequests);
 

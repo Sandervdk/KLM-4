@@ -363,6 +363,7 @@ export class MeldingenService implements OnInit {
       this.checkCollectStatus();
       this.checkDeliveredStatus();
       this.checkPendingStatus();
+      this.sortAllRequests();
     });
   }
 
