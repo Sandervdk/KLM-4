@@ -25,7 +25,7 @@ VALUES (503, 'F7', DATEADD(MINUTE , 80, current_time ), 'BOEING737700', 'PH_AKA'
 INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, completion_time, delivery_time, request_updated, user_id)
 VALUES (504, 'F7', current_time, 'BOEING737700', 'PH_AKA', 'Nitrogen Cart', 50, 'Left', 'Delivered', null, current_time, current_time, current_time, current_time , 1001);
 INSERT INTO REQUEST(id, location, deadline, plane_type, tail_type, wagon_type, selected_wagon, position, status, extra_info, request_created, completion_time, delivery_time, request_updated, user_id)
-VALUES (505, 'B5', DATEADD(MINUTE , 90, current_time ), 'BOEING737700', 'PH_AKA', 'Skydrolwagen', 75, 'Right', 'Collect', null, current_time, current_time, current_time, current_time , 1001);
+VALUES (505, 'B5', DATEADD(MINUTE , 90, current_time ), 'BOEING737700', 'PH_AKA', 'Skydrolwagen', 75, 'Right', 'Collect', null, DATEADD(MINUTE, -1, current_time), DATEADD(MINUTE, -1, current_time), current_time, DATEADD(MINUTE, -1, current_time) , 1001);
 
 -- '2019-12-27 15:20:33'
 

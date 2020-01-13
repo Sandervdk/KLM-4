@@ -1,17 +1,13 @@
 package com.example.demo.controllers;
 
 import com.example.demo.exceptions.RequestNotFoundException;
-import com.example.demo.models.Cart;
 import com.example.demo.models.Request;
 import com.example.demo.repositories.RequestRepositorie;
 import com.example.demo.repositories.UserRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +24,7 @@ public class RequestController {
 
   //GET all requests
   @GetMapping("/open-requests")
-  public List<Request> getAllMeldingen() {
+  public List<Request> getAllRequests() {
     return requestRepositorie.findAll();
   }
 
@@ -46,7 +42,7 @@ public class RequestController {
   @GetMapping("/open-requests/changed-requests/{userId}")
   public List<Request> getChangedRequests(@PathVariable long userId) {
     LocalDateTime comparingDate = LocalDateTime.now().minusSeconds(CHANGEDS_REQUEST_TIMEOUT_INTERVAL);
-    List<Request> allReqests = getAllMeldingen();
+    List<Request> allReqests = getAllRequests();
     List<Request> changedRequests = new ArrayList<>();
 
     //User id of 0 means that the current user is a runner
