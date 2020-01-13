@@ -53,7 +53,7 @@ export class MeldingenService implements OnInit {
       this.meldingen = [];
       this.mechanicMeldingen = [];
     } else {
-      this.lastUserRole = this.authentication.getUser().getRole();
+      // this.lastUserRole = this.authentication.getUser().getRole();
     }
 
     this.getAllMeldingenFromSpring().subscribe((requests) => {

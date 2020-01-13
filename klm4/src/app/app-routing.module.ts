@@ -55,7 +55,7 @@ const routes: Routes = [
     path: 'not-found', component: PageNotFoundComponent
   },
   {
-    path: '*', redirectTo: '/not-found'
+    path: '*', redirectTo: '/signin'
   }
 ];
 

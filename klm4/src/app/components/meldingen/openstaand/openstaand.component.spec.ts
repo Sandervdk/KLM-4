@@ -1,6 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OpenstaandComponent } from './openstaand.component';
+import {OpenstaandComponent} from './openstaand.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AuthenticationService} from '../../../services/authentication/authentication.service';
 
 describe('OpenstaandComponent', () => {
   let component: OpenstaandComponent;
@@ -8,9 +12,13 @@ describe('OpenstaandComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OpenstaandComponent ]
-    })
-    .compileComponents();
+      imports: [
+        RouterTestingModule, HttpClientTestingModule
+      ],
+      declarations: [OpenstaandComponent],
+      providers: [AuthenticationService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

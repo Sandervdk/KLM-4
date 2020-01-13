@@ -75,7 +75,7 @@ import { MechanicAnimationComponent } from './components/global/mechanic-animati
     AppRoutingModule,
     FormsModule,
     LeafletModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [MeldingenService],
   bootstrap: [AppComponent]
