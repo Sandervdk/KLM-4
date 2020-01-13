@@ -1,14 +1,14 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import { NavBarComponent } from './nav-bar.component';
+import {NavBarComponent} from './nav-bar.component';
 import {RouterTestingModule} from "@angular/router/testing";
 import {MechanicpageComponent} from "../mechanicpage/mechanicpage.component";
 import {Router} from "@angular/router";
-import {SignInComponent} from "../sign-in/sign-in.component";
-import {OpenstaandComponent} from "../meldingen/openstaand/openstaand.component";
 import {Component} from "@angular/core";
-import {AuthenticationService} from "../../services/authentication/authentication.service";
 
+/**
+ * Made by: Sander van de Kamp
+ */
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
   let fixture: ComponentFixture<NavBarComponent>;

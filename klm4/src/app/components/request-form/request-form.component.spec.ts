@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, tick} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { RequestFormComponent } from './request-form.component';
 import {TireWagon} from "./tire-wagon/tire-wagon";
@@ -14,6 +14,7 @@ import {Employee} from "../../models/staff/Employee";
 describe('RequestFormComponent', () => {
   let component: RequestFormComponent;
   let fixture: ComponentFixture<RequestFormComponent>;
+  let compiled;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,6 +26,7 @@ describe('RequestFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RequestFormComponent);
     component = fixture.componentInstance;
+    compiled = fixture.nativeElement;
     fixture.detectChanges();
   });
 
@@ -32,20 +34,25 @@ describe('RequestFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should have a valid location', () => {
-    fixture.detectChanges();
-    component.setLocation("C4");
+  it('Should have a valid location', fakeAsync (() => {
     tick();
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.getElementById('location').innerHTML).toContain('C4');
-  });
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      component.setLocation("C4");
+      expect(document.getElementById('location').innerHTML).toContain('C4');
+      expect(document.getElementById('location').classList).toContain('ng-valid');
+    });
+  }));
 
-  it('Should show a red outline for an invalid location', () => {
-    fixture.detectChanges();
-    component.setLocation("Dank memes");
+  it('Should show a red outline for an invalid location', fakeAsync(() => {
     tick();
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.getElementById('location').classList).toContain('ng-invalid')
-  });
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      component.setLocation("Dank memes");
+      expect(document.getElementById('location').innerHTML).toContain('Dank memes');
+      expect(document.getElementById('location').classList).toContain('ng-invalid');
+    })
+
+  }));
 
 });
