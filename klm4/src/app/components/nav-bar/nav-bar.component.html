@@ -10,7 +10,7 @@
             <!--Navigates to a previous link option-->
             <a (click)="navigate(i + 1)"
                *ngIf="i !== currentRoute.length - 1; else lastItem">{{link}}</a>
-            <ng-template #lastItem>{{link}}</ng-template>
+            <ng-template #lastItem><span>{{link}}</span></ng-template>
           </li>
 
           <div class="auth-container">

@@ -286,4 +286,8 @@ export class RequestFormComponent implements OnInit {
     this.meldingService.checkPendingStatus();
   }
 
+  public setLocation(location: string) {
+    this.location = location;
+  }
+
 }

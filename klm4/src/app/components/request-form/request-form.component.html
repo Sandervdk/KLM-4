@@ -1,6 +1,6 @@
 <ng-template [ngIf]="!mechanicAnimation">
   <form (ngSubmit)="onSubmit()" #form="ngForm">
-    <input name="location" type="text" class="feedback-input" placeholder="Location"
+    <input name="location" id="location" type="text" class="feedback-input" placeholder="Location"
            [(ngModel)]="location"
            required
           pattern="^[A-Za-z][0-9]+"/>

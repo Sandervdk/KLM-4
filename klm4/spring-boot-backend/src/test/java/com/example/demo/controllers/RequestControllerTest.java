@@ -6,16 +6,10 @@ import com.example.demo.enums.PlaneTypes;
 import com.example.demo.exceptions.RequestNotFoundException;
 import com.example.demo.models.Request;
 import com.example.demo.models.User;
-import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.function.Executable;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * IMPORTANT: Tests should be run all together, since the database doesn't empty after every request so the number of
  * requests keeps increasing for each test
+ *
+ * Made by Sander van de Kamp, 500734351
  */
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -46,7 +42,7 @@ class RequestControllerTest {
   private Request request5;
 
   /**
-   * The test starts off with 6 standard requests from the data.sql file, if those are changed this test will also change :)
+   * The test starts off with 6 standard requests from the data.sql file, if those are changed this test will also change
    */
   @BeforeEach
   private void createRequests() {
