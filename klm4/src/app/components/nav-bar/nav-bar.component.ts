@@ -16,15 +16,22 @@ export class NavBarComponent implements OnInit {
     this.router.events.subscribe(() => {
       //disables the navbar for the login screen
       this.notLoginPage = this.router.url !== '/signin';
+      if (!this.notLoginPage) {
+        return;
+      }
 
       //initializes the array and stets the first dash index to 1 so it skips the dash at the start
       this.currentRoute = [];
-      let lastDash: number = 1;
+      let lastDash: number = 0;
       let tempString: String;
 
       //loops through the url length, checking for every dash and adds a seperate item in the currenRoute array for
       //each string between two dashes. If the loop has reached the end, it will also add the last string to the array
-      for (let i = 1; i < this.router.url.length; i++) {
+      for (let i = 0; i < this.router.url.length; i++) {
+        if (i == 0 && this.router.url.charAt(0) === '/') {
+          lastDash = 1;
+          continue;
+        }
         if (this.router.url.charAt(i) === '/') {
           tempString = this.router.url.substring(lastDash, i);
           tempString = this.fixLink(tempString);
