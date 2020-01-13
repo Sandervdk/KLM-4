@@ -1,16 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProductenpageComponent } from './productenpage.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {ProductenpageComponent} from './productenpage.component';
 
-describe('ProductenpageComponent', () => {
+describe('OpenstaandComponent', () => {
   let component: ProductenpageComponent;
   let fixture: ComponentFixture<ProductenpageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductenpageComponent ]
-    })
-    .compileComponents();
+      declarations: [ProductenpageComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

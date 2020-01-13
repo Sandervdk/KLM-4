@@ -3,8 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Cart} from '../../models/carts/Cart.model';
 import {Observable} from 'rxjs';
 import {icon, marker} from 'leaflet';
-import {Melding} from "../../models/melding/melding";
-import {MeldingenService} from "../meldingen/meldingen.service";
+import {MeldingenService} from '../meldingen/meldingen.service';
 
 declare let L; // used for Leaflet.js
 @Injectable({
