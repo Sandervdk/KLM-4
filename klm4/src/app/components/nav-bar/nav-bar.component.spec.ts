@@ -60,10 +60,12 @@ describe('NavBarComponent', () => {
     router.navigate(["signin"]);
     tick();
     fixture.detectChanges();
+
     expect(compiled.getElementsByClassName('breadcrumb-item').length).toEqual(0);
   }));
 
   it('should have 1 anchor and 1 text item as navbar', fakeAsync( () => {
+
     router.navigate(['mechanic/open-requests']);
     tick();
     fixture.detectChanges();

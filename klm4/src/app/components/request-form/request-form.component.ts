@@ -290,4 +290,8 @@ export class RequestFormComponent implements OnInit {
     this.location = location;
   }
 
+  public getDeadline(): string {
+    return this.deadline;
+  }
+
 }

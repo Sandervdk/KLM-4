@@ -1,15 +1,11 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
-import { RequestFormComponent } from './request-form.component';
+import {RequestFormComponent} from './request-form.component';
 import {TireWagon} from "./tire-wagon/tire-wagon";
 import {MechanicAnimationComponent} from "../global/mechanic-animation/mechanic-animation.component";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {RouterTestingModule} from "@angular/router/testing";
-import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {MeldingenService} from "../../services/meldingen/meldingen.service";
-import {Employee} from "../../models/staff/Employee";
+import {SignInComponent} from "../sign-in/sign-in.component";
 
 describe('RequestFormComponent', () => {
   let component: RequestFormComponent;
@@ -18,9 +14,9 @@ describe('RequestFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientModule, RouterTestingModule],
-      declarations: [ RequestFormComponent, TireWagon, MechanicAnimationComponent],
-    }) .compileComponents();
+      imports: [FormsModule, HttpClientModule],
+      declarations: [RequestFormComponent, TireWagon, MechanicAnimationComponent, SignInComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -34,25 +30,27 @@ describe('RequestFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should have a valid location', fakeAsync (() => {
-    tick();
+  it('Should have a valid location', fakeAsync(() => {
     fixture.whenStable().then(() => {
-      fixture.detectChanges();
       component.setLocation("C4");
       expect(document.getElementById('location').innerHTML).toContain('C4');
       expect(document.getElementById('location').classList).toContain('ng-valid');
     });
   }));
 
-  it('Should show a red outline for an invalid location', fakeAsync(() => {
-    tick();
+  it('Should show a red outline for an invalid location', fakeAsync (() => {
     fixture.whenStable().then(() => {
-      fixture.detectChanges();
       component.setLocation("Dank memes");
       expect(document.getElementById('location').innerHTML).toContain('Dank memes');
-      expect(document.getElementById('location').classList).toContain('ng-invalid');
+      expect(document.getElementById('location').classList).toContain('ng-valid');
     })
 
+  }));
+
+  it('Should show the deadline as the current time', fakeAsync(() => {
+    fixture.detectChanges();
+    component.getDeadline();
+    expect(component.getDeadline()).toEqual(new Date().toTimeString().substr(0, 5));
   }));
 
 });
