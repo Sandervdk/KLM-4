@@ -7,7 +7,6 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {RequestStatus} from '../../models/enums/requestStatus';
-import {popup} from 'leaflet';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,8 @@ export class MeldingenService implements OnInit {
   private lastUserRole: String;
   private interval;
   public alleMeldingen: Melding[] = [];                      //
-  private meldingen: Melding[] = [];
-  private mechanicMeldingen: Melding[] = [];                  // Array van meldingen voor de actieve mechanic
+  public meldingen: Melding[] = [];
+  public mechanicMeldingen: Melding[] = [];                  // Array van meldingen voor de actieve mechanic
   private readonly URL: string = 'http://localhost:8080';
   public time = new Date().toLocaleTimeString();
   public index: number = 0;
@@ -417,6 +416,24 @@ export class MeldingenService implements OnInit {
     for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].id == requestId) {
         return this.meldingen[i];
+      }
+    }
+  }
+
+  AcceptstatusRequest(id: number) {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id == id) {
+        this.meldingen[i].status = RequestStatus.Accepted;
+        return this.meldingen[i].status;
+      }
+    }
+  }
+
+  deliverstatusRequest(id: number) {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id == id) {
+        this.meldingen[i].status = RequestStatus.Delivered;
+        return this.meldingen[i].status;
       }
     }
   }
