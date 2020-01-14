@@ -34,9 +34,11 @@ Sagi Lalee:
 Acdaling Edusei:
 
     Front-end:
+    -WagonServices
     
     
     Back-end:
+    -CartController
 
 Sander van de Kamp:
 
@@ -46,4 +48,4 @@ Sander van de Kamp:
     
     
     Back-end:
-    RequestController
+    -RequestController
