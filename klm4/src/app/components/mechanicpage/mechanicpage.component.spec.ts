@@ -12,7 +12,7 @@ describe('MechanicpageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RouterTestingModule],
+      declarations: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [MeldingenService]
     }).compileComponents();

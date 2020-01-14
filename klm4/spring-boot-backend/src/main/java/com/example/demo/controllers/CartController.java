@@ -40,4 +40,9 @@ public class CartController {
   public Cart addNewCart(@RequestBody Cart cart) {
     return this.cartRepository.addCart(cart);
   }
+
+  @PostMapping("/remove-cart")
+  public Cart deleteCart(@RequestBody Cart cart) {
+    return this.cartRepository.deleteCart(cart.getID());
+  }
 }

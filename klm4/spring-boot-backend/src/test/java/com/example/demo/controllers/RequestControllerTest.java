@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * IMPORTANT: Tests should be run all together, since the database doesn't empty after every request so the number of
  * requests keeps increasing for each test
- *
+ * <p>
  * Made by Sander van de Kamp, 500734351
  */
 @SpringBootTest
@@ -72,7 +72,7 @@ class RequestControllerTest {
 
   /**
    * Test adds a single request to the mechanic
-   *
+   * <p>
    * Total Requests before method: 6
    * Total Requests after method: 7
    */
@@ -86,7 +86,7 @@ class RequestControllerTest {
 
   /**
    * Test adds multiple requests to the same mechanic in a single call to the addNewRequestToUser method
-   *
+   * <p>
    * Total Requests before method: 7
    * Total Requests after method: 1
    */
@@ -117,7 +117,7 @@ class RequestControllerTest {
   /**
    * getChangedRequests method should only return requests from the mechanic itself, and an empty list if there aren't
    * any changes to the mechanics own requests even when there are updates to other mechanics' requests.
-   *
+   * <p>
    * Total Requests before method: 11
    * Total Requests after method: 13
    */
@@ -133,7 +133,7 @@ class RequestControllerTest {
   /**
    * Test should return all 12 previously made requests, since they've been made withing the 10 second interval, the
    * runner which is identified by id 0 in this method should get every updated or new request.
-   *
+   * <p>
    * Total Requests before method: 13
    * Total Requests after method: 15
    */
@@ -148,7 +148,7 @@ class RequestControllerTest {
 
   /**
    * Test updates the status of a request by its id and changes it
-   *
+   * <p>
    * Doesn't add or remove requests
    */
   @Test
@@ -162,7 +162,7 @@ class RequestControllerTest {
   /**
    * Test should return 1 less request after the creation time and updated time have been reduced by 10 or more seconds,
    * 10 seconds has been defined in the request controller and front-end
-   *
+   * <p>
    * Doesn't add or remove requests
    */
   @Test
@@ -175,7 +175,7 @@ class RequestControllerTest {
 
   /**
    * Test adds a new cart by its ID to the request
-   *
+   * <p>
    * Doesn't add or remove requests
    */
   @Test
@@ -190,10 +190,10 @@ class RequestControllerTest {
   /**
    * Test removes a single request from the list of all requests, and tests if that specific request has been deleted
    * throws exception that the request doesn't exist after deleting the request
-   *
+   * <p>
    * Total Requests before method: 15
    * Total Requests after method: 14
-   * */
+   */
   @Test
   @Order(10)
   void deleteRequestById() {
@@ -205,5 +205,6 @@ class RequestControllerTest {
       requestController.getRequest(501);
     });
 
-    assertEquals("Melding met id: 501 is niet gevonden.", exception.getMessage());  }
+    assertEquals("Melding met id: 501 is niet gevonden.", exception.getMessage());
+  }
 }

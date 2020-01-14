@@ -140,6 +140,10 @@ export class WagonsService {
     }
   }
 
+  public getMarkers() {
+    return this.cartMarkers;
+  }
+
   public bindCartToRequest(cartId: number, requestId: number) {
     this.http.post(`http://localhost:8080/add-cart-to-request/${requestId}/${cartId}`, null).subscribe(() => {
       this.requestService.getRequesetById(requestId).selectedWagon = cartId;
@@ -191,7 +195,7 @@ export class WagonsService {
    *
    * @param cartStatus status of the cart
    */
-  private getCartIconUrl(cartStatus: string): string {
+  public getCartIconUrl(cartStatus: string): string {
     let iconURL;
     switch (cartStatus) { // find correct icon for status
       case 'AVAILABLE':
@@ -212,7 +216,7 @@ export class WagonsService {
    *
    * @param type used type enum in the application
    */
-  private translateAppEquipmentEnumToSpring(type) {
+  protected translateAppEquipmentEnumToSpring(type) {
     let translated;
     switch (type) {
       case 'Equipment':

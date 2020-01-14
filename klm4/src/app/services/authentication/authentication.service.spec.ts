@@ -6,6 +6,7 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from '../../app.component';
 import {SignInComponent} from '../../components/sign-in/sign-in.component';
 import {Employee} from '../../models/staff/Employee';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('AuthenticationService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -13,7 +14,9 @@ describe('AuthenticationService', () => {
       RouterTestingModule, RouterModule
     ],
     providers: [AuthenticationService],
-    declarations: [SignInComponent]
+    schemas: [
+      CUSTOM_ELEMENTS_SCHEMA
+    ]
   }));
 
   beforeEach(() => {

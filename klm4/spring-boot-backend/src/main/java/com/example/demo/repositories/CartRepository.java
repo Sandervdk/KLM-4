@@ -70,4 +70,19 @@ public class CartRepository {
 
     return cart;
   }
+
+  public Cart findById(int id) {
+    return this.findByQuery("Find_by_id", id).get(0);
+  }
+
+  /**
+   * This method will remove a given Cart from the database
+   *
+   * @param id
+   */
+  public Cart deleteCart(int id) {
+    Cart deleteCart = this.findById(id);
+    entityManager.remove(deleteCart);
+    return deleteCart;
+  }
 }

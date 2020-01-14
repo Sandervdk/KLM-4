@@ -3,18 +3,22 @@ import {WorkplaceMapComponent} from './workplace-map.component';
 import {DebugElement} from '@angular/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {WagonsService} from '../../services/wagons/wagons.service';
+import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {AuthenticationService} from '../../services/authentication/authentication.service';
+import {Mechanic} from '../../models/staff/Mechanic';
 
 
-describe('Work', () => {
+describe('WorkplaceMapComponent', () => {
   let component: WorkplaceMapComponent;
   let fixture: ComponentFixture<WorkplaceMapComponent>; // test environment for the component
-  let de: DebugElement; // rendered element
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({ // isolated test for the component itself
       imports: [
         RouterTestingModule, HttpClientTestingModule
       ],
+      providers: [WagonsService, MeldingenService, AuthenticationService],
       declarations: [WorkplaceMapComponent]
     }).compileComponents(); // compiles template and css of the component
   }));

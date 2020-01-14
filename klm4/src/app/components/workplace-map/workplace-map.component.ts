@@ -3,6 +3,7 @@ import {latLng, tileLayer} from 'leaflet';
 import {WagonsService} from '../../services/wagons/wagons.service';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
+import {Cart} from '../../models/carts/Cart.model';
 
 declare let L;
 
@@ -13,7 +14,7 @@ declare let L;
 })
 export class WorkplaceMapComponent implements OnInit {
   public map;
-  protected equipment;
+  private equipment;
   private long = 4.766361511202604;
   private lat = 52.30678841808895;
   public check = false;
@@ -21,11 +22,11 @@ export class WorkplaceMapComponent implements OnInit {
   constructor(private wagonServices: WagonsService,
               private meldingService: MeldingenService,
               private authService: AuthenticationService) {
-    this.equipment = this.meldingService.getMeldingen()[this.meldingService.index];
   }
 
   ngOnInit() {
-    this.wagonServices.getCartsByType(this.equipment.wagonType).subscribe(wagons => {
+    this.equipment = this.meldingService.getMeldingen()[this.meldingService.index];
+    this.wagonServices.getCartsByType(this.equipment.wagonType).subscribe((wagons: Cart[]) => {
       wagons.forEach(wagon => {
         this.wagonServices.createMarker(wagon);
       });

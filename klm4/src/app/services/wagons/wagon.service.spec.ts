@@ -9,21 +9,77 @@ import {EquipmentStatus} from '../../models/enums/equipmentStatus';
 import {MeldingenService} from '../meldingen/meldingen.service';
 
 describe('WagonService', () => {
-  const cartTest = new Cart(1, 'THis is a test', 500, 500, WagonTypes.FUEL_CART, EquipmentStatus.AVAILABLE);
-  beforeEach(() => TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [],
-      providers: [MeldingenService, WagonsService]
-    }).compileComponents()
+  const cartTest = new Cart(1, 'This is a test', 500, 500, WagonTypes.NITROGENCART, EquipmentStatus.AVAILABLE);
+  beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule, HttpClientTestingModule],
+        declarations: [],
+        providers: [MeldingenService, WagonsService]
+      }).compileComponents();
+    }
   );
 
-  it('should be created', () => {
+  it('should create a Cart', () => {
     const service: WagonsService = TestBed.get(WagonsService);
     expect(service.createCart(cartTest)).toBeTruthy();
   });
 
-  it('wagon must be ready to roll', () => {
+  it('should create layer of CartMarkers', () => {
     const service: WagonsService = TestBed.get(WagonsService);
-    expect(service.getLayer('testCart')).toBeNull();
+    expect(service.getLayer('SkydrolWagen')).toBeTruthy();
   });
+
+  it('should return all Carts', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    expect(service.getAllCarts()).toBeTruthy();
+  });
+
+  it('should return cart by given id', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    expect(service.getCartByID(50).subscribe((cart: Cart) => {
+      return cart;
+    })).toBeTruthy();
+  });
+
+  it('shouldn\'t return cart by given id', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    expect(service.getCartByID(500).subscribe((cart: Cart) => {
+      return cart;
+    }).unsubscribe()).toBeUndefined();
+  });
+
+  it('should give correct iconURL', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    expect(service.getCartIconUrl('AVAILABLE')).toBeTruthy();
+  });
+
+  it('should return empty container of markers for the map', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    const markersArray = service.getMarkers().NITROGENCART;
+    expect(markersArray.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it('should return Carts of given type', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    service.getCartsByType('Nitrogen Cart').subscribe((carts) => {
+      expect(carts).toBeGreaterThan(0);
+    }).unsubscribe();
+
+  });
+
+  it('shouldn\'t return Carts of given type', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    let result;
+    service.getCartsByType('undefined').subscribe((carts: Cart[]) => {
+      result = carts;
+    }).unsubscribe();
+    expect(result).toBeUndefined();
+  });
+
+  it('should give correct iconURL', () => {
+    const service: WagonsService = TestBed.get(WagonsService);
+    expect(service.getCartIconUrl('IN_USE')).toBeTruthy();
+  });
+
+
 });
