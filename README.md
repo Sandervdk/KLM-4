@@ -1,5 +1,7 @@
-schrijf hier wie welke files heeft getest ;)
+Schrijf hier wie welke files heeft getest ;)
+
 Ali Butt:
+
     Front-end:
     -HeaderComponent
     -FooterComponent
@@ -10,6 +12,7 @@ Ali Butt:
     
 
 Maninder Singh:
+
     Front-end:
     
     
@@ -17,18 +20,21 @@ Maninder Singh:
     
 
 Sagi Lalee:
+
     Front-end:
     
     
     Back-end:
     
 Acdaling Edusei:
+
     Front-end:
     
     
     Back-end:
 
 Sander van de Kamp:
+
     Front-end:
     
     
