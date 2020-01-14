@@ -41,7 +41,9 @@ Acdaling Edusei:
 Sander van de Kamp:
 
     Front-end:
+    - RequestFormComponent
+    - NavBarComponent
     
     
     Back-end:
-    
+    RequestController
