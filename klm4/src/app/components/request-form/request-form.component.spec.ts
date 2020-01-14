@@ -8,6 +8,8 @@ import {SignInComponent} from "../sign-in/sign-in.component";
 import {LoginAnimationComponent} from "../global/login-animation/login-animation.component";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
+import {MechanicAnimationComponent} from "../global/mechanic-animation/mechanic-animation.component";
+import {PlaneTypes} from "../../models/enums/planeTypes";
 
 /**
  * Made by: Sander van de Kamp

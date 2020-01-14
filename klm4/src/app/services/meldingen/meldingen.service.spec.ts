@@ -104,6 +104,32 @@ describe('MeldingenService', () => {
     expect('Delivered').toBe(service.meldingen[0].status);
   });
 
+  /**
+   * @Author Maninder Singh
+   * changes the status of melding.ID: 1 to Finished
+   */
+  it('changes meldingstatus to Finished', () => {
+    const service: MeldingenService = TestBed.get(MeldingenService);
+    melding = new Melding(1, 'C3', new Date(), PlaneTypes.BOEING747400F, TailType.PH_AKA,
+      WagonTypes.TIRECART, 0, 'Right', RequestStatus.Pending, null,
+      1001, null, null, new Date());
+    service.meldingen.push(melding);
+    service.finishedstatusRequest(1);
+    expect('Finished').toBe(service.meldingen[0].status);
+  });
 
+  /**
+   * @Author Maninder Singh
+   * selected wagon should be changed to 35
+   */
+  it('changes selectedwagon to randomID', () => {
+    const service: MeldingenService = TestBed.get(MeldingenService);
+    melding = new Melding(1, 'C3', new Date(), PlaneTypes.BOEING747400F, TailType.PH_AKA,
+      WagonTypes.TIRECART, 0, 'Right', RequestStatus.Pending, null,
+      1001, null, null, new Date());
+    service.meldingen.push(melding);
+    service.selectedwagonchange(1);
+    expect(35).toBe(service.meldingen[0].selectedWagon);
+  });
 
 });

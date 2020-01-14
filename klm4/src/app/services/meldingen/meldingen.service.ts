@@ -437,4 +437,22 @@ export class MeldingenService implements OnInit {
       }
     }
   }
+
+  finishedstatusRequest(id: number) {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id == id) {
+        this.meldingen[i].status = RequestStatus.Finished;
+        return this.meldingen[i].status;
+      }
+    }
+  }
+
+  selectedwagonchange(id: number) {
+    for (let i = 0; i < this.meldingen.length; i++) {
+      if (this.meldingen[i].id == id) {
+        this.meldingen[i].selectedWagon = 35;
+        return this.meldingen[i].selectedWagon;
+      }
+    }
+  }
 }
