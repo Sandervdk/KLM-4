@@ -6,17 +6,22 @@ Ali Butt:
     -HeaderComponent
     -FooterComponent
     -Page-not-foundComponent
+    -MeldingenService
     
     Back-end:
-    -Requestrepository
+    -RequestRepository
+    -UserRepository
     
 
 Maninder Singh:
 
     Front-end:
+    -MeldingenService
     
     
     Back-end:
+    -UserController
+    -CartRepository
     
 
 Sagi Lalee:
