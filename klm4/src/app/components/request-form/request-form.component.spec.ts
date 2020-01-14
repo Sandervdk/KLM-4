@@ -4,10 +4,10 @@ import {RequestFormComponent} from './request-form.component';
 import {TireWagon} from "./tire-wagon/tire-wagon";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {SignInComponent} from "../sign-in/sign-in.component";
+import {LoginAnimationComponent} from "../global/login-animation/login-animation.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
-import {PlaneTypes} from "../../models/enums/planeTypes";
-import {WagonTypes} from "../../models/enums/wagonTypes";
 
 /**
  * Made by: Sander van de Kamp
@@ -19,9 +19,8 @@ describe('RequestFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientModule, RouterTestingModule],
-      declarations: [RequestFormComponent, TireWagon],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [RequestFormComponent, TireWagon, MechanicAnimationComponent, SignInComponent, LoginAnimationComponent],
     }).compileComponents();
   }));
 

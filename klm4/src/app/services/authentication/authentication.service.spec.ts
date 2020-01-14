@@ -6,14 +6,16 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from '../../app.component';
 import {SignInComponent} from '../../components/sign-in/sign-in.component';
 import {Employee} from '../../models/staff/Employee';
+import {FormsModule} from "@angular/forms";
+import {LoginAnimationComponent} from "../../components/global/login-animation/login-animation.component";
 
 describe('AuthenticationService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      RouterTestingModule, RouterModule
+      RouterTestingModule, RouterModule, FormsModule
     ],
     providers: [AuthenticationService],
-    declarations: [SignInComponent]
+    declarations: [SignInComponent, LoginAnimationComponent]
   }));
 
   beforeEach(() => {
