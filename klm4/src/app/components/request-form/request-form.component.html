@@ -8,7 +8,7 @@
            [(ngModel)]="deadline"
            required />
 
-    <select name="planeType" class="dropdown-input feedback-input"
+    <select id="planeType" name="planeType" class="dropdown-input feedback-input"
             [(ngModel)]="planeType"
             (change)="changeType(planeType)">
       <option hidden>{{planeType}}</option>
@@ -18,7 +18,7 @@
       </option>
     </select>
 
-    <select name="TailTypes" class="dropdown-input feedback-input"
+    <select id="tailType" name="TailTypes" class="dropdown-input feedback-input"
             [(ngModel)]="tailType">
       <option hidden>{{tailType}}</option>
       <option

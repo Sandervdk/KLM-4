@@ -294,4 +294,8 @@ export class RequestFormComponent implements OnInit {
     return this.deadline;
   }
 
+  public setPlaneType(planeType: PlaneTypes) {
+    this.planeType = planeType;
+  }
+
 }
