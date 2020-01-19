@@ -7,7 +7,6 @@ import {Melding} from '../../../models/melding/melding';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
-import {DomEvent} from 'leaflet';
 import {PlaneTypes} from '../../../models/enums/planeTypes';
 import {WagonsService} from '../../../services/wagons/wagons.service';
 
@@ -21,20 +20,15 @@ export class OpenstaandComponent implements OnInit {
   private meldingen: Melding[];
   private mechanicMeldingein: Melding[];
   private userRole: Functions;
-  private expandedInfo: boolean[];
-  private selectedRequest: Melding;
   private requestStatus = RequestStatus;
   private id: number;
-  private numberOfButtons: number;
-  private oldIndex: number;
-  private equipmentIsBezorgd = false;
   private damageFormOpen = false;
   private towpopup = false;
   private equipmentlist = WagonTypes;
   private planetypeenums = PlaneTypes;
   public runnerAnimation = false;
   private currentTimePlus15;
-  private currentTimePlus45;      //Current time plus 30 minutes
+  private currentTimePlus45;      //Current time plus 45 minutes
   public click = false;
   public number;
   public deliverChecker = false;
@@ -59,11 +53,15 @@ export class OpenstaandComponent implements OnInit {
     this.checkIfLoaded();
   }
 
+  /**
+   * controls if all notifications have loaded or not
+   * depending on the there is anything with a specific status it checks
+   * if there needs to be a 'no notifications' text
+   */
   private checkIfLoaded() {
     if (this.meldingService.isLoaded == true) {
       this.meldingen = this.meldingService.getMeldingen();
       this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();
-      console.log(this.mechanicMeldingein)
       this.isLoaded = true;
       this.meldingService.checkPendingStatus();
       this.meldingService.checkCollectStatus();
@@ -74,7 +72,7 @@ export class OpenstaandComponent implements OnInit {
   }
 
   /**
-   * Should have a better name, but will change in future
+   * shows the runner transition animation for 2 seconds and forwards to the equipment map
    */
   nextScreen() {
     this.runnerAnimation = true;
@@ -83,96 +81,48 @@ export class OpenstaandComponent implements OnInit {
       this.router.navigate(['/runner/map'], {
         relativeTo: this.route
       });
-    }, 1500);
+    }, 2000);
   }
 
-  // showPopUp(index: number) {
-  //   if (confirm('Weet je zeker dat je de melding wilt accepteren?')) {
-  //     if (this.meldingen[index].status === RequestStatus.Pending) {
-  //       this.meldingen[index].status = RequestStatus.Accepted;
-  //       this.meldingService.index = index;
-  //       this.nextScreen();
-  //     } else {
-  //       this.meldingen[index].status = RequestStatus.Finished;
-  //     }
-  //     this.expandedInfo[index] = false;
-  //     this.oldIndex = undefined;
-  //   }
-  // }
-
-  // popUp(index: number) {
-  //   if (confirm('Equipment is bezorgd?')) {
-  //     this.meldingen[index].status = RequestStatus.Delivered;
-  //     this.expandedInfo[index] = false;
-  //     this.oldIndex = undefined;
-  //   }
-  // }
-  //
-  // ophaalPopUp(index: number) {
-  //   if (confirm('Weet je zeker dat je klaar bent?')) {
-  //     this.meldingen[index].status = RequestStatus.Collect;
-  //   }
-  // }
-  //
-  // deleteRequest(index: number) {
-  //   this.mechanicMeldingein.splice(index, 1);
-  //   this.expandedInfo[index] = false;
-  // }
-
-  // unfoldRow(index: number, subTable: Element) {
-  //   // Disables the detailed dropdown list when the is a click on the close buttons in the sub table
-  //   if (subTable === null || !subTable.classList.contains('clickableRow') && !subTable.classList.contains('extraInfoHeader')) {
-  //     return;
-  //   }
-  //
-  //   if (this.damageFormOpen) {
-  //     this.damageFormOpen = this.damageForm.getShowForm();
-  //   }
-  //
-  //   if (index === this.oldIndex) {
-  //     this.expandedInfo[index] = !this.expandedInfo[index];
-  //     this.oldIndex = undefined;
-  //     return;
-  //   }
-  //
-  //   this.numberOfButtons = 1;
-  //   this.expandedInfo[index] = true;
-  //   if (this.userRole === 'MECHANIC') {
-  //     this.selectedRequest = this.mechanicMeldingein[index];
-  //   } else {
-  //     this.selectedRequest = this.meldingen[index];
-  //   }
-  //
-  //   if (this.selectedRequest.status === RequestStatus.Delivered && this.userRole === 'MECHANIC') {
-  //     this.numberOfButtons += 2;
-  //     this.equipmentIsBezorgd = true;
-  //   } else if (this.selectedRequest.status === RequestStatus.Accepted && this.userRole === 'RUNNER') {
-  //     this.numberOfButtons += 2;
-  //     this.equipmentIsBezorgd = true;
-  //   }
-  //
-  //   this.expandedInfo[this.oldIndex] = false;
-  //   this.oldIndex = index;
-  // }
-
+  /**
+   * opens the damage-form
+   */
   openDamageForm() {
     this.damageFormOpen = true;
   }
 
+  /**
+   * opens a pop-up for the runner
+   * @param index adds the index of the notification
+   */
   openPopUp(index: number) {
     this.click = true;
     this.setNumber(index);
   }
 
+  /**
+   * closes the runner pop-up
+   */
   closePopUp() {
     this.click = false;
   }
 
+  /**
+   * gets the index-number of the notification and
+   * adds it to meldingen-service
+   * @param index -> notification index in array
+   */
   setNumber(index: number) {
     this.number = index;
     this.meldingService.index = index;
   }
 
+  /**
+   * changes the notification status to 'Accepted"
+   * closes the pop-up
+   * updates the request-tables
+   * @param index -> notification index in array
+   */
   acceptMelding(index: number) {
     this.meldingen[index].status = RequestStatus.Accepted;
     this.meldingService.index = index;
@@ -183,15 +133,26 @@ export class OpenstaandComponent implements OnInit {
     this.nextScreen();
   }
 
+  /**
+   * opens the mechanic pop-up
+   * @param index -> adds the index of the notification
+   */
   openPopUp2(index: number) {
     this.meldingService.test = true;
     this.setNumber(index);
   }
 
+  /**
+   * closes the runner pop-up
+   */
   closePopUp2() {
     this.meldingService.test = false;
   }
 
+  /**
+   * deletes the notification from the mechanic interface and removes it from the runner interface as well
+   * @param index -> notification index
+   */
   deleteMelding(index: number) {
     this.meldingService.deleteRequest(this.mechanicMeldingein[index].id);
 
@@ -207,26 +168,45 @@ export class OpenstaandComponent implements OnInit {
 
   }
 
+  /**
+   * changes the notification status to 'Finished' and checks the tables and changes the if needed
+   * @param index -> notification index
+   */
   afrondMelding(index: number) {
     this.click = false;
     this.meldingen[index].status = RequestStatus.Finished;
     this.meldingService.checkCollectStatus();
   }
 
+  /**
+   * opens the mechanic deliver pop-up
+   * asking if the equipment needs to be towed away or not
+   */
   openDeliverPopup() {
     this.towpopup = true;
   }
 
+  /**
+   * equipment doesn't need to be towed
+   * the request-status changes to 'Finished' and changes the equipment-status to 'Available'
+   * updates all requests at the end and closes the pop-up
+   * @param index -> notification index
+   */
   noTow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Finished;
     const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedWagon;
     this.checkStatusOfCartForTowing(cartID, index);
     this.meldingService.test = false;
     this.deliverChecker = false;
-    console.log(this.mechanicMeldingein[index]);
     this.meldingService.updateRequest(this.mechanicMeldingein[index]);
   }
 
+  /**
+   * equipment need to be towed away, the request-status changes to 'Collect'
+   * closes the pop-ups, updates all requests for all interfaces
+   * shows a pop-up that the towing of your equipment has been requested
+   * @param index -> notification index
+   */
   tow(index: number) {
     this.mechanicMeldingein[index].status = RequestStatus.Collect;
     const cartID = this.meldingService.getMechanicMeldingen()[this.meldingService.index].selectedWagon;
@@ -237,6 +217,11 @@ export class OpenstaandComponent implements OnInit {
     this.bevestigd();
   }
 
+  /**
+   * checks the equipment status and if it is possible to use
+   * @param cartId -> the id of the cart
+   * @param index -> notification index
+   */
   checkStatusOfCartForTowing(cartId: number, index) {
     this.wagonService.getCartByID(cartId).subscribe(cart => {
       if (cart[0]) {
@@ -249,6 +234,9 @@ export class OpenstaandComponent implements OnInit {
     });
   }
 
+  /**
+   * shows the text for 2,5 seconds that the towing of the equipment has been requested
+   */
   bevestigd() {
     this.showform = false;
     this.popupOpen = true;
