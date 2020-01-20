@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
-import {MeldingenService} from "../../services/meldingen/meldingen.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,6 +11,18 @@ export class NavBarComponent implements OnInit {
   currentRoute: String[];
   notLoginPage: boolean;
 
+  /**
+   * The constructor of the navbar component sibscribes to the URL to detect any changes, if the url changes and it
+   * contains the login page in the URL it will disable the navbar since there aren't any available routes on the login page.
+   * If it isn't on the login page it will create a custom array of string that keeps track of only the name elements
+   * of the url without the dashes. These elements will be reformatted using the fixLink method
+   *
+   * @See #fixLink(string)
+   *
+   * @param router
+   * @param route
+   * @param authentication
+   */
   constructor(private router: Router, private route: ActivatedRoute, private authentication: AuthenticationService) {
     this.router.events.subscribe(() => {
       //disables the navbar for the login screen
@@ -48,24 +59,34 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {}
 
-  //Reformats the links to make sure the display names start with an upper case letter and the rest is lower case.
+  /**
+   * Reformats the routes to make sure the display names of said routes start with upper case and continue in lower
+   * case letters.
+   * @param string Text between two slashes in the URL
+   */
   private fixLink(string: String): String {
     return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
   }
 
-  //takes the index(+1) of the clicked link and creates a valid routing string based on how 'deep' the link is
-  //in case the second link gets clicked, it will have to take the first and second part of the location array.
+  /**
+   * Takes the index of the clicked link in the navbar and creates a valid routing string based on how deep the link is.
+   * In the case where it takes either a second or deeper child routing element, it will have to add all previous parts
+   * of the link to the new URL. This is done because it is possible to go back multiple layers in the routing.
+   * @param index The location of how many dashes deep the URL is.
+   */
   navigate(index: number) {
     let location = "";
-    for (let i = 0; i < index; i++) {
+    for (let i = 0; i <= index; i++) {
       location += "/" + this.currentRoute[i];
     }
     this.router.navigate([location.toLowerCase()]);
   }
 
+  /**
+   * Logout function that uses the authentication service to log the user out and reroutes the user to the signin page.
+   */
   logOut() {
     this.authentication.signOut();
-    // this.meldingService.ngOnDestroy();
     this.router.navigate(['/signin']);
   }
 }

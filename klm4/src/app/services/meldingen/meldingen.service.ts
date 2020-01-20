@@ -52,7 +52,7 @@ export class MeldingenService implements OnInit {
       this.meldingen = [];
       this.mechanicMeldingen = [];
     } else {
-      // this.lastUserRole = this.authentication.getUser().getRole();
+      this.lastUserRole = this.authentication.getUser().getRole();
     }
 
     this.getAllMeldingenFromSpring().subscribe((requests) => {
@@ -88,6 +88,8 @@ export class MeldingenService implements OnInit {
         clearInterval(this.interval);
       }
       this.interval = setInterval(() => this.getUpdatedOrNewRequests(), this.TIMEOUT_INTERVAL);
+      console.log(this.meldingen);
+      console.log(this.mechanicMeldingen);
     });
   }
 
@@ -359,6 +361,8 @@ export class MeldingenService implements OnInit {
         }
 
       }
+      console.log(this.meldingen);
+      console.log(this.mechanicMeldingen);
       this.checkCollectStatus();
       this.checkDeliveredStatus();
       this.checkPendingStatus();

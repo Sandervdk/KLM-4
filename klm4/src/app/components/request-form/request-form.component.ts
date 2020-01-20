@@ -3,7 +3,6 @@ import {NgForm} from '@angular/forms';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
 import {TireWagon} from './tire-wagon/tire-wagon';
-import {Time} from '@angular/common';
 import {MeldingenService} from '../../services/meldingen/meldingen.service';
 import {Melding} from '../../models/melding/melding';
 import {MechanicService} from '../mechanicpage/mechanic.service';
@@ -37,7 +36,7 @@ export class RequestFormComponent implements OnInit {
   private popupTextTimeOut;
 
   private selectedEquipment = [WagonTypes.EQUIPMENT];
-  private locationArray = [];
+  private locationArray: string[] = [];
   private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
   private equipmentList = Object.values(WagonTypes);
   private planeTypeList = Object.values(PlaneTypes);
@@ -69,15 +68,19 @@ export class RequestFormComponent implements OnInit {
     }
   }
 
-  /**f
-   * yeet
-   * @param newSelectedEquipment
-   * @param oldSelectedEquipment
+  /**
+   * When a new piece of equipment is selected, it will remove the piece of equipment from the list of available pieces
+   * of equipment and place it in the selected equipment list.
+   *
+   * @param newSelectedEquipment  The selected piece of equipment from the dropdown menu
+   * @param oldSelectedEquipment  The previously selected piece of equipment
+   * @param index                 The index of the piece of equipment that has been selected
    */
   addEquipment(newSelectedEquipment: WagonTypes, oldSelectedEquipment: WagonTypes, index: number) {
     // Removes the old selected equipment from the list with currently selected equipment
     if (this.selectedEquipment[index] === this.equipmentEnums.EQUIPMENT) {
       this.selectedEquipment[index] = newSelectedEquipment;
+      this.locationArray.push('nothing')
     } else {
       this.remove(oldSelectedEquipment);
       this.selectedEquipment.push(newSelectedEquipment);
@@ -93,6 +96,7 @@ export class RequestFormComponent implements OnInit {
 
   /**
    * Removes an item from the selected equipment list and places it in the list with available equipment
+   *
    * @param equipment the piece of equipment that was selected
    */
   remove(equipment) {
@@ -110,11 +114,13 @@ export class RequestFormComponent implements OnInit {
   }
 
   /**
-   * yeet
-   * @param button
-   * @param index
+   * The select equipment location adds the selected equipment to the array that keeps track of all the locations,
+   * it will give the selected button a background color and removes it from the other buttons.
+   *
+   * @param button  The button element that the user has clicked
+   * @param index   The index of the location which the user has clicked.
    */
-  buttonSelected(button, index) {
+  selectEquipmentLocation(button: HTMLButtonElement, index: number) {
     for (let i = 0; i < button.parentNode.childElementCount; i++) {
       (<HTMLButtonElement> button.parentNode.childNodes[i]).classList.remove('btn-selected');
     }
@@ -129,13 +135,17 @@ export class RequestFormComponent implements OnInit {
   }
 
   /**
-   * yeet
-   * @param planetype
+   * Changes the type so that the tail types list is filled with only the tailtypes which fit the planetype and sets
+   * planetype of the tirewagonComponent as the selected planetype. This is done to update the tirewagon componenet after
+   * it has been instantiated when the planetype has been changed.
+   *
+   * @param planetype The selected planetype
    */
   changeType(planetype: PlaneTypes) {
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === WagonTypes.TIRECART) {
         this.tireWagonComponent.changeType(planetype);
+        break;
       }
     }
     switch (planetype) {
@@ -157,7 +167,8 @@ export class RequestFormComponent implements OnInit {
   }
 
   /**
-   * yeet
+   * Closes any popups in case they have been opened (by faulty form validation) and checks if the form has been
+   * filled in properly. If it hasn't been filled in properly it will stop the submit method from doing anything.
    */
   onSubmit() {
     // closes the popup in case there still is one open
@@ -174,7 +185,11 @@ export class RequestFormComponent implements OnInit {
   }
 
   /**
-   * Checks every possible option in the
+   * Checks if every form element has been properly filled it, if it is true it will create a new request for every
+   * selected piece of equipment. Navigates to the user requests page after creating the requests, and shows a fancy
+   * animation while transitioning.
+   *
+   * @return boolean based on if every form has been properly filled in
    */
   private checkValidity(): boolean {
     let regExp = new RegExp("^[A-Za-z][0-9]+");
@@ -219,8 +234,7 @@ export class RequestFormComponent implements OnInit {
 
     // Checks if all the the locations have been selected, if some are missing a popup will be shown and method stops
     for (let i = 0; i < this.locationArray.length; i++) {
-      console.log(this.locationArray[i].length);
-      if (this.locationArray[i].length == 0) {
+      if (this.locationArray[i] == 'nothing') {
         this.openPopup('There is no location selected for the equipment');
         return false;
       }
@@ -268,9 +282,13 @@ export class RequestFormComponent implements OnInit {
       this.router.navigate(['/mechanic/open-requests']);
     }, 2500);
 
-
   }
 
+  /**
+   * Opens the popup
+   *
+   * @param text The text that needs to be shown in the popup
+   */
   private openPopup(text: string): void {
     clearTimeout(this.popupTextTimeOut);
     this.popupOpen = true;
@@ -280,20 +298,33 @@ export class RequestFormComponent implements OnInit {
     }, 3000);
   }
 
+  /**
+   * Adds a new piece of equipment in the equipment list and gives it the default value of 'Equipment' so that it shows
+   * 'equipment' in the dropdown to the user.
+   */
   addNewEquipment() {
     this.selectedEquipment.push(WagonTypes.EQUIPMENT);
-    this.locationArray.push('');
-    this.meldingService.checkPendingStatus();
   }
 
+  /**
+   * Only used for tests.
+   * @param location
+   */
   public setLocation(location: string) {
     this.location = location;
   }
 
+  /**
+   * Only used for tests.
+   */
   public getDeadline(): string {
     return this.deadline;
   }
 
+  /**
+   * Only used for tests.
+   * @param planeType
+   */
   public setPlaneType(planeType: PlaneTypes) {
     this.planeType = planeType;
   }
