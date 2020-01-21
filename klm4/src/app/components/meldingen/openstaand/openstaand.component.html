@@ -267,6 +267,7 @@
       </div>
       <div class="btndiv">
         <button class="noBtn" (click)="closePopUp2()">Cancel</button>
+<!--        opens damagform using the data-target to open it from damage-form-->
         <button class="damageBtn" data-target="#ModalSchadeformulier" data-toggle="modal" type="button"
                 (click)="openDamageForm()"
                 *ngIf="mechanicMeldingein[number].status === requestStatus.Delivered">Report damage

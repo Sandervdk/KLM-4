@@ -20,7 +20,6 @@ export class MeldingenService implements OnInit {
   public meldingen: Melding[] = [];
   public mechanicMeldingen: Melding[] = [];                  // Array van meldingen voor de actieve mechanic
   private readonly URL: string = 'http://localhost:8080';
-  public time = new Date().toLocaleTimeString();
   public index: number = 0;
   public pendingTextCheck = true;
   public collectTextCheck = true;
@@ -30,7 +29,7 @@ export class MeldingenService implements OnInit {
   public counter3 = 0;
   public counter4 = 0;
   public isLoaded: boolean;
-  public test = false;
+  public test = false; // doorgeven van meldingenOpenstaand zodat pop-up vanuit damaged-form kan woredn gesloten
 
   constructor(private httpClient: HttpClient, private router: Router, private authentication: AuthenticationService) {
     this.loadAllRequests();
@@ -39,6 +38,11 @@ export class MeldingenService implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * loads all requests
+   * instantiates all arrays for requests
+   * saves the user role until logged out
+   */
   public loadAllRequests() {
     //Check to see if the shit has to be reloaded or not due to switching accouts
     //Checks that a user has logged in before and that the roles are the same, stops the method from continueing
@@ -93,6 +97,11 @@ export class MeldingenService implements OnInit {
     });
   }
 
+  /**
+   * checks the array for pending/accepted-status for Runner and Mechanic
+   * if there aren't any requests with pending-status it displays a text
+   * that there aren't any notifications available right now
+   */
   checkPendingStatus() {
     if (this.authentication.getUser().getRole() == 'RUNNER') {
       for (let i = 0; i < this.meldingen.length; i++) {
@@ -121,6 +130,11 @@ export class MeldingenService implements OnInit {
     }
   }
 
+  /**
+   * checks the array for collect-status for Runner
+   * if there aren't any requests with collect-status it displays a text
+   * that there are no requests available right now
+   */
   checkCollectStatus() {
     for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].status == RequestStatus.Collect) {
@@ -135,6 +149,11 @@ export class MeldingenService implements OnInit {
     }
   }
 
+  /**
+   * checks the array for delivered-status for Mechanic
+   * if there aren't any requests with delivered-status it displays a text
+   * that there are no requests available right now
+   */
   checkDeliveredStatus() {
     for (let i = 0; i < this.mechanicMeldingen.length; i++) {
       if (this.mechanicMeldingen[i].status == RequestStatus.Delivered) {
@@ -149,6 +168,9 @@ export class MeldingenService implements OnInit {
     }
   }
 
+  /**
+   * loads all requests from springboot
+   */
   public getAllMeldingenFromSpring(): Observable<Melding[]> {
     return this.httpClient.get<Melding[]>(this.URL + '/open-requests');
   }
