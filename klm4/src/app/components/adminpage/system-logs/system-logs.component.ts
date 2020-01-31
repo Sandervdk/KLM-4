@@ -8,9 +8,9 @@ import {AdminService} from '../admin.service';
   styleUrls: ['./system-logs.component.css']
 })
 export class SystemLogsComponent implements OnInit {
-  private systemLogSearchInput;
+  public systemLogSearchInput;
 
-  constructor(private adminService: AdminService, private meldingService: MeldingenService) {
+  constructor(private adminService: AdminService, public meldingService: MeldingenService) {
   }
 
   ngOnInit() {

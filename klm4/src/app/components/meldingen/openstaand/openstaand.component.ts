@@ -16,28 +16,28 @@ import {WagonsService} from '../../../services/wagons/wagons.service';
   styleUrls: ['./openstaand.component.css']
 })
 export class OpenstaandComponent implements OnInit {
-  private isLoaded = false;
-  private meldingen: Melding[];
-  private mechanicMeldingein: Melding[];
-  private userRole: Functions;
-  private requestStatus = RequestStatus;
-  private id: number;
-  private damageFormOpen = false;
-  private towpopup = false;
-  private equipmentlist = WagonTypes;
-  private planetypeenums = PlaneTypes;
+  public isLoaded = false;
+  public meldingen: Melding[];
+  public mechanicMeldingein: Melding[];
+  public userRole: Functions;
+  public requestStatus = RequestStatus;
+  public id: number;
+  public damageFormOpen = false;
+  public towpopup = false;
+  public equipmentlist = WagonTypes;
+  public planetypeenums = PlaneTypes;
   public runnerAnimation = false;
-  private currentTimePlus15;
-  private currentTimePlus45;      //Current time plus 45 minutes
+  public currentTimePlus15;
+  public currentTimePlus45;      //Current time plus 45 minutes
   public click = false;
   public number;
   public deliverChecker = false;
-  private showform: boolean = false;
-  private popupOpen: boolean = false;
+  public showform: boolean = false;
+  public popupOpen: boolean = false;
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
-  constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
+  constructor(private router: Router, private route: ActivatedRoute, public meldingService: MeldingenService,
               private authentication: AuthenticationService, private wagonService: WagonsService) {
     this.currentTimePlus15 = new Date();
     this.currentTimePlus15.setTime(this.currentTimePlus15.getTime() + (15 * 60 * 1000));
@@ -58,7 +58,7 @@ export class OpenstaandComponent implements OnInit {
    * depending on the there is anything with a specific status it checks
    * if there needs to be a 'no notifications' text
    */
-  private checkIfLoaded() {
+  public checkIfLoaded() {
     if (this.meldingService.isLoaded == true) {
       this.meldingen = this.meldingService.getMeldingen();
       this.mechanicMeldingein = this.meldingService.getMechanicMeldingen();

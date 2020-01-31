@@ -14,12 +14,12 @@ import {PlaneTypes} from "../../../models/enums/planeTypes";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TireWagon implements OnInit {
-  private differentTireTypes: boolean;
+  public differentTireTypes: boolean;
   @Input('planeType') PlaneType: PlaneTypes;
 
 
-  private noseTires: number;
-  private mainTires: number;
+  public noseTires: number;
+  public mainTires: number;
 
   constructor(private cd: ChangeDetectorRef) {
 

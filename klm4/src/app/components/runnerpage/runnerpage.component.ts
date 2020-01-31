@@ -7,7 +7,7 @@ import {RunnerService} from './runner.service';
   styleUrls: ['./runnerpage.component.css']
 })
 export class RunnerpageComponent implements OnInit {
-  constructor(private runnerRouter: RunnerService) {
+  constructor(public runnerRouter: RunnerService) {
   }
 
   ngOnInit() {

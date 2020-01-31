@@ -8,7 +8,7 @@ import {MechanicService} from './mechanic.service';
   styleUrls: ['./mechanicpage.component.css']
 })
 export class MechanicpageComponent implements OnInit {
-  constructor(private mechanicRouter: MechanicService) {
+  constructor(public mechanicRouter: MechanicService) {
   }
 
   ngOnInit() {

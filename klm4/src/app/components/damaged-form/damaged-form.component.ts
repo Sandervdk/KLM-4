@@ -14,17 +14,17 @@ import {RequestStatus} from "../../models/enums/requestStatus";
 })
 export class DamagedFormComponent implements OnInit {
   public index = this.meldingenService.index;
-  private showform: boolean = false;
-  private popupOpen: boolean = false;
-  private planeTypeList = Object.values(PlaneTypes);
-  private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
-  private currentTime = new Date().toLocaleTimeString().substring(0, 5);
+  public showform: boolean = false;
+  public popupOpen: boolean = false;
+  public planeTypeList = Object.values(PlaneTypes);
+  public planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
+  public currentTime = new Date().toLocaleTimeString().substring(0, 5);
 
   @ViewChild('damageForm', {static: false}) damageForm: NgForm;
 
 
   constructor(private mechanicRouter: MechanicService, private authentication: AuthenticationService,
-              private meldingenService: MeldingenService, private wagonService: WagonsService) {
+              public meldingenService: MeldingenService, private wagonService: WagonsService) {
   }
 
   ngOnInit() {

@@ -30,25 +30,25 @@ export class RequestFormComponent implements OnInit {
   @ViewChild('form', {static: false}) requestForm: NgForm;
   @ViewChild(TireWagon, {static: false}) tireWagonComponent;
 
-  private popupOpen: boolean = false;
-  private popupText: String = '';
-  private addIcon: boolean = false;
-  private popupTextTimeOut;
+  public popupOpen: boolean = false;
+  public popupText: String = '';
+  public addIcon: boolean = false;
+  public popupTextTimeOut;
 
-  private selectedEquipment = [WagonTypes.EQUIPMENT];
-  private locationArray: string[] = [];
-  private planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
-  private equipmentList = Object.values(WagonTypes);
-  private planeTypeList = Object.values(PlaneTypes);
-  private locationSelected: boolean = false;
-  private planeTypeEnums = PlaneTypes;
-  private equipmentEnums = WagonTypes;
-  private tailType = TailType.TAILTYPE;
-  private tailTypeList;
+  public selectedEquipment = [WagonTypes.EQUIPMENT];
+  public locationArray: string[] = [];
+  public planeType: PlaneTypes = PlaneTypes.VLIEGTUIGTYPE;
+  public equipmentList = Object.values(WagonTypes);
+  public planeTypeList = Object.values(PlaneTypes);
+  public locationSelected: boolean = false;
+  public planeTypeEnums = PlaneTypes;
+  public equipmentEnums = WagonTypes;
+  public tailType = TailType.TAILTYPE;
+  public tailTypeList;
 
-  private location: string;
-  private deadline;
-  private mechanicAnimation: boolean;
+  public location: string;
+  public deadline;
+  public mechanicAnimation: boolean;
 
   constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
@@ -59,7 +59,7 @@ export class RequestFormComponent implements OnInit {
     this.checkIfLoaded();
   }
 
-  private checkIfLoaded() {
+  public checkIfLoaded() {
     if (this.meldingService.isLoaded == true) {
       this.meldingService.sortEnumsMostUsed(this.equipmentList, WagonTypes.EQUIPMENT);
       this.meldingService.sortEnumsMostUsed(this.planeTypeList, PlaneTypes.VLIEGTUIGTYPE);
@@ -191,7 +191,7 @@ export class RequestFormComponent implements OnInit {
    *
    * @return boolean based on if every form has been properly filled in
    */
-  private checkValidity(): boolean {
+  public checkValidity(): boolean {
     let regExp = new RegExp("^[A-Za-z][0-9]+");
     if (this.location === undefined || this.location.trim() === "") {
       //removes the space from the location
@@ -289,7 +289,7 @@ export class RequestFormComponent implements OnInit {
    *
    * @param text The text that needs to be shown in the popup
    */
-  private openPopup(text: string): void {
+  public openPopup(text: string): void {
     clearTimeout(this.popupTextTimeOut);
     this.popupOpen = true;
     this.popupText = text;

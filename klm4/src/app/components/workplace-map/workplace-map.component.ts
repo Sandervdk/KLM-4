@@ -14,14 +14,14 @@ declare let L;
 })
 export class WorkplaceMapComponent implements OnInit {
   public map;
-  private equipment;
-  private long = 4.766361511202604;
-  private lat = 52.30678841808895;
+  public equipment;
+  public long = 4.766361511202604;
+  public lat = 52.30678841808895;
   public check = false;
 
   constructor(private wagonServices: WagonsService,
-              private meldingService: MeldingenService,
-              private authService: AuthenticationService) {
+              public meldingService: MeldingenService,
+              public authService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class WorkplaceMapComponent implements OnInit {
     });
   }
 
-  private createMap() {
+  public createMap() {
     this.map = L.map('map-container', {
       layers: [
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,7 +51,7 @@ export class WorkplaceMapComponent implements OnInit {
   /**
    * This method will create the layer of Cartmarkers and also show the checkbox of that layer
    */
-  private setUpLayers() {
+  public setUpLayers() {
     const layers = this.wagonServices.getLayer(this.equipment.wagonType);
     const checkBoxes = L.control.layers(null, layers, {collapsed: false}).addTo(this.map);
     checkBoxes.getContainer().setAttribute('class', ''); // removed default style
@@ -63,7 +63,7 @@ export class WorkplaceMapComponent implements OnInit {
   /**
    * This method will search for all the checkboxes of the Equipment and activate them
    */
-  private showAllEquipmentOnMap() {
+  public showAllEquipmentOnMap() {
     const buttons = document.querySelectorAll('.leaflet-control-layers-overlays label input'); // all cart checkboxes
     // @ts-ignore
     buttons.forEach(checkBox => checkBox.click()); // checking all the Equipment checkboxes on
@@ -73,7 +73,7 @@ export class WorkplaceMapComponent implements OnInit {
   /**
    * Method that binds a Cart to the Request and changes the state of the chosen cart
    */
-  private initCartSelectionBtn() {
+  public initCartSelectionBtn() {
     const chooseCartDiv = document.querySelector('.leaflet-pane.leaflet-marker-pane'); // div where the popup-text is hold
     chooseCartDiv.addEventListener('click', (popup) => { // after the marker is clicked the button will appear
       setTimeout(() => { // wait for the button to appear and set an eventListener
@@ -101,7 +101,7 @@ export class WorkplaceMapComponent implements OnInit {
   /**
    * This method will destroy and rebuild the map showing the new Cart markers
    */
-  private resetMap() {
+  public resetMap() {
     this.wagonServices.resetMarkers();
     this.map.remove();
     this.map = null;
