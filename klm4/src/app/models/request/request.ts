@@ -4,7 +4,7 @@ import {RequestStatus} from '../enums/requestStatus';
 import {TailType} from '../enums/tailTypeEnums/TailTypes';
 import {Cart} from '../carts/Cart.model';
 
-export class Melding {
+export class Request {
   id: number;
   location: string;
   deadline: Date;

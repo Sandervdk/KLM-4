@@ -14,7 +14,7 @@ import {WorkplaceMapComponent} from './components/workplace-map/workplace-map.co
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {RequestFormComponent} from './components/request-form/request-form.component';
 import {DamagedFormComponent} from './components/damaged-form/damaged-form.component';
-import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
+import {OpenstaandComponent} from './components/requests/openstaand/openstaand.component';
 import {TireWagon} from './components/request-form/tire-wagon/tire-wagon';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/users/usersoverview/usersoverview.component';
@@ -25,7 +25,7 @@ import {EquipmentspageComponent} from './components/adminpage/equipment/equipmen
 import {EquipmentsoverviewComponent} from './components/adminpage/equipment/equipmentsoverview/equipmentsoverview.component';
 import {EquipmentsCreateComponent} from './components/adminpage/equipment/equipments-create/equipments-create.component';
 import {WagonsFilterPipe} from './components/adminpage/searchFilters/wagons-filter.pipe';
-import {MeldingenService} from './services/meldingen/meldingen.service';
+import {RequestService} from './services/request/request.service';
 import { SystemLogsComponent } from './components/adminpage/system-logs/system-logs.component';
 import { MeldingFilterPipe } from './components/adminpage/searchFilters/melding-filter.pipe';
 import {RunnerpageComponent} from './components/runnerpage/runnerpage.component';
@@ -77,7 +77,7 @@ import { MechanicAnimationComponent } from './components/global/mechanic-animati
     LeafletModule.forRoot(),
     HttpClientModule,
   ],
-  providers: [MeldingenService],
+  providers: [RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

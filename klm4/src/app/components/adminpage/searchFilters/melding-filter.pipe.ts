@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Melding} from '../../../models/melding/melding';
+import {Request} from '../../../models/request/request';
 
 @Pipe({
   name: 'meldingFilter'
@@ -14,7 +14,7 @@ export class MeldingFilterPipe implements PipeTransform {
     if (!searchTerm) {
       return meldingen;
     }
-    return meldingen.filter((melding: Melding) => {
+    return meldingen.filter((melding: Request) => {
       return JSON.stringify(melding).toLowerCase().includes(searchTerm);
     });
   }

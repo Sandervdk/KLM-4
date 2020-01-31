@@ -5,7 +5,7 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {SignInComponent} from './components/sign-in/sign-in.component';
 import {WorkplaceMapComponent} from './components/workplace-map/workplace-map.component';
 import {RequestFormComponent} from './components/request-form/request-form.component';
-import {OpenstaandComponent} from './components/meldingen/openstaand/openstaand.component';
+import {OpenstaandComponent} from './components/requests/openstaand/openstaand.component';
 import {AdminpageComponent} from './components/adminpage/adminpage.component';
 import {UsersoverviewComponent} from './components/adminpage/users/usersoverview/usersoverview.component';
 import {UserspageComponent} from './components/adminpage/users/userspage/userspage.component';

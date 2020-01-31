@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Cart} from '../../models/carts/Cart.model';
 import {Observable} from 'rxjs';
 import {icon, marker} from 'leaflet';
-import {MeldingenService} from '../meldingen/meldingen.service';
+import {RequestService} from '../request/request.service';
 
 declare let L; // used for Leaflet.js
 @Injectable({
@@ -48,7 +48,7 @@ export class WagonsService {
     SPILL_KIT_CART: [] = []
   };
 
-  constructor(private http: HttpClient, private requestService: MeldingenService) {
+  constructor(private http: HttpClient, private requestService: RequestService) {
   }
 
   // TODO: use http call to create new wagon

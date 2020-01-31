@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Melding} from '../../models/melding/melding';
+import {Request} from '../../models/request/request';
 import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
 import {Observable} from 'rxjs';
@@ -12,13 +12,13 @@ import {RequestStatus} from '../../models/enums/requestStatus';
   providedIn: 'root'
 })
 
-export class MeldingenService implements OnInit {
+export class RequestService implements OnInit {
   private TIMEOUT_INTERVAL: number = 10000;
   private lastUserRole: String;
   private interval;
-  public alleMeldingen: Melding[] = [];                      //
-  public meldingen: Melding[] = [];
-  public mechanicMeldingen: Melding[] = [];                  // Array van meldingen voor de actieve mechanic
+  public alleMeldingen: Request[] = [];                      //
+  public meldingen: Request[] = [];
+  public mechanicMeldingen: Request[] = [];                  // Array van meldingen voor de actieve mechanic
   private readonly URL: string = 'http://localhost:8080';
   public time = new Date().toLocaleTimeString();
   public index: number = 0;
@@ -58,7 +58,7 @@ export class MeldingenService implements OnInit {
     this.getAllMeldingenFromSpring().subscribe((requests) => {
       for (let i = 0; i < requests.length; i++) {
         this.alleMeldingen.push(
-          new Melding(requests[i].id, requests[i].location,
+          new Request(requests[i].id, requests[i].location,
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
             requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedWagon,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
@@ -147,8 +147,8 @@ export class MeldingenService implements OnInit {
     }
   }
 
-  public getAllMeldingenFromSpring(): Observable<Melding[]> {
-    return this.httpClient.get<Melding[]>(this.URL + '/open-requests');
+  public getAllMeldingenFromSpring(): Observable<Request[]> {
+    return this.httpClient.get<Request[]>(this.URL + '/open-requests');
   }
 
   // Sorts both the general requests and the mechanic requests from earliest to latest by deadline
@@ -175,7 +175,7 @@ export class MeldingenService implements OnInit {
   }
 
 
-  public sortRequestsByDate(requests: Melding[]) {
+  public sortRequestsByDate(requests: Request[]) {
     requests = requests.sort((a, b) => {
       if (a.deadline < b.deadline) {
         return -1;
@@ -191,7 +191,7 @@ export class MeldingenService implements OnInit {
     return Math.floor(Math.random() * 100 + 1);
   }
 
-  public getAlleMeldingen(): Melding[] {
+  public getAlleMeldingen(): Request[] {
     return this.alleMeldingen;
   }
 
@@ -203,11 +203,11 @@ export class MeldingenService implements OnInit {
     this.router.navigate(['/runner/open-requests']);
   }
 
-  public getMeldingen(): Melding[] {
+  public getMeldingen(): Request[] {
     return this.meldingen;
   }
 
-  public getMechanicMeldingen(): Melding[] {
+  public getMechanicMeldingen(): Request[] {
     return this.mechanicMeldingen;
   }
 
@@ -298,7 +298,7 @@ export class MeldingenService implements OnInit {
       id = this.authentication.getID();
     }
     this.httpClient.get(this.URL + '/open-requests/changed-requests/' + id).subscribe((requests) => {
-      let updatedRequests: Melding[] = <Melding[]> requests;
+      let updatedRequests: Request[] = <Request[]> requests;
 
       if (updatedRequests[0] == undefined) {
         return;
@@ -306,7 +306,7 @@ export class MeldingenService implements OnInit {
 
       for (let i = 0; i < updatedRequests.length; i++) {
         updatedRequests[i] =
-          new Melding(requests[i].id, requests[i].location,
+          new Request(requests[i].id, requests[i].location,
             new Date(Date.parse(<string> <unknown> requests[i].deadline)),
             requests[i].planeType, requests[i].tailType, requests[i].wagonType, requests[i].selectedWagon,
             requests[i].position, requests[i].status, requests[i].extraInfo, requests[i].mechanicId,
@@ -366,7 +366,7 @@ export class MeldingenService implements OnInit {
     });
   }
 
-  public updateRequest(melding: Melding): void {
+  public updateRequest(melding: Request): void {
     this.httpClient.post(this.URL + '/open-requests/update-request/' + melding.id, melding.status).subscribe(() => {
       this.checkCollectStatus();
       this.checkDeliveredStatus();
@@ -402,7 +402,7 @@ export class MeldingenService implements OnInit {
     setTimeout(() => body.removeChild(popupDiv), 4000);
   }
 
-  createRequest(request: Melding[]) {
+  createRequest(request: Request[]) {
     this.httpClient.post(this.URL + '/users/' + this.authentication.getID() + '/open-requests', request).subscribe(data => {
       let requestIds: number[] = <number[]> data;
 
@@ -412,7 +412,11 @@ export class MeldingenService implements OnInit {
     });
   }
 
-  getRequesetById(requestId: number): Melding {
+  makeRequest(request: Request){
+    this.meldingen.push(request);
+  }
+
+  getRequesetById(requestId: number): Request {
     for (let i = 0; i < this.meldingen.length; i++) {
       if (this.meldingen[i].id == requestId) {
         return this.meldingen[i];

@@ -3,7 +3,7 @@ import {PlaneTypes} from '../../models/enums/planeTypes';
 import {NgForm} from '@angular/forms';
 import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
-import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {RequestService} from '../../services/request/request.service';
 import {WagonsService} from '../../services/wagons/wagons.service';
 import {RequestStatus} from "../../models/enums/requestStatus";
 
@@ -24,7 +24,7 @@ export class DamagedFormComponent implements OnInit {
 
 
   constructor(private mechanicRouter: MechanicService, private authentication: AuthenticationService,
-              private meldingenService: MeldingenService, private wagonService: WagonsService) {
+              private meldingenService: RequestService, private wagonService: WagonsService) {
   }
 
   ngOnInit() {

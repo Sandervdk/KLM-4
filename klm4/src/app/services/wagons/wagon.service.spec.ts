@@ -6,15 +6,16 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Cart} from '../../models/carts/Cart.model';
 import {WagonTypes} from '../../models/enums/wagonTypes';
 import {EquipmentStatus} from '../../models/enums/equipmentStatus';
-import {MeldingenService} from '../meldingen/meldingen.service';
+import {RequestService} from '../request/request.service';
 
 describe('WagonService', () => {
   const cartTest = new Cart(1, 'This is a test', 500, 500, WagonTypes.NITROGENCART, EquipmentStatus.AVAILABLE);
+
   beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule, HttpClientTestingModule],
         declarations: [],
-        providers: [MeldingenService, WagonsService]
+        providers: [RequestService, WagonsService]
       }).compileComponents();
     }
   );

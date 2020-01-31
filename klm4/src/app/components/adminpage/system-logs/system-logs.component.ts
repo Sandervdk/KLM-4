@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MeldingenService} from '../../../services/meldingen/meldingen.service';
+import {RequestService} from '../../../services/request/request.service';
 import {AdminService} from '../admin.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {AdminService} from '../admin.service';
 export class SystemLogsComponent implements OnInit {
   private systemLogSearchInput;
 
-  constructor(private adminService: AdminService, private meldingService: MeldingenService) {
+  constructor(private adminService: AdminService, private meldingService: RequestService) {
   }
 
   ngOnInit() {

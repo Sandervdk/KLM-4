@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, tileLayer} from 'leaflet';
 import {WagonsService} from '../../services/wagons/wagons.service';
-import {MeldingenService} from '../../services/meldingen/meldingen.service';
+import {RequestService} from '../../services/request/request.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {Cart} from '../../models/carts/Cart.model';
 
@@ -20,7 +20,7 @@ export class WorkplaceMapComponent implements OnInit {
   public check = false;
 
   constructor(private wagonServices: WagonsService,
-              private meldingService: MeldingenService,
+              private meldingService: RequestService,
               private authService: AuthenticationService) {
   }
 

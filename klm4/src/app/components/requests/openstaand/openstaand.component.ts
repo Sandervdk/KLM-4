@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MeldingenService} from '../../../services/meldingen/meldingen.service';
+import {RequestService} from '../../../services/request/request.service';
 import {AuthenticationService} from '../../../services/authentication/authentication.service';
 import {Functions} from '../../../models/staff/Functions';
-import {Melding} from '../../../models/melding/melding';
+import {Request} from '../../../models/request/request';
 import {WagonTypes} from '../../../models/enums/wagonTypes';
 import {DamagedFormComponent} from '../../damaged-form/damaged-form.component';
 import {RequestStatus} from '../../../models/enums/requestStatus';
@@ -18,11 +18,11 @@ import {WagonsService} from '../../../services/wagons/wagons.service';
 })
 export class OpenstaandComponent implements OnInit {
   private isLoaded = false;
-  private meldingen: Melding[];
-  private mechanicMeldingein: Melding[];
+  private meldingen: Request[];
+  private mechanicMeldingein: Request[];
   private userRole: Functions;
   private expandedInfo: boolean[];
-  private selectedRequest: Melding;
+  private selectedRequest: Request;
   private requestStatus = RequestStatus;
   private id: number;
   private numberOfButtons: number;
@@ -43,7 +43,7 @@ export class OpenstaandComponent implements OnInit {
 
   @ViewChild('damageForm', {static: false}) damageForm: DamagedFormComponent;
 
-  constructor(private router: Router, private route: ActivatedRoute, private meldingService: MeldingenService,
+  constructor(private router: Router, private route: ActivatedRoute, private meldingService: RequestService,
               private authentication: AuthenticationService, private wagonService: WagonsService) {
     this.currentTimePlus15 = new Date();
     this.currentTimePlus15.setTime(this.currentTimePlus15.getTime() + (15 * 60 * 1000));

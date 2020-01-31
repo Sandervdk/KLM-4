@@ -4,8 +4,8 @@ import {PlaneTypes} from '../../models/enums/planeTypes';
 import {WagonTypes} from '../../models/enums/wagonTypes';
 import {TireWagon} from './tire-wagon/tire-wagon';
 import {Time} from '@angular/common';
-import {MeldingenService} from '../../services/meldingen/meldingen.service';
-import {Melding} from '../../models/melding/melding';
+import {RequestService} from '../../services/request/request.service';
+import {Request} from '../../models/request/request';
 import {MechanicService} from '../mechanicpage/mechanic.service';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {Router} from '@angular/router';
@@ -51,7 +51,7 @@ export class RequestFormComponent implements OnInit {
   private deadline;
   private mechanicAnimation: boolean;
 
-  constructor(private meldingService: MeldingenService, private mechanicRouter: MechanicService,
+  constructor(private meldingService: RequestService, private mechanicRouter: MechanicService,
               private authentication: AuthenticationService, private router: Router) {
     this.deadline = new Date().toLocaleTimeString().substr(0, 5);
   }
@@ -239,13 +239,13 @@ export class RequestFormComponent implements OnInit {
     // loops through the selected equipment array and adds a new request for each piece of equipment, each requests
     // gets the ID of the currently logged in user
     let extraInfo = null;
-    let newRequests: Melding[] = [];
+    let newRequests: Request[] = [];
     for (let i = 0; i < this.selectedEquipment.length; i++) {
       if (this.selectedEquipment[i] === this.equipmentEnums.TIRECART) {
         extraInfo = 'N:' + this.tireWagonComponent.getNoseTires() + ' ,m:' + this.tireWagonComponent.getMainTires();
       }
 
-      let request = new Melding(this.authentication.getID(), this.location,
+      let request = new Request(this.authentication.getID(), this.location,
         new Date(new Date().setHours(
           parseInt(this.deadline.toString().substr(0, 3)),
           parseInt(this.deadline.toString().substr(3)), 0, 0)),
