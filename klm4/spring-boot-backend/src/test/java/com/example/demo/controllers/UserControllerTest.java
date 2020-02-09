@@ -77,11 +77,11 @@ class UserControllerTest {
    */
   @Test
   void getUser() {
-    //retieve the user from the database and trough the endpoint
+    //retrieve the user from the database and trough the endpoint
     User user = userRepositorie.findUser(1002);
     ResponseEntity<User> responseEntity = this.testRestTemplate.getForEntity("/users/" + user.getId(), User.class);
 
-    //check the statuscode, response is not null and from the same object class
+    //check the status code, response is not null and from the same object class
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     User retrievedUser = responseEntity.getBody();
     assertThat(retrievedUser, is(instanceOf(User.class)));

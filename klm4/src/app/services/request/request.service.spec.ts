@@ -59,10 +59,6 @@ describe('RequestService', () => {
     expect(3).toBe(service.getMechanicMeldingen().length);
   });
 
-  /**
-   * gets the request by id from meldingservice.meldingen
-   * displays full request
-   */
   it('gets request by id', () => {
     const service: RequestService = TestBed.get(RequestService);
 
@@ -71,8 +67,7 @@ describe('RequestService', () => {
   });
 
   /**
-   * checks the mechanicmeldingen array
-   * the length should be by default 0
+   * length should be 0 by default.
    */
   it('check mechanic meldingen length', () => {
     const service: RequestService = TestBed.get(RequestService);
@@ -80,10 +75,9 @@ describe('RequestService', () => {
   });
 
   /**
-   * checks the allemeldingen array
-   * the length should be by default 0
+   * lenght should be 0 by default.
    */
-  it('check alle meldingen length', () => {
+  it('check "alle meldingen" length', () => {
     const service: RequestService = TestBed.get(RequestService);
     expect(0).toBe(service.getAlleMeldingen.length);
   });
