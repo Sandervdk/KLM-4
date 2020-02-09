@@ -19,7 +19,7 @@ public class User {
   private String email, firstname, lastname;
   private Functions role;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
   @JsonIgnore
   private List<Request> requestList = new ArrayList<>();
 

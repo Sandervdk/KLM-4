@@ -36,21 +36,14 @@ describe('RequestService', () => {
   });
 
   /**
-   * checks the allemeldingen array
-   * the length should be by default 0
+   * selected wagon should be changed to 35
    */
-  it('check alle meldingen length', () => {
+  it('changes selectedwagon to randomID', () => {
     const service: RequestService = TestBed.get(RequestService);
-    expect(0).toBe(service.getAlleMeldingen.length);
-  });
 
-  /**
-   * checks the mechanicmeldingen array
-   * the length should be by default 0
-   */
-  it('check mechanic meldingen length', () => {
-    const service: RequestService = TestBed.get(RequestService);
-    expect(0).toBe(service.getMechanicMeldingen().length);
+    service.meldingen.push(request);
+    service.selectedwagonchange(1);
+    expect(35).toBe(service.meldingen[0].selectedWagon);
   });
 
   /**
@@ -60,9 +53,9 @@ describe('RequestService', () => {
   it('adds 3 request to the mechanic request array', () => {
     const service: RequestService = TestBed.get(RequestService);
 
-     service.mechanicMeldingen.push(request);
-     service.mechanicMeldingen.push(request1);
-     service.mechanicMeldingen.push(request2);
+    service.mechanicMeldingen.push(request);
+    service.mechanicMeldingen.push(request1);
+    service.mechanicMeldingen.push(request2);
     expect(3).toBe(service.getMechanicMeldingen().length);
   });
 
@@ -75,6 +68,24 @@ describe('RequestService', () => {
 
     service.meldingen.push(request);
     expect(request).toBe(service.getRequesetById(1));
+  });
+
+  /**
+   * checks the mechanicmeldingen array
+   * the length should be by default 0
+   */
+  it('check mechanic meldingen length', () => {
+    const service: RequestService = TestBed.get(RequestService);
+    expect(0).toBe(service.getMechanicMeldingen().length);
+  });
+
+  /**
+   * checks the allemeldingen array
+   * the length should be by default 0
+   */
+  it('check alle meldingen length', () => {
+    const service: RequestService = TestBed.get(RequestService);
+    expect(0).toBe(service.getAlleMeldingen.length);
   });
 
   /**
@@ -109,17 +120,6 @@ describe('RequestService', () => {
     service.meldingen.push(request);
     service.finishedstatusRequest(1);
     expect('Finished').toBe(service.meldingen[0].status);
-  });
-
-  /**
-   * selected wagon should be changed to 35
-   */
-  it('changes selectedwagon to randomID', () => {
-    const service: RequestService = TestBed.get(RequestService);
-
-    service.meldingen.push(request);
-    service.selectedwagonchange(1);
-    expect(35).toBe(service.meldingen[0].selectedWagon);
   });
 
 });

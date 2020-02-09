@@ -44,9 +44,9 @@ public class UserController {
     return ResponseEntity.created(uri).build();
   }
 
-  //DELETE a event
+  //DELETE a user
   @DeleteMapping("/users/{id}")
-  public void deleteEventById(@PathVariable long id) {
+  public void deleteUserById(@PathVariable long id) {
     User event = userRepositorie.deleteUserById(id);
     if (event == null) {
       throw new UserNotFoundException("User met id: " + id + " kan niet worden verwijderd, omdat deze niet is gevonden");
