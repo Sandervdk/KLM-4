@@ -1,7 +1,4 @@
-#How to run the frond-end and back-end test
-    - checkout 'website' branch
-    - run 'ng test' for frond-end tests
-    - run the Junit tests
+*checkout 'website' branch, run 'ng test' for frond-end tests and run the Junit tests for back-end.
 
 Sagi Lalee:
 
