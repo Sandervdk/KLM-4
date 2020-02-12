@@ -2,7 +2,7 @@
 
 Sagi Lalee:
 Front-end:
-RequestSerivce absolute path: klm-4/klm4/src/app/services/request/request.service.spec.ts
+RequestService absolute path: klm-4/klm4/src/app/services/request/request.service.spec.ts
 
 
 Back-end:
