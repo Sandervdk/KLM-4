@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserRepositorieTest {
+class UserRepositoryTest {
 
   @Autowired
   KlmSpringBootApplication application = null;
